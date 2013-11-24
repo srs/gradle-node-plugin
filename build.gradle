@@ -1,0 +1,7 @@
+apply plugin: 'groovy'
+
+group = 'com.moowork.gradle'
+
+dependencies {
+	compile gradleApi()
+}
