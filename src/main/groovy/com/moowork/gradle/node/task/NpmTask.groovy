@@ -1,13 +1,14 @@
 package com.moowork.gradle.node.task
 
-import com.moowork.gradle.node.util.FileLocationHelper
+import com.moowork.gradle.node.NodeExtension
 
 class NpmTask extends NodeTask
 {
     @Override
     void doExecute( )
     {
-        this.scriptFile = FileLocationHelper.getNpmScript( this.project )
+        def ext = NodeExtension.get( this.project )
+        this.scriptFile = ext.variant.npmScriptFile
         super.doExecute()
     }
 }

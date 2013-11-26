@@ -1,19 +1,36 @@
 package com.moowork.gradle.node.task
 
-import com.moowork.gradle.node.util.FileLocationHelper
-import com.moowork.gradle.node.util.PlatformHelper
+import com.moowork.gradle.node.NodeExtension
+import com.moowork.gradle.node.variant.PlatformHelper
+import com.moowork.gradle.node.variant.Variant
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 
 class SetupTask extends DefaultTask
 {
-    final static String NAME = 'nodeSetup'
+    public final static String NAME = 'nodeSetup'
 
     SetupTask( )
     {
+        this.group = 'Node';
         this.description = 'Download and install a local node/npm version.'
+    }
+
+    protected NodeExtension getExt( )
+    {
+        return NodeExtension.get( this.project )
+    }
+
+    protected Variant getVariant( )
+    {
+        return getExt().variant
+    }
+
+    @OutputDirectory
+    File getOutputDir( )
+    {
+        return getVariant().nodeDir
     }
 
     @TaskAction
@@ -21,61 +38,41 @@ class SetupTask extends DefaultTask
     {
         if ( PlatformHelper.isWindows() )
         {
-            copyNode()
-        }
-        else
-        {
-            unpackNode()
+            copyNodeExe()
         }
 
-        unpackNpm()
+        unpackNodeTarGz()
     }
 
-    private void copyNode( )
+    private void copyNodeExe( )
     {
         this.project.copy {
-            from getNodeDist()
-            into FileLocationHelper.getNodeDir( this.project )
+            from getNodeExeFile()
+            into getVariant().nodeBinDir
             rename 'node.+\\.exe', 'node.exe'
         }
     }
 
-    private void unpackNode( )
+    private void unpackNodeTarGz( )
     {
         this.project.copy {
-            from this.project.tarTree( getNodeDist() ).matching { include '*/bin/node' }
-            into getDestDir().parentFile
+            from this.project.tarTree( getNodeTarGzFile() )
+            into getVariant().nodeDir.parentFile
         }
     }
 
-    private void unpackNpm( )
+    protected File getNodeExeFile( )
     {
-        this.project.copy {
-            from this.project.zipTree( getNpmDist() )
-            into getDestDir()
-        }
+        return findSingleFile( '.exe' )
     }
 
-    @InputFile
-    File getNodeDist( )
+    protected File getNodeTarGzFile( )
     {
-        return findSingleFile( 'node' )
+        return findSingleFile( '.tar.gz' )
     }
 
-    @InputFile
-    File getNpmDist( )
+    private File findSingleFile( final String suffix )
     {
-        return findSingleFile( 'npm' )
-    }
-
-    @OutputDirectory
-    File getDestDir( )
-    {
-        return FileLocationHelper.getNodeDir( this.project )
-    }
-
-    private File findSingleFile( final String name )
-    {
-        return this.project.configurations.getByName( 'nodeDist' ).fileCollection { it.name == name }.singleFile
+        return this.project.configurations.getByName( getExt().configName ).files.find { it.name.endsWith( suffix ) }
     }
 }

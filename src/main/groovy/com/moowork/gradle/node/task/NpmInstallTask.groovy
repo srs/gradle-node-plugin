@@ -5,10 +5,11 @@ import org.gradle.api.tasks.OutputDirectory
 
 class NpmInstallTask extends NpmTask
 {
-    final static String NAME = 'npmInstall'
+    public final static String NAME = 'npmInstall'
 
     NpmInstallTask( )
     {
+        this.group = 'Node'
         this.description = 'Install node packages from package.json.'
     }
 

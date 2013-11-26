@@ -1,4 +1,4 @@
-package com.moowork.gradle.node.util
+package com.moowork.gradle.node.variant
 
 class PlatformHelper
 {

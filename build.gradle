@@ -2,6 +2,11 @@ apply plugin: 'groovy'
 
 group = 'com.moowork.gradle'
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
 	compile gradleApi()
+    testCompile 'org.spockframework:spock-core:0.7-groovy-1.8'
 }
