@@ -2,6 +2,7 @@ package com.moowork.gradle.node
 
 import com.moowork.gradle.node.task.NodeTask
 import com.moowork.gradle.node.task.NpmInstallTask
+import com.moowork.gradle.node.task.NpmTask
 import com.moowork.gradle.node.task.SetupTask
 import com.moowork.gradle.node.variant.VariantFactory
 import org.gradle.api.Plugin
@@ -27,7 +28,7 @@ class NodePlugin implements Plugin<Project>
     private void addTasks( )
     {
         addGlobalTaskType( NodeTask )
-        // addGlobalTaskType( GruntTask )
+        addGlobalTaskType( NpmTask )
 
         this.project.tasks.create( SetupTask.NAME, SetupTask )
         this.project.tasks.create( NpmInstallTask.NAME, NpmInstallTask )
