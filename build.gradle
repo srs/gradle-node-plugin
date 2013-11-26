@@ -1,4 +1,17 @@
+buildscript {
+    repositories {
+        maven { url 'http://jcenter.bintray.com' }
+    }
+
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:0.3'
+    }
+}
+
+apply plugin: 'idea'
 apply plugin: 'groovy'
+apply plugin: 'maven-publish'
+apply plugin: 'bintray'
 
 group = 'com.moowork.gradle'
 
@@ -7,6 +20,43 @@ repositories {
 }
 
 dependencies {
-	compile gradleApi()
+    compile gradleApi()
     testCompile 'org.spockframework:spock-core:0.7-groovy-1.8'
+}
+
+task sourcesJar( type: Jar ) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+}
+
+task groovydocJar( type: Jar, dependsOn: groovydoc ) {
+    classifier 'groovydoc'
+    from groovydoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives groovydocJar
+}
+
+publishing {
+    publications {
+        mavenJava( MavenPublication ) {
+            from components.java
+            artifact sourcesJar
+            artifact groovydocJar
+        }
+    }
+}
+
+bintray {
+    user = bintrayUser
+    key = bintrayKey
+    publications = ['mavenJava']
+
+    pkg {
+        repo = 'maven'
+        name = 'gradle-grunt-plugin'
+        licenses = ['Apache-2.0']
+    }
 }
