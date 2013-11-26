@@ -56,7 +56,7 @@ bintray {
 
     pkg {
         repo = 'maven'
-        name = 'gradle-grunt-plugin'
+        name = 'gradle-node-plugin'
         licenses = ['Apache-2.0']
     }
 }
