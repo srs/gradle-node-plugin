@@ -3,7 +3,7 @@ package com.moowork.gradle.node.exec
 import org.gradle.api.Project
 import org.gradle.process.ExecResult
 
-final class NpmExecRunner
+class NpmExecRunner
     extends ExecRunner
 {
     public NpmExecRunner( final Project project )
@@ -14,7 +14,7 @@ final class NpmExecRunner
     @Override
     ExecResult execute()
     {
-        if ( !this.ext.installNode )
+        if ( !this.ext.download )
         {
             return run( 'npm', this.arguments )
         }

@@ -16,8 +16,9 @@ class VariantBuilderTest
         System.setProperty( "os.arch", osArch )
 
         def project = ProjectBuilder.builder().build()
-        def ext = NodeExtension.create( project )
-        ext.nodeVersion = '0.11.1'
+        def ext = new NodeExtension( project )
+        ext.version = '0.11.1'
+        ext.workDir = new File( '.gradle/node' ).absoluteFile
 
         def variant = VariantBuilder.build( ext )
 
@@ -26,7 +27,6 @@ class VariantBuilderTest
         variant.windows
         variant.exeDependency == 'org.nodejs:node:0.11.1@exe'
         variant.tarGzDependency == 'org.nodejs:node:0.11.1:linux-x86@tar.gz'
-        variant.workDir.toString().endsWith( '/.gradle/node' )
         variant.nodeDir.toString().endsWith( '/.gradle/node/' + nodeDir )
         variant.nodeBinDir.toString().endsWith( '/.gradle/node/' + nodeDir + '/bin' )
         variant.nodeExec.toString().endsWith( '/.gradle/node/' + nodeDir + '/bin/node.exe' )
@@ -47,9 +47,9 @@ class VariantBuilderTest
         System.setProperty( "os.arch", osArch )
 
         def project = ProjectBuilder.builder().build()
-        def ext = NodeExtension.create( project )
-        ext.nodeVersion = '0.11.1'
-        ext.installNode = true
+        def ext = new NodeExtension( project )
+        ext.version = '0.11.1'
+        ext.workDir = new File( '.gradle/node' ).absoluteFile
 
         def variant = VariantBuilder.build( ext )
 
@@ -58,7 +58,6 @@ class VariantBuilderTest
         !variant.windows
         variant.exeDependency == null
         variant.tarGzDependency == depName
-        variant.workDir.toString().endsWith( '/.gradle/node' )
         variant.nodeDir.toString().endsWith( '/.gradle/node/' + nodeDir )
         variant.nodeBinDir.toString().endsWith( '/.gradle/node/' + nodeDir + '/bin' )
         variant.nodeExec.toString().endsWith( '/.gradle/node/' + nodeDir + '/bin/node' )

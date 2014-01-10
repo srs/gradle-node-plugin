@@ -3,7 +3,7 @@ package com.moowork.gradle.node.variant
 import com.moowork.gradle.node.NodeExtension
 import com.moowork.gradle.node.util.PlatformHelper
 
-final class VariantBuilder
+class VariantBuilder
 {
     private final NodeExtension ext
 
@@ -19,7 +19,6 @@ final class VariantBuilder
 
         def variant = new Variant()
         variant.windows = PlatformHelper.isWindows()
-        variant.workDir = this.ext.workDir
         variant.nodeDir = getNodeDir( osName, osArch )
         variant.nodeBinDir = new File( variant.nodeDir, 'bin' )
 
@@ -43,26 +42,26 @@ final class VariantBuilder
 
     private String getTarGzDependency( final String osName, final String osArch )
     {
-        def version = this.ext.nodeVersion
+        def version = this.ext.version
         return "org.nodejs:node:${version}:${osName}-${osArch}@tar.gz"
     }
 
     private String getExeDependency()
     {
-        def version = this.ext.nodeVersion
+        def version = this.ext.version
         return "org.nodejs:node:${version}@exe"
     }
 
     private File getNodeDir( final String osName, final String osArch )
     {
-        def version = this.ext.nodeVersion
-        String dirName = "node-v${version}-${osName}-${osArch}"
+        def version = this.ext.version
+        def dirName = "node-v${version}-${osName}-${osArch}"
         return new File( this.ext.workDir, dirName )
     }
 
     private File getNpmDir( final String osName, final String osArch )
     {
-        File nodeDir = getNodeDir( osName, osArch )
+        def nodeDir = getNodeDir( osName, osArch )
         return new File( nodeDir, 'lib/node_modules' )
     }
 

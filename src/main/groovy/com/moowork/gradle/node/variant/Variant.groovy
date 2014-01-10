@@ -1,11 +1,8 @@
 package com.moowork.gradle.node.variant
 
-// TODO: Variant needs to be evaluated every time!
-final class Variant
+class Variant
 {
     def boolean windows
-
-    def File workDir
 
     def File nodeDir
 

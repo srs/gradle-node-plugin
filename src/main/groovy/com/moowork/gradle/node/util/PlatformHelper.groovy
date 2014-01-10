@@ -1,6 +1,6 @@
 package com.moowork.gradle.node.util
 
-final class PlatformHelper
+class PlatformHelper
 {
     static String getOsName()
     {

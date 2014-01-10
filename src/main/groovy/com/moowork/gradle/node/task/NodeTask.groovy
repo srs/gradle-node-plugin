@@ -2,9 +2,6 @@ package com.moowork.gradle.node.task
 
 import com.moowork.gradle.node.exec.NodeExecRunner
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 
 class NodeTask
@@ -22,14 +19,11 @@ class NodeTask
         dependsOn( SetupTask.NAME )
     }
 
-    @InputFile
     void setScript( final File value )
     {
         this.script = value
     }
 
-    @Input
-    @Optional
     void setArgs( final Iterable<?> value )
     {
         this.args = value
@@ -48,6 +42,11 @@ class NodeTask
     @TaskAction
     void exec()
     {
+        if ( this.script == null )
+        {
+            throw new IllegalStateException( 'Required script property is not set.' )
+        }
+
         def execArgs = []
         execArgs.add( this.script.absolutePath )
         execArgs.addAll( this.args as List )

@@ -4,27 +4,25 @@ import org.gradle.api.Project
 
 class NodeExtension
 {
-    private final static String NAME = "node"
+    final static String NAME = 'node'
+
+    final static String CONFIG_NAME = 'nodeDist'
 
     def File workDir
 
-    def String nodeVersion = "0.10.22"
+    def String version = '0.10.22'
 
-    def String nodeDistUrl = "http://nodejs.org/dist"
+    def String distBaseUrl = 'http://nodejs.org/dist'
 
-    def String configName = "nodeDist"
+    def boolean download = false
 
-    def boolean installNode = false
+    NodeExtension( final Project project )
+    {
+        this.workDir = new File( project.buildDir, 'node' )
+    }
 
     static NodeExtension get( final Project project )
     {
         return project.extensions.getByType( NodeExtension )
-    }
-
-    static NodeExtension create( final Project project )
-    {
-        final NodeExtension ext = project.extensions.create( NAME, NodeExtension )
-        ext.workDir = new File( project.rootDir, ".gradle/node" )
-        return ext
     }
 }

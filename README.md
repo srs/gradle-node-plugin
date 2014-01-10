@@ -15,7 +15,7 @@ Setup the plugin like this:
 			jcenter()
 		}
     	dependencies {
-			classpath 'com.moowork.gradle:gradle-node-plugin:0.1'
+			classpath 'com.moowork.gradle:gradle-node-plugin:0.2'
     	}
 	}
 
@@ -30,13 +30,13 @@ To use this plugin you have to define some tasks in your build.gradle file. If y
 can execute this by defining the following Gradle task:
 
     task myScript(type: NodeTask) {
-        scriptFile = file('src/scripts/my.js')
+        script = file('src/scripts/my.js')
     }
 
 You can also add arguments, like this:
 
     task myScript(type: NodeTask) {
-        scriptFile = file('src/scripts/my.js')
+        script = file('src/scripts/my.js')
         args = ['arg1', 'arg2']
     }
 
@@ -63,14 +63,14 @@ Configuring the plugin
 You can configure the plugin using the "node" extension block, like this:
 
     node {
-        // Version of node to use
-        nodeVersion = '0.10.22'
+        // Version of node to use.
+        version = '0.10.22'
 
-        // Base URL for fetching node distributions (change if you have a mirror)
-        nodeDistBaseUrl = 'http://nodejs.org/dist'
+        // Base URL for fetching node distributions (change if you have a mirror).
+        distBaseUrl = 'http://nodejs.org/dist'
 
-        // Dependency configuration name to use (rarely needed to change)
-        configName = 'nodeDist'
+        // If true, it will download node using above parameters. If false, it will try to use global installed node.
+        download = true
     }
 
 Building the Plugin

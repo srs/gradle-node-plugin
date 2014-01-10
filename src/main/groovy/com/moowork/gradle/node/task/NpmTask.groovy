@@ -2,8 +2,6 @@ package com.moowork.gradle.node.task
 
 import com.moowork.gradle.node.exec.NpmExecRunner
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 
 class NpmTask
@@ -19,8 +17,6 @@ class NpmTask
         dependsOn( SetupTask.NAME )
     }
 
-    @Input
-    @Optional
     void setArgs( final Iterable<?> value )
     {
         this.args = value

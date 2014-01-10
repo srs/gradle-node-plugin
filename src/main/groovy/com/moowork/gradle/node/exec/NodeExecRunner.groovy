@@ -3,7 +3,7 @@ package com.moowork.gradle.node.exec
 import org.gradle.api.Project
 import org.gradle.process.ExecResult
 
-final class NodeExecRunner
+class NodeExecRunner
     extends ExecRunner
 {
     public NodeExecRunner( final Project project )
@@ -18,7 +18,7 @@ final class NodeExecRunner
 
 
         def exec = 'node'
-        if ( this.ext.installNode )
+        if ( this.ext.download )
         {
             exec = this.variant.nodeExec
         }

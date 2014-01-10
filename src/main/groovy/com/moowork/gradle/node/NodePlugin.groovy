@@ -19,7 +19,7 @@ class NodePlugin
     void apply( final Project project )
     {
         this.project = project
-        this.ext = NodeExtension.create( this.project )
+        this.ext = this.project.extensions.create( NodeExtension.NAME, NodeExtension, this.project )
 
         addGlobalTypes()
 
@@ -43,12 +43,12 @@ class NodePlugin
 
     private void addGlobalTaskType( Class type )
     {
-        this.project.extensions.getExtraProperties().set( type.getSimpleName(), type )
+        this.project.extensions.extraProperties.set( type.getSimpleName(), type )
     }
 
     private void configureDepedencies()
     {
-        if ( this.ext.installNode )
+        if ( this.ext.download )
         {
             addRepositories()
             addDependencies()
@@ -59,7 +59,7 @@ class NodePlugin
     {
         this.project.repositories {
             ivy {
-                url this.ext.nodeDistUrl
+                url this.ext.distBaseUrl
                 layout 'pattern', {
                     artifact 'v[revision]/[artifact](-v[revision]-[classifier]).[ext]'
                 }
@@ -69,14 +69,14 @@ class NodePlugin
 
     private void addDependencies()
     {
-        def variant = VariantBuilder.build( this.ext )
+        this.project.configurations.create( NodeExtension.CONFIG_NAME )
 
-        this.project.configurations.create( this.ext.configName )
-        this.project.dependencies.add( this.ext.configName, variant.tarGzDependency )
+        def variant = VariantBuilder.build( this.ext )
+        this.project.dependencies.add( NodeExtension.CONFIG_NAME, variant.tarGzDependency )
 
         if ( variant.exeDependency != null )
         {
-            this.project.dependencies.add( this.ext.configName, variant.exeDependency )
+            this.project.dependencies.add( NodeExtension.CONFIG_NAME, variant.exeDependency )
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.moowork.gradle.node.task
 
 import com.moowork.gradle.node.NodeExtension
-import com.moowork.gradle.node.util.PlatformHelper
 import com.moowork.gradle.node.variant.Variant
 import com.moowork.gradle.node.variant.VariantBuilder
 import org.gradle.api.DefaultTask
@@ -25,7 +24,7 @@ class SetupTask
         this.ext = NodeExtension.get( this.project )
         this.variant = VariantBuilder.build( this.ext )
 
-        this.enabled = this.ext.installNode
+        this.enabled = this.ext.download
     }
 
     @OutputDirectory
@@ -37,7 +36,7 @@ class SetupTask
     @TaskAction
     void exec()
     {
-        if ( PlatformHelper.isWindows() )
+        if ( this.variant.windows )
         {
             copyNodeExe()
         }
@@ -74,6 +73,6 @@ class SetupTask
 
     private File findSingleFile( final String suffix )
     {
-        return this.project.configurations.getByName( this.ext.configName ).files.find { it.name.endsWith( suffix ) }
+        return this.project.configurations.getByName( NodeExtension.CONFIG_NAME ).files.find { it.name.endsWith( suffix ) }
     }
 }
