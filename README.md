@@ -69,7 +69,8 @@ You can configure the plugin using the "node" extension block, like this:
         // Base URL for fetching node distributions (change if you have a mirror).
         distBaseUrl = 'http://nodejs.org/dist'
 
-        // If true, it will download node using above parameters. If false, it will try to use global installed node.
+        // If true, it will download node using above parameters.
+        // If false, it will try to use global installed node.
         download = true
     }
 
