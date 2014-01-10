@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        maven { url 'http://jcenter.bintray.com' }
+        jcenter()
     }
 
     dependencies {
@@ -8,12 +8,15 @@ buildscript {
     }
 }
 
-apply plugin: 'idea'
 apply plugin: 'groovy'
 apply plugin: 'maven-publish'
 apply plugin: 'bintray'
 
 group = 'com.moowork.gradle'
+
+def compatibilityVersion = 1.7
+sourceCompatibility = compatibilityVersion
+targetCompatibility = compatibilityVersion
 
 repositories {
     mavenCentral()
@@ -35,7 +38,6 @@ task groovydocJar( type: Jar ) {
 }
 
 artifacts {
-    archives jar
     archives sourcesJar
     archives groovydocJar
 }
@@ -46,13 +48,36 @@ publishing {
             from components.java
             artifact sourcesJar
             artifact groovydocJar
+
+            pom.withXml {
+                def root = asNode()
+                root.appendNode( 'name', 'Node Gralde Plugin' )
+                root.appendNode( 'description', 'A gradle plugin for executing NodeJS scripts.' )
+                root.appendNode( 'inceptionYear', '2013' )
+
+                def scm = root.appendNode( 'scm' )
+                scm.appendNode( 'url', 'https://github.com/srs/gradle-node-plugin' )
+                scm.appendNode( 'connection', 'scm:https://srs@github.com/srs/gradle-node-plugin.git' )
+                scm.appendNode( 'developerConnection', 'scm:git://github.com/srs/gradle-node-plugin.git' )
+
+                def license = root.appendNode( 'licenses' ).appendNode( 'license' )
+                license.appendNode( 'name', 'The Apache Software License, Version 2.0' )
+                license.appendNode( 'url', 'http://www.apache.org/licenses/LICENSE-2.0.txt' )
+                license.appendNode( 'distribution', 'repo' )
+
+                def developers = root.appendNode( 'developers' )
+                def srs = developers.appendNode( 'developer' )
+                srs.appendNode( 'id', 'srs' )
+                srs.appendNode( 'name', 'Sten Roger Sandvik' )
+                srs.appendNode( 'email', 'stenrs@gmail.com' )
+            }
         }
     }
 }
 
 bintray {
-    user = bintrayUser
-    key = bintrayKey
+    user = project.hasProperty( 'bintrayUser' ) ? project.getProperty( 'bintrayUser' ) : null
+    key = project.hasProperty( 'bintrayKey' ) ? project.getProperty( 'bintrayKey' ) : null
     publications = ['mavenJava']
 
     pkg {
@@ -61,3 +86,4 @@ bintray {
         licenses = ['Apache-2.0']
     }
 }
+
