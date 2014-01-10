@@ -1,27 +1,30 @@
 package com.moowork.gradle.node
 
-import com.moowork.gradle.node.variant.Variant
 import org.gradle.api.Project
 
 class NodeExtension
 {
-    final static String NAME = 'node'
+    private final static String NAME = "node"
 
-    String nodeVersion = '0.10.22'
+    def File workDir
 
-    String nodeDistBaseUrl = 'http://nodejs.org/dist'
+    def String nodeVersion = "0.10.22"
 
-    String configName = 'nodeDist'
+    def String nodeDistUrl = "http://nodejs.org/dist"
 
-    Variant variant = null
+    def String configName = "nodeDist"
 
-    static def NodeExtension get( final Project project )
+    def boolean installNode = false
+
+    static NodeExtension get( final Project project )
     {
         return project.extensions.getByType( NodeExtension )
     }
 
-    static def NodeExtension create( final Project project )
+    static NodeExtension create( final Project project )
     {
-        project.extensions.create( NAME, NodeExtension )
+        final NodeExtension ext = project.extensions.create( NAME, NodeExtension )
+        ext.workDir = new File( project.rootDir, ".gradle/node" )
+        return ext
     }
 }

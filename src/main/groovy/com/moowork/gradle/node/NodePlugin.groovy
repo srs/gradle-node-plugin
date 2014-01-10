@@ -4,11 +4,12 @@ import com.moowork.gradle.node.task.NodeTask
 import com.moowork.gradle.node.task.NpmInstallTask
 import com.moowork.gradle.node.task.NpmTask
 import com.moowork.gradle.node.task.SetupTask
-import com.moowork.gradle.node.variant.VariantFactory
+import com.moowork.gradle.node.variant.VariantBuilder
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-class NodePlugin implements Plugin<Project>
+class NodePlugin
+    implements Plugin<Project>
 {
     private Project project
 
@@ -18,18 +19,24 @@ class NodePlugin implements Plugin<Project>
     void apply( final Project project )
     {
         this.project = project
-        this.ext = this.project.extensions.create( NodeExtension.NAME, NodeExtension )
-        this.ext.variant = new VariantFactory( this.project ).create()
+        this.ext = NodeExtension.create( this.project )
 
-        addTasks();
-        configureDepedencies();
+        addGlobalTypes()
+
+        this.project.afterEvaluate {
+            addTasks()
+            configureDepedencies()
+        }
     }
 
-    private void addTasks( )
+    private void addGlobalTypes()
     {
         addGlobalTaskType( NodeTask )
         addGlobalTaskType( NpmTask )
+    }
 
+    private void addTasks()
+    {
         this.project.tasks.create( SetupTask.NAME, SetupTask )
         this.project.tasks.create( NpmInstallTask.NAME, NpmInstallTask )
     }
@@ -39,21 +46,20 @@ class NodePlugin implements Plugin<Project>
         this.project.extensions.getExtraProperties().set( type.getSimpleName(), type )
     }
 
-    private void configureDepedencies( )
+    private void configureDepedencies()
     {
-        this.project.configurations.create( this.ext.configName )
-
-        this.project.afterEvaluate {
+        if ( this.ext.installNode )
+        {
             addRepositories()
             addDependencies()
         }
     }
 
-    private void addRepositories( )
+    private void addRepositories()
     {
         this.project.repositories {
             ivy {
-                url this.ext.nodeDistBaseUrl
+                url this.ext.nodeDistUrl
                 layout 'pattern', {
                     artifact 'v[revision]/[artifact](-v[revision]-[classifier]).[ext]'
                 }
@@ -61,14 +67,16 @@ class NodePlugin implements Plugin<Project>
         }
     }
 
-    private void addDependencies( )
+    private void addDependencies()
     {
-        this.project.dependencies.add( this.ext.configName, this.ext.variant.tarGzDependency )
+        def variant = VariantBuilder.build( this.ext )
 
-        if ( this.ext.variant.windows )
+        this.project.configurations.create( this.ext.configName )
+        this.project.dependencies.add( this.ext.configName, variant.tarGzDependency )
+
+        if ( variant.exeDependency != null )
         {
-            this.project.dependencies.add( this.ext.configName, this.ext.variant.exeDependency )
+            this.project.dependencies.add( this.ext.configName, variant.exeDependency )
         }
     }
 }
-

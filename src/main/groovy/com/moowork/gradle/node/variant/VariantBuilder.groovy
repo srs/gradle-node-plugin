@@ -1,28 +1,25 @@
 package com.moowork.gradle.node.variant
 
 import com.moowork.gradle.node.NodeExtension
-import org.gradle.api.Project
+import com.moowork.gradle.node.util.PlatformHelper
 
-class VariantFactory
+final class VariantBuilder
 {
-    private final Project project
-
     private final NodeExtension ext
 
-    VariantFactory( Project project )
+    private VariantBuilder( final NodeExtension ext )
     {
-        this.project = project
-        this.ext = NodeExtension.get( this.project )
+        this.ext = ext
     }
 
-    def Variant create( )
+    private Variant create()
     {
         def osName = PlatformHelper.getOsName()
         def osArch = PlatformHelper.getOsArch()
 
         def variant = new Variant()
         variant.windows = PlatformHelper.isWindows()
-        variant.workDir = getWorkDir()
+        variant.workDir = this.ext.workDir
         variant.nodeDir = getNodeDir( osName, osArch )
         variant.nodeBinDir = new File( variant.nodeDir, 'bin' )
 
@@ -31,43 +28,46 @@ class VariantFactory
             variant.tarGzDependency = getTarGzDependency( 'linux', 'x86' )
             variant.exeDependency = getExeDependency()
             variant.npmDir = getNpmDir( 'linux', 'x86' )
-            variant.nodeExec = new File( variant.nodeBinDir, 'node.exe' )
+            variant.nodeExec = new File( variant.nodeBinDir, 'node.exe' ).absolutePath
         }
         else
         {
             variant.tarGzDependency = getTarGzDependency( osName, osArch )
             variant.npmDir = getNpmDir( osName, osArch )
-            variant.nodeExec = new File( variant.nodeBinDir, 'node' )
+            variant.nodeExec = new File( variant.nodeBinDir, 'node' ).absolutePath
         }
 
-        variant.npmScriptFile = new File( variant.npmDir, 'npm/bin/npm-cli.js' )
+        variant.npmScriptFile = new File( variant.npmDir, 'npm/bin/npm-cli.js' ).absolutePath
         return variant
-    }
-
-    private File getWorkDir( )
-    {
-        return new File( this.project.getRootDir(), '.gradle/node' )
     }
 
     private String getTarGzDependency( final String osName, final String osArch )
     {
-        return ':node:' + this.ext.nodeVersion + ':' + osName + '-' + osArch + '@tar.gz'
+        def version = this.ext.nodeVersion
+        return "org.nodejs:node:${version}:${osName}-${osArch}@tar.gz"
     }
 
-    private String getExeDependency( )
+    private String getExeDependency()
     {
-        return ':node:' + this.ext.nodeVersion + '@exe'
+        def version = this.ext.nodeVersion
+        return "org.nodejs:node:${version}@exe"
     }
 
     private File getNodeDir( final String osName, final String osArch )
     {
-        String dirName = 'node-v' + this.ext.nodeVersion + '-' + osName + '-' + osArch
-        return new File( getWorkDir(), dirName )
+        def version = this.ext.nodeVersion
+        String dirName = "node-v${version}-${osName}-${osArch}"
+        return new File( this.ext.workDir, dirName )
     }
 
     private File getNpmDir( final String osName, final String osArch )
     {
         File nodeDir = getNodeDir( osName, osArch )
         return new File( nodeDir, 'lib/node_modules' )
+    }
+
+    def static Variant build( final NodeExtension ext )
+    {
+        return new VariantBuilder( ext ).create()
     }
 }

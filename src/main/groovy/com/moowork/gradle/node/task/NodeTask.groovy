@@ -1,52 +1,58 @@
 package com.moowork.gradle.node.task
 
-import com.moowork.gradle.node.NodeExtension
+import com.moowork.gradle.node.exec.NodeExecRunner
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 
-class NodeTask extends DefaultTask
+class NodeTask
+    extends DefaultTask
 {
-    protected File scriptFile
+    private NodeExecRunner runner
 
-    protected List<String> scriptArgs
+    private File script
 
-    NodeTask( )
+    private Iterable<?> args = []
+
+    public NodeTask()
     {
-        this.group = 'Node'
+        this.runner = new NodeExecRunner( this.project )
         dependsOn( SetupTask.NAME )
-        this.scriptArgs = new ArrayList<String>()
+    }
+
+    @InputFile
+    void setScript( final File value )
+    {
+        this.script = value
+    }
+
+    @Input
+    @Optional
+    void setArgs( final Iterable<?> value )
+    {
+        this.args = value
+    }
+
+    void setEnvironment( final Map<String, ?> value )
+    {
+        this.runner.environment = value
+    }
+
+    void setWorkingDir( final Object value )
+    {
+        this.runner.workingDir = value
     }
 
     @TaskAction
-    void exec( )
+    void exec()
     {
-        doExecute()
-    }
+        def execArgs = []
+        execArgs.add( this.script.absolutePath )
+        execArgs.addAll( this.args as List )
 
-    protected void doExecute( )
-    {
-        final ArrayList<String> list = new ArrayList<String>()
-        list.add( getNodeExec().absolutePath )
-        list.add( this.scriptFile.absolutePath )
-        list.addAll( this.scriptArgs )
-
-        this.project.exec {
-            commandLine = list
-        }
-    }
-
-    private File getNodeExec( )
-    {
-        return NodeExtension.get( this.project ).variant.nodeExec
-    }
-
-    void setScript( final File file )
-    {
-        this.scriptFile = file;
-    }
-
-    void setArgs( final String... args )
-    {
-        this.scriptArgs = Arrays.asList( args );
+        this.runner.arguments = execArgs
+        this.runner.execute()
     }
 }

@@ -1,6 +1,7 @@
 package com.moowork.gradle.node.variant
 
-class Variant
+// TODO: Variant needs to be evaluated every time!
+final class Variant
 {
     def boolean windows
 
@@ -12,9 +13,9 @@ class Variant
 
     def File nodeBinDir
 
-    def File nodeExec
+    def String nodeExec
 
-    def File npmScriptFile
+    def String npmScriptFile
 
     def String tarGzDependency
 

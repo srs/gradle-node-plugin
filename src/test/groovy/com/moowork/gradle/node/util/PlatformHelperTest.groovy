@@ -1,12 +1,13 @@
-package com.moowork.gradle.node.variant
+package com.moowork.gradle.node.util
 
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class PlatformHelperTest extends Specification
+class PlatformHelperTest
+    extends Specification
 {
     @Unroll
-    def "check os and architecture for #osProp (#archProp)"( )
+    def "check os and architecture for #osProp (#archProp)"()
     {
         given:
         System.setProperty( "os.name", osProp )
@@ -27,7 +28,7 @@ class PlatformHelperTest extends Specification
         'Linux'     | 'x86_64' | 'linux'   | 'x64'  | false
     }
 
-    def "throw exeption if unsupported os"( )
+    def "throw exeption if unsupported os"()
     {
         given:
         System.setProperty( "os.name", 'SunOS' )

@@ -3,31 +3,26 @@ package com.moowork.gradle.node.task
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
 
-class NpmInstallTask extends NpmTask
+class NpmInstallTask
+    extends NpmTask
 {
     public final static String NAME = 'npmInstall'
 
-    NpmInstallTask( )
+    public NpmInstallTask()
     {
         this.group = 'Node'
         this.description = 'Install node packages from package.json.'
-    }
-
-    @Override
-    void doExecute( )
-    {
-        this.scriptArgs.add( 'install' )
-        super.doExecute()
+        setArgs( ['install'] )
     }
 
     @InputFile
-    File getPackageJson( )
+    File getPackageJson()
     {
         return new File( this.project.getProjectDir(), 'package.json' )
     }
 
     @OutputDirectory
-    File getNodeModules( )
+    File getNodeModules()
     {
         return new File( this.project.getProjectDir(), 'node_modules' )
     }

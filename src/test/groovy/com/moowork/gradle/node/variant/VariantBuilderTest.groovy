@@ -5,10 +5,11 @@ import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class VariantFactoryTest extends Specification
+class VariantBuilderTest
+    extends Specification
 {
     @Unroll
-    def "test variant on windows (#osArch)"( )
+    def "test variant on windows (#osArch)"()
     {
         given:
         System.setProperty( "os.name", "Windows 8" )
@@ -18,14 +19,13 @@ class VariantFactoryTest extends Specification
         def ext = NodeExtension.create( project )
         ext.nodeVersion = '0.11.1'
 
-        def factory = new VariantFactory( project )
-        def variant = factory.create()
+        def variant = VariantBuilder.build( ext )
 
         expect:
         variant != null
         variant.windows
-        variant.exeDependency == ':node:0.11.1@exe'
-        variant.tarGzDependency == ':node:0.11.1:linux-x86@tar.gz'
+        variant.exeDependency == 'org.nodejs:node:0.11.1@exe'
+        variant.tarGzDependency == 'org.nodejs:node:0.11.1:linux-x86@tar.gz'
         variant.workDir.toString().endsWith( '/.gradle/node' )
         variant.nodeDir.toString().endsWith( '/.gradle/node/' + nodeDir )
         variant.nodeBinDir.toString().endsWith( '/.gradle/node/' + nodeDir + '/bin' )
@@ -40,7 +40,7 @@ class VariantFactoryTest extends Specification
     }
 
     @Unroll
-    def "test variant on non-windows (#osName, #osArch)"( )
+    def "test variant on non-windows (#osName, #osArch)"()
     {
         given:
         System.setProperty( "os.name", osName )
@@ -49,9 +49,9 @@ class VariantFactoryTest extends Specification
         def project = ProjectBuilder.builder().build()
         def ext = NodeExtension.create( project )
         ext.nodeVersion = '0.11.1'
+        ext.installNode = true
 
-        def factory = new VariantFactory( project )
-        def variant = factory.create()
+        def variant = VariantBuilder.build( ext )
 
         expect:
         variant != null
@@ -67,9 +67,9 @@ class VariantFactoryTest extends Specification
 
         where:
         osName     | osArch   | nodeDir                   | depName
-        'Linux'    | 'x86'    | 'node-v0.11.1-linux-x86'  | ':node:0.11.1:linux-x86@tar.gz'
-        'Linux'    | 'x86_64' | 'node-v0.11.1-linux-x64'  | ':node:0.11.1:linux-x64@tar.gz'
-        'Mac OS X' | 'x86'    | 'node-v0.11.1-darwin-x86' | ':node:0.11.1:darwin-x86@tar.gz'
-        'Mac OS X' | 'x86_64' | 'node-v0.11.1-darwin-x64' | ':node:0.11.1:darwin-x64@tar.gz'
+        'Linux'    | 'x86'    | 'node-v0.11.1-linux-x86'  | 'org.nodejs:node:0.11.1:linux-x86@tar.gz'
+        'Linux'    | 'x86_64' | 'node-v0.11.1-linux-x64'  | 'org.nodejs:node:0.11.1:linux-x64@tar.gz'
+        'Mac OS X' | 'x86'    | 'node-v0.11.1-darwin-x86' | 'org.nodejs:node:0.11.1:darwin-x86@tar.gz'
+        'Mac OS X' | 'x86_64' | 'node-v0.11.1-darwin-x64' | 'org.nodejs:node:0.11.1:darwin-x64@tar.gz'
     }
 }

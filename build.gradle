@@ -29,12 +29,13 @@ task sourcesJar( type: Jar ) {
     from sourceSets.main.allSource
 }
 
-task groovydocJar( type: Jar, dependsOn: groovydoc ) {
+task groovydocJar( type: Jar ) {
     classifier 'groovydoc'
-    from groovydoc.destinationDir
+    from groovydoc
 }
 
 artifacts {
+    archives jar
     archives sourcesJar
     archives groovydocJar
 }
