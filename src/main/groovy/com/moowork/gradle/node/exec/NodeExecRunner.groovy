@@ -12,11 +12,8 @@ class NodeExecRunner
     }
 
     @Override
-    ExecResult execute()
+    protected ExecResult doExecute()
     {
-        println( this.ext.workDir )
-
-
         def exec = 'node'
         if ( this.ext.download )
         {

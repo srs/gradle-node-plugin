@@ -4,7 +4,6 @@ import com.moowork.gradle.node.NodeExtension
 import com.moowork.gradle.node.variant.Variant
 import com.moowork.gradle.node.variant.VariantBuilder
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 
 class SetupTask
@@ -25,12 +24,8 @@ class SetupTask
         this.variant = VariantBuilder.build( this.ext )
 
         this.enabled = this.ext.download
-    }
 
-    @OutputDirectory
-    File getOutputDir()
-    {
-        return this.variant.nodeDir
+        getOutputs().dir( this.variant.nodeDir )
     }
 
     @TaskAction

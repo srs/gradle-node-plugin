@@ -1,8 +1,5 @@
 package com.moowork.gradle.node.task
 
-import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.OutputDirectory
-
 class NpmInstallTask
     extends NpmTask
 {
@@ -13,17 +10,8 @@ class NpmInstallTask
         this.group = 'Node'
         this.description = 'Install node packages from package.json.'
         setArgs( ['install'] )
-    }
 
-    @InputFile
-    File getPackageJson()
-    {
-        return new File( this.project.getProjectDir(), 'package.json' )
-    }
-
-    @OutputDirectory
-    File getNodeModules()
-    {
-        return new File( this.project.getProjectDir(), 'node_modules' )
+        getInputs().file( new File( this.project.getProjectDir(), 'package.json' ) )
+        getOutputs().dir( new File( this.project.getProjectDir(), 'node_modules' ) )
     }
 }

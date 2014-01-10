@@ -23,8 +23,6 @@ abstract class ExecRunner
     public ExecRunner( final Project project )
     {
         this.project = project
-        this.ext = NodeExtension.get( this.project )
-        this.variant = VariantBuilder.build( this.ext )
     }
 
     protected final ExecResult run( final String exec, final List<?> args )
@@ -54,5 +52,12 @@ abstract class ExecRunner
         } )
     }
 
-    public abstract ExecResult execute();
+    public final ExecResult execute()
+    {
+        this.ext = NodeExtension.get( this.project )
+        this.variant = VariantBuilder.build( this.ext )
+        return doExecute()
+    }
+
+    protected abstract ExecResult doExecute()
 }

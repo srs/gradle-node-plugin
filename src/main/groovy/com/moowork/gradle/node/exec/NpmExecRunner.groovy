@@ -12,7 +12,7 @@ class NpmExecRunner
     }
 
     @Override
-    ExecResult execute()
+    protected ExecResult doExecute()
     {
         if ( !this.ext.download )
         {

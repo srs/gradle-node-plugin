@@ -15,7 +15,7 @@ Setup the plugin like this:
 			jcenter()
 		}
     	dependencies {
-			classpath 'com.moowork.gradle:gradle-node-plugin:0.2'
+			classpath 'com.moowork.gradle:gradle-node-plugin:0.3'
     	}
 	}
 

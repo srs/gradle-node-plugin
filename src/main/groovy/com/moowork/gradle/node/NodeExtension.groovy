@@ -18,7 +18,7 @@ class NodeExtension
 
     NodeExtension( final Project project )
     {
-        this.workDir = new File( project.buildDir, 'node' )
+        this.workDir = new File( project.gradle.gradleUserHomeDir, 'nodejs' )
     }
 
     static NodeExtension get( final Project project )
