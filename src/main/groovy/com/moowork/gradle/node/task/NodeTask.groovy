@@ -39,6 +39,16 @@ class NodeTask
         this.runner.workingDir = value
     }
 
+    void setIgnoreExitValue ( final boolean value )
+    {
+        this.runner.ignoreExitValue = value
+    }
+
+    void setExecOverrides ( final Closure closure )
+    {
+        this.runner.execOverrides = closure
+    }
+
     @TaskAction
     void exec()
     {

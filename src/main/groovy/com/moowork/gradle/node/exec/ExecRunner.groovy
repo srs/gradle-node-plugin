@@ -19,6 +19,10 @@ abstract class ExecRunner
     def Object workingDir
 
     def List<?> arguments = []
+    
+    def boolean ignoreExitValue
+    
+    def Closure execOverrides
 
     public ExecRunner( final Project project )
     {
@@ -48,6 +52,16 @@ abstract class ExecRunner
             if ( this.workingDir != null )
             {
                 it.workingDir = this.workingDir
+            }
+
+            if ( this.ignoreExitValue != null )
+            {
+                it.ignoreExitValue = this.ignoreExitValue
+            }
+
+            if ( this.execOverrides != null )
+            {
+                this.execOverrides( it )
             }
         } )
     }

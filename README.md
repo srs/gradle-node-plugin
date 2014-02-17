@@ -40,6 +40,25 @@ You can also add arguments, like this:
         args = ['arg1', 'arg2']
     }
 
+`NodeTask` is a wrapper around the core `Exec` task. You can set the `ignoreExitValue` property on it:
+
+    task myScript(type: NodeTask) {
+       script = file('src/scripts/my.js')
+       ignoreExitValue = true
+    }
+
+You can also customize all other values on the `ExecSpec` by passing a closure to `execOverrides`. It's executed last, possibly
+overriding already set parameters.
+
+    task myScript(type: NodeTask) {
+       script = file('src/scripts/my.js')
+       execOverrides {
+           it.ignoreExitValue = true
+           it.workingDir = 'somewhere'
+           it.standardOutput = new FileOutputStream('logs/my.log')
+       }
+    }
+
 When executing this for the first time, it will run a nodeSetup task that downloades NodeJS (for your platform) and
 NPM (Node Package Manager) if on windows (other platforms include it into the distribution).
 
