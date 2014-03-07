@@ -22,9 +22,10 @@ class NodePlugin
         this.ext = this.project.extensions.create( NodeExtension.NAME, NodeExtension, this.project )
 
         addGlobalTypes()
+        addNpmTask()
 
         this.project.afterEvaluate {
-            addTasks()
+            addSetupTask()
             configureDepedencies()
         }
     }
@@ -35,10 +36,14 @@ class NodePlugin
         addGlobalTaskType( NpmTask )
     }
 
-    private void addTasks()
+    private void addNpmTask()
+    {
+        this.project.tasks.create( NpmInstallTask.NAME, NpmInstallTask )
+    }
+
+    private void addSetupTask()
     {
         this.project.tasks.create( SetupTask.NAME, SetupTask )
-        this.project.tasks.create( NpmInstallTask.NAME, NpmInstallTask )
     }
 
     private void addGlobalTaskType( Class type )
