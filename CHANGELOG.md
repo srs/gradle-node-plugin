@@ -1,9 +1,6 @@
 Changelog
 =========
 
-Changelog
-=========
-
 Version 0.4 *(not released)*
 ----------------------------
 
