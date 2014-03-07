@@ -21,7 +21,7 @@ Setup the plugin like this:
 			jcenter()
 		}
     	dependencies {
-			classpath 'com.moowork.gradle:gradle-node-plugin:0.3'
+			classpath 'com.moowork.gradle:gradle-node-plugin:0.4'
     	}
 	}
 
@@ -97,6 +97,9 @@ You can configure the plugin using the "node" extension block, like this:
         // If true, it will download node using above parameters.
         // If false, it will try to use global installed node.
         download = true
+
+        // Set the work directory for unpacking node
+        workDir = file("${project.buildDir}/nodejs")
     }
 
 Building the Plugin
