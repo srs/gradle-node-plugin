@@ -1,8 +1,14 @@
-Gradle plugin for Node [![Build Status](https://travis-ci.org/srs/gradle-node-plugin.png?branch=master)](https://travis-ci.org/srs/gradle-node-plugin) [![Download](https://api.bintray.com/packages/srs/maven/gradle-node-plugin/images/download.png)](https://bintray.com/srs/maven/gradle-node-plugin)
+Gradle plugin for Node
 =======================
 
 This plugin enables you to run any NodeJS script as part of your build. It does not depend on NodeJS (or NPM) being installed on
 your system. Fist time it will download NodeJS distribution and unpack it into your local .gradle directory and run it from there.
+
+Status
+------
+
+* Build: [![Build Status](https://travis-ci.org/srs/gradle-node-plugin.png?branch=master)](https://travis-ci.org/srs/gradle-node-plugin)
+* Download: [![Download](https://api.bintray.com/packages/srs/maven/gradle-node-plugin/images/download.png)](https://bintray.com/srs/maven/gradle-node-plugin)
 
 Installing the plugin
 ---------------------
