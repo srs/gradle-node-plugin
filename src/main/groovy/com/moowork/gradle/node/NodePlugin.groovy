@@ -15,6 +15,8 @@ class NodePlugin
 
     private NodeExtension ext
 
+    private SetupTask setupTask
+
     @Override
     void apply( final Project project )
     {
@@ -22,10 +24,10 @@ class NodePlugin
         this.ext = this.project.extensions.create( NodeExtension.NAME, NodeExtension, this.project )
 
         addGlobalTypes()
-        addNpmTask()
+        addTasks()
 
         this.project.afterEvaluate {
-            addSetupTask()
+            configureSetupTask()
             configureDepedencies()
         }
     }
@@ -36,19 +38,20 @@ class NodePlugin
         addGlobalTaskType( NpmTask )
     }
 
-    private void addNpmTask()
+    private void addTasks()
     {
         this.project.tasks.create( NpmInstallTask.NAME, NpmInstallTask )
-    }
-
-    private void addSetupTask()
-    {
-        this.project.tasks.create( SetupTask.NAME, SetupTask )
+        this.setupTask = this.project.tasks.create( SetupTask.NAME, SetupTask )
     }
 
     private void addGlobalTaskType( Class type )
     {
         this.project.extensions.extraProperties.set( type.getSimpleName(), type )
+    }
+
+    private void configureSetupTask()
+    {
+        this.setupTask.setEnabled( this.ext.download )
     }
 
     private void configureDepedencies()

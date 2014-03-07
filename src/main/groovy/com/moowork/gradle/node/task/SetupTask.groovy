@@ -4,6 +4,8 @@ import com.moowork.gradle.node.NodeExtension
 import com.moowork.gradle.node.variant.Variant
 import com.moowork.gradle.node.variant.VariantBuilder
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 
 class SetupTask
@@ -19,18 +21,44 @@ class SetupTask
     {
         this.group = 'Node'
         this.description = 'Download and install a local node/npm version.'
+        this.enabled = false
+    }
+
+    @InputFiles
+    public Set<File> getDependencies()
+    {
+        configureIfNeeded()
+
+        if ( !this.ext.download )
+        {
+            return new HashSet<File>()
+        }
+
+        return this.project.configurations.getByName( NodeExtension.CONFIG_NAME ).files
+    }
+
+    @OutputDirectory
+    public File getNodeDir()
+    {
+        configureIfNeeded()
+        return this.variant.nodeDir
+    }
+
+    private void configureIfNeeded()
+    {
+        if ( this.ext != null )
+        {
+            return
+        }
 
         this.ext = NodeExtension.get( this.project )
         this.variant = VariantBuilder.build( this.ext )
-
-        this.enabled = this.ext.download
-
-        getOutputs().dir( this.variant.nodeDir )
     }
 
     @TaskAction
     void exec()
     {
+        configureIfNeeded()
         if ( this.variant.windows )
         {
             copyNodeExe()
@@ -52,7 +80,7 @@ class SetupTask
     {
         this.project.copy {
             from this.project.tarTree( getNodeTarGzFile() )
-            into this.variant.nodeDir.parentFile
+            into getNodeDir().parent
         }
     }
 
@@ -68,6 +96,6 @@ class SetupTask
 
     private File findSingleFile( final String suffix )
     {
-        return this.project.configurations.getByName( NodeExtension.CONFIG_NAME ).files.find { it.name.endsWith( suffix ) }
+        return getDependencies().find { it.name.endsWith( suffix ) }
     }
 }
