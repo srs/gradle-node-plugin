@@ -72,13 +72,31 @@ Executing NPM tasks
 -------------------
 
 When adding the node plugin, you will have a npmInstall task already added. This task will execute "npm install" and
-installs all dependencies in "package.json". Execute it like this:
+installs all dependencies in "package.json". It will only run when changes are made to package.json or node_modules.
+ Execute it like this:
 
-    $ grunt npmInstall
+    $ gradle npmInstall
 
-If you want to run other NPM commands like installing named modules outside package.json, you can add a custom task like this:
+All npm command can also be invoked using underscore notation based on a gradle rule
+
+     $ gradle npm_install
+     $ gradle npm_update
+     $ gradle npm_list
+     $ gradle npm_cache_clean
+     ...
+
+These however are not shown when running gradle tasks, as they generated dynamically.
+However they can be used for dependency declarations, such as npm_install.dependsOn(npm_cache_clean)
+More arguments can be passed via the build.gradle file:
+
+    npm_update {
+        args = ['--production', '--loglevel', 'warn']
+    }
+
+If you want to extend the tasks more or create custom variants, you can extend the class npmTask:
 
     task installExpress(type: NpmTask) {
+        // install the express package only
         args = ['install', 'express', '--save-dev']
     }
 
@@ -89,13 +107,13 @@ You can configure the plugin using the "node" extension block, like this:
 
     node {
         // Version of node to use.
-        version = '0.10.22'
+        version = '0.11.10'
 
         // Base URL for fetching node distributions (change if you have a mirror).
         distBaseUrl = 'http://nodejs.org/dist'
 
         // If true, it will download node using above parameters.
-        // If false, it will try to use global installed node.
+        // If false, it will try to use globally installed node.
         download = true
 
         // Set the work directory for unpacking node
