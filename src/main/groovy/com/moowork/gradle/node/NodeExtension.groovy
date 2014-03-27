@@ -10,7 +10,7 @@ class NodeExtension
 
     def File workDir
 
-    def String version = '0.10.22'
+    def String version = '0.11.10'
 
     def String distBaseUrl = 'http://nodejs.org/dist'
 

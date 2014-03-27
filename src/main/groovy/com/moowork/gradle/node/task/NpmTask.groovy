@@ -11,6 +11,8 @@ class NpmTask
 
     private Iterable<?> args = []
 
+    def String[] npmCommand
+
     public NpmTask()
     {
         this.runner = new NpmExecRunner( this.project )
@@ -20,6 +22,16 @@ class NpmTask
     void setArgs( final Iterable<?> value )
     {
         this.args = value
+    }
+
+    void setNpmCommand( String[] cmd )
+    {
+        this.npmCommand = cmd
+    }
+
+    Iterable<?> getArgs()
+    {
+        return this.args
     }
 
     void setEnvironment( final Map<String, ?> value )
@@ -35,7 +47,10 @@ class NpmTask
     @TaskAction
     void exec()
     {
-        this.runner.arguments = this.args as List
+        if (this.npmCommand != null) {
+            this.runner.arguments.addAll(this.npmCommand)
+        }
+        this.runner.arguments.addAll(this.args)
         this.runner.execute()
     }
 }
