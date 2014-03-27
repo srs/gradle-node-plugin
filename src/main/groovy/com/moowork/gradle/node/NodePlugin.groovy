@@ -2,7 +2,6 @@ package com.moowork.gradle.node
 
 import com.moowork.gradle.node.task.NodeTask
 import com.moowork.gradle.node.task.NpmInstallTask
-
 import com.moowork.gradle.node.task.NpmTask
 import com.moowork.gradle.node.task.SetupTask
 import com.moowork.gradle.node.variant.VariantBuilder
@@ -54,11 +53,11 @@ class NodePlugin
     private void addNpmRule()
     {
         // note this rule also makes it possible to specify e.g. "dependsOn npm_install"
-        project.getTasks().addRule( "Pattern: npm_<ID>" ) { String taskName ->
+        project.getTasks().addRule( 'Pattern: "npm_<command>": Executes an NPM command.' ) { String taskName ->
             if ( taskName.startsWith( "npm_" ) )
             {
                 NpmTask npmTask = project.getTasks().create( taskName, NpmTask.class )
-                String[] tokens = taskName.split('_')
+                String[] tokens = taskName.split( '_' )
                 npmTask.npmCommand = tokens.tail() // all except first
                 return npmTask
             }
