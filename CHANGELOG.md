@@ -1,12 +1,14 @@
 Changelog
 =========
 
-Version 0.5 *(not released)*
+Version 0.6 *(not released)*
 ----------------------------
+
+Version 0.5 *(2014-03-29)*
+--------------------------
 
 * Upgraded to use Node version 0.10.22 _(tkruse)_
 * Provide gradle rule to run any NPM commands _(tkruse)_
-* ...
 
 Version 0.4 *(2014-03-07)*
 --------------------------
