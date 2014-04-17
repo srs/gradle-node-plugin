@@ -23,6 +23,8 @@ class NpmExecRunner
         runner.arguments = [this.variant.npmScriptFile] + this.arguments
         runner.environment = this.environment
         runner.workingDir = this.workingDir
+        runner.execOverrides = this.execOverrides
+        runner.ignoreExitValue = this.ignoreExitValue
         return runner.execute()
     }
 }
