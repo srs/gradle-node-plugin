@@ -3,6 +3,7 @@ package com.moowork.gradle.node.task
 import com.moowork.gradle.node.exec.NodeExecRunner
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
+import org.gradle.process.ExecResult
 
 class NodeTask
     extends DefaultTask
@@ -12,6 +13,8 @@ class NodeTask
     private File script
 
     private Iterable<?> args = []
+
+    private ExecResult result
 
     public NodeTask()
     {
@@ -49,6 +52,16 @@ class NodeTask
         this.runner.execOverrides = closure
     }
 
+    ExecResult getResult()
+    {
+        return this.result
+    }
+
+    Iterable<?> getArgs()
+    {
+        return this.args
+    }
+
     @TaskAction
     void exec()
     {
@@ -62,6 +75,6 @@ class NodeTask
         execArgs.addAll( this.args as List )
 
         this.runner.arguments = execArgs
-        this.runner.execute()
+        this.result = this.runner.execute()
     }
 }
