@@ -5,6 +5,7 @@ Version 0.6 *(not released)*
 ----------------------------
 
 * Upgrade to Gradle 2.0
+* Using 'com.moowork.node' as plugin id, but 'node' still works for another version
 * Possible to read execResult for npm and node tasks _(johnrengelman)_
 
 Version 0.5 *(2014-03-29)*
