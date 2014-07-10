@@ -4,14 +4,14 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:0.3'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:0.5'
     }
 }
 
 apply plugin: 'groovy'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
-apply plugin: 'bintray'
+apply plugin: 'com.jfrog.bintray'
 
 group = 'com.moowork.gradle'
 
@@ -25,7 +25,9 @@ repositories {
 
 dependencies {
     compile gradleApi()
-    testCompile 'org.spockframework:spock-core:0.7-groovy-1.8'
+    testCompile('org.spockframework:spock-core:0.7-groovy-2.0') {
+        exclude module: 'groovy-all'
+    }
 }
 
 task sourcesJar( type: Jar ) {
@@ -56,12 +58,20 @@ publishing {
 bintray {
     user = project.hasProperty( 'bintrayUser' ) ? project.getProperty( 'bintrayUser' ) : null
     key = project.hasProperty( 'bintrayKey' ) ? project.getProperty( 'bintrayKey' ) : null
+
     publications = ['mavenJava']
+    publish = true
 
     pkg {
         repo = 'maven'
         name = 'gradle-node-plugin'
         licenses = ['Apache-2.0']
+        desc = 'Gradle plugin for executing node scripts.'
+        websiteUrl = 'https://github.com/srs/gradle-node-plugin'
+        issueTrackerUrl = 'https://github.com/srs/gradle-node-plugin/issues'
+        vcsUrl = 'https://github.com/srs/gradle-node-plugin.git'
+        labels = ['java', 'gradle', 'groovy', 'node']
+        publicDownloadNumbers = true
     }
 }
 

@@ -12,10 +12,11 @@ class VariantBuilderTest
     def "test variant on windows (#osArch)"()
     {
         given:
+        def project = ProjectBuilder.builder().build()
+
         System.setProperty( "os.name", "Windows 8" )
         System.setProperty( "os.arch", osArch )
 
-        def project = ProjectBuilder.builder().build()
         def ext = new NodeExtension( project )
         ext.version = '0.11.1'
         ext.workDir = new File( '.gradle/node' ).absoluteFile

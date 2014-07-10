@@ -4,6 +4,7 @@ Changelog
 Version 0.6 *(not released)*
 ----------------------------
 
+* Upgrade to Gradle 2.0
 * Possible to read execResult for npm and node tasks _(johnrengelman)_
 
 Version 0.5 *(2014-03-29)*
