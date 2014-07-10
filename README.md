@@ -21,13 +21,13 @@ Setup the plugin like this:
 			jcenter()
 		}
     	dependencies {
-			classpath 'com.moowork.gradle:gradle-node-plugin:0.4'
+			classpath 'com.moowork.gradle:gradle-node-plugin:0.6'
     	}
 	}
 
 Include the plugin in your build.gradle file like this:
 
-    apply plugin: 'node'
+    apply plugin: 'com.moowork.node'
 
 Running a NodeJS script
 -----------------------

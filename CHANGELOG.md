@@ -1,8 +1,13 @@
 Changelog
 =========
 
-Version 0.6 *(not released)*
+Version 0.7 *(not released)*
 ----------------------------
+
+* ...
+
+Version 0.6 *(2014-07-10)*
+--------------------------
 
 * Upgrade to Gradle 2.0
 * Using 'com.moowork.node' as plugin id, but 'node' still works for another version
