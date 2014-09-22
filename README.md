@@ -13,7 +13,7 @@ Status
 Installing the plugin
 ---------------------
 
-Releases of this plugin are hosted at BinTray (http://bintray.com) and is part of jcentral repository.
+Releases of this plugin are hosted at BinTray (http://bintray.com) and is part of jcenter repository.
 Setup the plugin like this:
 
 	buildscript {
@@ -123,6 +123,6 @@ You can configure the plugin using the "node" extension block, like this:
 Building the Plugin
 -------------------
 
-To build the plugin, just type the following commmand:
+To build the plugin, just type the following command:
 
     ./gradlew clean build
