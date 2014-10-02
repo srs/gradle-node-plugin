@@ -9,6 +9,7 @@ Status
 
 * Build: [![Build Status](https://travis-ci.org/srs/gradle-node-plugin.png?branch=master)](https://travis-ci.org/srs/gradle-node-plugin)
 * Download: [![Download](https://api.bintray.com/packages/srs/maven/gradle-node-plugin/images/download.png)](https://bintray.com/srs/maven/gradle-node-plugin)
+* License: [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 Installing the plugin
 ---------------------
