@@ -19,8 +19,17 @@ class NpmExecRunner
             return run( 'npm', this.arguments )
         }
 
+        def String npmScriptFile = this.variant.npmScriptFile
+        def File localNpm = project.file('node_modules/npm/bin/npm-cli.js')
+
+        // Use locally-installed npm if available
+        if ( localNpm.exists() )
+        {
+           npmScriptFile = localNpm.absolutePath
+        }
+
         def runner = new NodeExecRunner( this.project )
-        runner.arguments = [this.variant.npmScriptFile] + this.arguments
+        runner.arguments = [npmScriptFile] + this.arguments
         runner.environment = this.environment
         runner.workingDir = this.workingDir
         runner.execOverrides = this.execOverrides
