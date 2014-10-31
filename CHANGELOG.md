@@ -5,6 +5,7 @@ Version 0.7 *(not released)*
 ----------------------------
 
 * Allow local npm to override bundled npm _(dougborg)_
+* Allow for configuring npmVersion _(dougborg)_
 * ...
 
 Version 0.6 *(2014-07-10)*
