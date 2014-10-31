@@ -80,11 +80,11 @@ installs all dependencies in "package.json". It will only run when changes are m
 
 All npm command can also be invoked using underscore notation based on a gradle rule
 
-     $ gradle npm_install
-     $ gradle npm_update
-     $ gradle npm_list
-     $ gradle npm_cache_clean
-     ...
+    $ gradle npm_install
+    $ gradle npm_update
+    $ gradle npm_list
+    $ gradle npm_cache_clean
+    ...
 
 These however are not shown when running gradle tasks, as they generated dynamically.
 However they can be used for dependency declarations, such as npm_install.dependsOn(npm_cache_clean)
@@ -110,6 +110,9 @@ You can configure the plugin using the "node" extension block, like this:
         // Version of node to use.
         version = '0.11.10'
 
+        // Version of npm to use.
+        npmVersion = '2.1.5'
+
         // Base URL for fetching node distributions (change if you have a mirror).
         distBaseUrl = 'http://nodejs.org/dist'
 
@@ -124,18 +127,13 @@ You can configure the plugin using the "node" extension block, like this:
 Using a custom (project-local) version of npm
 ---------------------------------------------
 
-If you are using the plugin to manage your node installation (`download = true`)
-and would like to use a custom version of npm rather than the one bundled with
-the version of node you have configured, you may install it locally using an
-`NpmTask`:
+The plugin will use a locally-installed npm if it exists, regardless of the
+method of installation.
 
-    task installCustomNpm(type: NpmTask) {
-      args = ['install', 'npm@2.1.1']
-    }
-
-The task above will install the npm package to the project's `node_modules`
-directory and the plugin will use a locally-installed npm if it exists, and
-subsequent`NpmTask`s will use the version of npm installed above.
+If you would like the plugin to install use a custom version of npm rather than
+the one bundled with the version of node installation, you can set `npmVersion`
+in the `node` extension block. The plugin will install the npm to the project's
+`node_modules` directory by configuring the `npmSetup` task.
 
 Building the Plugin
 -------------------

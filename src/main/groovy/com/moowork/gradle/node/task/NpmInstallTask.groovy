@@ -13,6 +13,7 @@ class NpmInstallTask
         this.group = 'Node'
         this.description = 'Install node packages from package.json.'
         setNpmCommand('install')
+        dependsOn( [NpmSetupTask.NAME] )
 
         getInputs().file( new File( this.project.getProjectDir(), 'package.json' ) )
         getOutputs().dir( new File( this.project.getProjectDir(), 'node_modules' ) )

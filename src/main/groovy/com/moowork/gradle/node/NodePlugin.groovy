@@ -4,6 +4,7 @@ import com.moowork.gradle.node.task.NodeTask
 import com.moowork.gradle.node.task.NpmInstallTask
 import com.moowork.gradle.node.task.NpmTask
 import com.moowork.gradle.node.task.SetupTask
+import com.moowork.gradle.node.task.NpmSetupTask
 import com.moowork.gradle.node.variant.VariantBuilder
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -17,6 +18,8 @@ class NodePlugin
 
     private SetupTask setupTask
 
+    private NpmSetupTask npmSetupTask
+
     @Override
     void apply( final Project project )
     {
@@ -29,7 +32,8 @@ class NodePlugin
 
         this.project.afterEvaluate {
             configureSetupTask()
-            configureDepedencies()
+            configureDependencies()
+            configureNpmSetupTask()
         }
     }
 
@@ -43,6 +47,7 @@ class NodePlugin
     {
         this.project.tasks.create( NpmInstallTask.NAME, NpmInstallTask )
         this.setupTask = this.project.tasks.create( SetupTask.NAME, SetupTask )
+        this.npmSetupTask = this.project.tasks.create( NpmSetupTask.NAME, NpmSetupTask )
     }
 
     private void addGlobalTaskType( Class type )
@@ -69,7 +74,12 @@ class NodePlugin
         this.setupTask.setEnabled( this.ext.download )
     }
 
-    private void configureDepedencies()
+    private void configureNpmSetupTask()
+    {
+        this.npmSetupTask.configureNpmVersion( this.ext.npmVersion )
+    }
+
+    private void configureDependencies()
     {
         if ( this.ext.download )
         {
