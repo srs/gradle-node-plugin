@@ -18,7 +18,7 @@ Releases of this plugin are hosted at BinTray (http://bintray.com) and is part o
 Setup the plugin like this:
 
     plugins {
-        id "com.moowork.node" version "0.6"
+        id "com.moowork.node" version "0.7"
     }
 
 Or using the old (pre 2.1) way:
@@ -28,7 +28,7 @@ Or using the old (pre 2.1) way:
 			jcenter()
 		}
     	dependencies {
-			classpath 'com.moowork.gradle:gradle-node-plugin:0.6'
+			classpath 'com.moowork.gradle:gradle-node-plugin:0.7'
     	}
 	}
 

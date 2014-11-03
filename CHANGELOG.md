@@ -1,13 +1,17 @@
 Changelog
 =========
 
-Version 0.7 *(not released)*
+Version 0.8 *(not released)*
 ----------------------------
+
+* ...
+
+Version 0.7 *(2014-11-03)*
+--------------------------
 
 * Allow local npm to override bundled npm _(dougborg)_
 * Allow for configuring npmVersion _(dougborg)_
 * Upgrade to Gradle 2.1
-* ...
 
 Version 0.6 *(2014-07-10)*
 --------------------------
