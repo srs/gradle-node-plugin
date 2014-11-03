@@ -17,6 +17,12 @@ Installing the plugin
 Releases of this plugin are hosted at BinTray (http://bintray.com) and is part of jcenter repository.
 Setup the plugin like this:
 
+    plugins {
+        id "com.moowork.node" version "0.6"
+    }
+
+Or using the old (pre 2.1) way:
+
 	buildscript {
 		repositories {
 			jcenter()

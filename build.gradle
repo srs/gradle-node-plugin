@@ -1,17 +1,10 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:0.5'
-    }
+plugins {
+    id "com.jfrog.bintray" version "0.6"
 }
 
 apply plugin: 'groovy'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
 
 group = 'com.moowork.gradle'
 
@@ -25,7 +18,7 @@ repositories {
 
 dependencies {
     compile gradleApi()
-    testCompile('org.spockframework:spock-core:0.7-groovy-2.0') {
+    testCompile( 'org.spockframework:spock-core:0.7-groovy-2.0' ) {
         exclude module: 'groovy-all'
     }
 }
@@ -74,4 +67,3 @@ bintray {
         publicDownloadNumbers = true
     }
 }
-
