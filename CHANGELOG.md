@@ -4,6 +4,7 @@ Changelog
 Version 0.8 *(not released)*
 ----------------------------
 
+* Publish snapshots to jcenter _(dougborg)_
 * Add node to execution path for NodeExec _(dougborg)_
 * ...
 
