@@ -4,6 +4,7 @@ Changelog
 Version 0.8 *(not released)*
 ----------------------------
 
+* Add node to execution path for NodeExec _(dougborg)_
 * ...
 
 Version 0.7 *(2014-11-03)*
