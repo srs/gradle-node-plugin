@@ -8,7 +8,14 @@ apply plugin: 'maven-publish'
 
 group = 'com.moowork.gradle'
 
-def compatibilityVersion = 1.7
+ext {
+    bintrayUser = System.env.'BINTRAY_USER'
+    bintrayKey = System.env.'BINTRAY_KEY'
+    isMaster = System.env.'TRAVIS_BRANCH' == "master"
+    isCI = System.env.'CI'
+    compatibilityVersion = 1.7
+}
+
 sourceCompatibility = compatibilityVersion
 targetCompatibility = compatibilityVersion
 
@@ -38,6 +45,10 @@ artifacts {
     archives groovydocJar
 }
 
+task ci {
+    dependsOn 'build', 'artifactoryPublish'
+}
+
 publishing {
     publications {
         mavenJava( MavenPublication ) {
@@ -48,9 +59,28 @@ publishing {
     }
 }
 
+artifactoryPublish {
+    onlyIf { isMaster }
+    mustRunAfter 'build'
+    publications 'mavenJava'
+}
+
+artifactory {
+  contextUrl = "${artifactory_contextUrl}"
+
+  publish {
+      repository {
+          repoKey = 'oss-snapshot-local'
+          username = bintrayUser
+          password = bintrayKey
+          maven = true
+      }
+  }
+}
+
 bintray {
-    user = project.hasProperty( 'bintrayUser' ) ? project.getProperty( 'bintrayUser' ) : null
-    key = project.hasProperty( 'bintrayKey' ) ? project.getProperty( 'bintrayKey' ) : null
+    user = bintrayUser
+    key = bintrayKey
 
     publications = ['mavenJava']
     publish = true
