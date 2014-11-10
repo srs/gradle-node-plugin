@@ -67,7 +67,7 @@ artifactoryPublish {
 }
 
 artifactory {
-  contextUrl = "${artifactory_contextUrl}"
+  contextUrl = 'https://oss.jfrog.org'
 
   publish {
       repository {
