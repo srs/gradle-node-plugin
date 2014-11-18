@@ -6,6 +6,7 @@ Version 0.8 *(not released)*
 
 * Publish snapshots to jcenter _(dougborg)_
 * Add node to execution path for NodeExec _(dougborg)_
+* Use 'com.moowork.node' id instead of 'node
 * ...
 
 Version 0.7 *(2014-11-03)*
