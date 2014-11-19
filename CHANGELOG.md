@@ -7,6 +7,7 @@ Version 0.8 *(not released)*
 * Publish snapshots to jcenter _(dougborg)_
 * Add node to execution path for NodeExec _(dougborg)_
 * Use 'com.moowork.node' id instead of 'node
+* Upgraded wrapper to use Gradle 2.2
 * ...
 
 Version 0.7 *(2014-11-03)*
@@ -42,4 +43,3 @@ Version 0.3 *(2014-01-10)*
 --------------------------
 
 * Initial usable version
-
