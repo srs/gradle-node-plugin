@@ -28,7 +28,7 @@ class PlatformHelperTest
         'Linux'     | 'x86_64' | 'linux'   | 'x64'  | false
     }
 
-    def "throw exeption if unsupported os"()
+    def "throw exception if unsupported os"()
     {
         given:
         System.setProperty( "os.name", 'SunOS' )
