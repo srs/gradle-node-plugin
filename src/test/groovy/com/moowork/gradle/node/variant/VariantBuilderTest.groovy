@@ -32,7 +32,7 @@ class VariantBuilderTest
         expect:
         variant != null
         variant.windows
-        variant.exeDependency == 'org.nodejs:node:0.11.1@exe'
+        variant.exeDependency == exeDependency
         variant.tarGzDependency == 'org.nodejs:node:0.11.1:linux-x86@tar.gz'
 
         variant.nodeDir.toString().endsWith( NODE_BASE_PATH + nodeDir )
@@ -42,9 +42,9 @@ class VariantBuilderTest
         variant.npmScriptFile.toString().endsWith( NODE_BASE_PATH + "node-v0.11.1-linux-x86${PS}lib${PS}node_modules${PS}npm${PS}bin${PS}npm-cli.js" )
 
         where:
-        osArch   | nodeDir
-        'x86'    | 'node-v0.11.1-windows-x86'
-        'x86_64' | 'node-v0.11.1-windows-x64'
+        osArch   | nodeDir                    | exeDependency
+        'x86'    | 'node-v0.11.1-windows-x86' | 'org.nodejs:node:0.11.1@exe'
+        'x86_64' | 'node-v0.11.1-windows-x64' | 'org.nodejs:x64/node:0.11.1@exe'
     }
 
     @Unroll
