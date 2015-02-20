@@ -4,6 +4,8 @@ Changelog
 Version 0.9 *(not released)*
 ----------------------------
 
+* Updated some plugin references
+* Fixed some tests on Windows _(abelsromero)_
 * ...
 
 Version 0.8 *(2014-11-19)*
