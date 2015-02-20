@@ -20,7 +20,14 @@ class NodeExecRunner
             def nodeBinDirPath = this.variant.nodeBinDir.getAbsolutePath()
 
             nodeEnvironment << System.getenv()
-            nodeEnvironment['PATH'] = nodeBinDirPath + File.pathSeparator + System.getenv('PATH')
+            // Take care of Windows environments that may contain "Path" OR "PATH" - both existing
+            // possibly (but not in parallel as of now)
+            if (System.getenv('Path') != null) {
+                nodeEnvironment['Path'] = nodeBinDirPath + File.pathSeparator + System.getenv('Path')
+            } else {
+                nodeEnvironment['PATH'] = nodeBinDirPath + File.pathSeparator + System.getenv('PATH')
+            }
+
 
             this.environment = nodeEnvironment
             exec = this.variant.nodeExec
