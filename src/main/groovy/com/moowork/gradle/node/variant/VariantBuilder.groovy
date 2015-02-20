@@ -49,7 +49,15 @@ class VariantBuilder
     private String getExeDependency()
     {
         def version = this.ext.version
-        return "org.nodejs:node:${version}@exe"
+        def osArch = PlatformHelper.getOsArch()
+        if (osArch.equals( "x86" ))
+        {
+            return "org.nodejs:node:${version}@exe"
+        }
+        else 
+        {
+            return "org.nodejs:x64/node:${version}@exe"            
+        }
     }
 
     private File getNodeDir( final String osName, final String osArch )
