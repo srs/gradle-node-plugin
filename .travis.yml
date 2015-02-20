@@ -3,9 +3,4 @@ language: groovy
 jdk:
 - oraclejdk7
 
-env:
-  global:
-  - secure: Pzq890qJT2cd1sEonUJI9isKYnonjLe3nG3PwcdwdP2xUq0i2OC4Hy/VOYBH+VKCuEUBgd5VL+S2ckuk4fqMqlPXrrRjp+7SmfvNPjoOpLcgvBbqPfI6dqfXSYWtlWepudjbgS58YrbV2xtGQvhV3j4HDqvYiDcVH8u58P5aNA8=
-  - secure: OYGfp6EsIC4c0Dofq+d0Yd35UWLD1JsrHnLdhl8rcXcpOO99HZt3ajMRNP+VlfewkEvac1ocdnzBRo1J2Kek1ImisO8PuaqDyQOwouwdjTgT1IkEEVP84sQsy8eVWpCGtfKtkaBXVbHU9nc+9sBnt2GeeGzGP0jMGEhXSEGoCPg=
-
 script: ./gradlew ci
