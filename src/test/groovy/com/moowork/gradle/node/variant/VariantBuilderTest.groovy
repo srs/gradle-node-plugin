@@ -8,6 +8,12 @@ import spock.lang.Unroll
 class VariantBuilderTest
     extends Specification
 {
+
+    /* OS dependant line separator */
+    static final String PS = File.separator
+    /* Relative base path for nodejs installation */
+    static final String NODE_BASE_PATH = "${PS}.gradle${PS}node${PS}"
+
     @Unroll
     def "test variant on windows (#osArch)"()
     {
@@ -28,11 +34,12 @@ class VariantBuilderTest
         variant.windows
         variant.exeDependency == 'org.nodejs:node:0.11.1@exe'
         variant.tarGzDependency == 'org.nodejs:node:0.11.1:linux-x86@tar.gz'
-        variant.nodeDir.toString().endsWith( '/.gradle/node/' + nodeDir )
-        variant.nodeBinDir.toString().endsWith( '/.gradle/node/' + nodeDir + '/bin' )
-        variant.nodeExec.toString().endsWith( '/.gradle/node/' + nodeDir + '/bin/node.exe' )
-        variant.npmDir.toString().endsWith( '/.gradle/node/node-v0.11.1-linux-x86/lib/node_modules' )
-        variant.npmScriptFile.toString().endsWith( '/.gradle/node/node-v0.11.1-linux-x86/lib/node_modules/npm/bin/npm-cli.js' )
+
+        variant.nodeDir.toString().endsWith( NODE_BASE_PATH + nodeDir )
+        variant.nodeBinDir.toString().endsWith( NODE_BASE_PATH + nodeDir + PS + 'bin' )
+        variant.nodeExec.toString().endsWith( NODE_BASE_PATH + nodeDir + PS + "bin${PS}node.exe" )
+        variant.npmDir.toString().endsWith( NODE_BASE_PATH + "node-v0.11.1-linux-x86${PS}lib${PS}node_modules" )
+        variant.npmScriptFile.toString().endsWith( NODE_BASE_PATH + "node-v0.11.1-linux-x86${PS}lib${PS}node_modules${PS}npm${PS}bin${PS}npm-cli.js" )
 
         where:
         osArch   | nodeDir
@@ -59,11 +66,12 @@ class VariantBuilderTest
         !variant.windows
         variant.exeDependency == null
         variant.tarGzDependency == depName
-        variant.nodeDir.toString().endsWith( '/.gradle/node/' + nodeDir )
-        variant.nodeBinDir.toString().endsWith( '/.gradle/node/' + nodeDir + '/bin' )
-        variant.nodeExec.toString().endsWith( '/.gradle/node/' + nodeDir + '/bin/node' )
-        variant.npmDir.toString().endsWith( '/.gradle/node/' + nodeDir + '/lib/node_modules' )
-        variant.npmScriptFile.toString().endsWith( '/.gradle/node/' + nodeDir + '/lib/node_modules/npm/bin/npm-cli.js' )
+
+        variant.nodeDir.toString().endsWith( NODE_BASE_PATH + nodeDir )
+        variant.nodeBinDir.toString().endsWith( NODE_BASE_PATH + nodeDir + PS + 'bin' )
+        variant.nodeExec.toString().endsWith( NODE_BASE_PATH + nodeDir + PS + "bin${PS}node" )
+        variant.npmDir.toString().endsWith( NODE_BASE_PATH + nodeDir + PS + "lib${PS}node_modules" )
+        variant.npmScriptFile.toString().endsWith( NODE_BASE_PATH + nodeDir + PS + "lib${PS}node_modules${PS}npm${PS}bin${PS}npm-cli.js" )
 
         where:
         osName     | osArch   | nodeDir                   | depName
