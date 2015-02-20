@@ -13,7 +13,7 @@ class SetupTask
 {
     public final static String NAME = 'nodeSetup'
 
-    protected NodeExtension ext
+    private NodeExtension config
 
     protected Variant variant
 
@@ -29,7 +29,7 @@ class SetupTask
     {
         configureIfNeeded()
 
-        if ( !this.ext.download )
+        if ( !this.config.download )
         {
             return new HashSet<File>()
         }
@@ -46,13 +46,13 @@ class SetupTask
 
     private void configureIfNeeded()
     {
-        if ( this.ext != null )
+        if ( this.config != null )
         {
             return
         }
 
-        this.ext = NodeExtension.get( this.project )
-        this.variant = VariantBuilder.build( this.ext )
+        this.config = NodeExtension.get( this.project )
+        this.variant = VariantBuilder.build( this.config )
     }
 
     @TaskAction

@@ -8,6 +8,7 @@ Version 0.9 *(not released)*
 * Fixed some tests on Windows _(abelsromero)_
 * Fixed issue for windows environments, not containing "PATH" but "Path" _(tspaeth)_
 * Allow 64 bit windows to use the x64 node.exe _(ekaufman)_
+* Renamed "ext" property on SetupTask so that it's not causing any conflicts
 * ...
 
 Version 0.8 *(2014-11-19)*

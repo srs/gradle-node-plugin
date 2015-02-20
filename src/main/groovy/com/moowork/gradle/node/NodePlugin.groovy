@@ -14,7 +14,7 @@ class NodePlugin
 {
     private Project project
 
-    private NodeExtension ext
+    private NodeExtension config
 
     private SetupTask setupTask
 
@@ -24,7 +24,7 @@ class NodePlugin
     void apply( final Project project )
     {
         this.project = project
-        this.ext = this.project.extensions.create( NodeExtension.NAME, NodeExtension, this.project )
+        this.config = this.project.extensions.create( NodeExtension.NAME, NodeExtension, this.project )
 
         addGlobalTypes()
         addTasks()
@@ -71,17 +71,17 @@ class NodePlugin
 
     private void configureSetupTask()
     {
-        this.setupTask.setEnabled( this.ext.download )
+        this.setupTask.setEnabled( this.config.download )
     }
 
     private void configureNpmSetupTask()
     {
-        this.npmSetupTask.configureNpmVersion( this.ext.npmVersion )
+        this.npmSetupTask.configureNpmVersion( this.config.npmVersion )
     }
 
     private void configureDependencies()
     {
-        if ( this.ext.download )
+        if ( this.config.download )
         {
             addRepositories()
             addDependencies()
@@ -92,7 +92,7 @@ class NodePlugin
     {
         this.project.repositories {
             ivy {
-                url this.ext.distBaseUrl
+                url this.config.distBaseUrl
                 layout 'pattern', {
                     artifact 'v[revision]/[artifact](-v[revision]-[classifier]).[ext]'
                 }
@@ -104,7 +104,7 @@ class NodePlugin
     {
         this.project.configurations.create( NodeExtension.CONFIG_NAME )
 
-        def variant = VariantBuilder.build( this.ext )
+        def variant = VariantBuilder.build( this.config )
         this.project.dependencies.add( NodeExtension.CONFIG_NAME, variant.tarGzDependency )
 
         if ( variant.exeDependency != null )
