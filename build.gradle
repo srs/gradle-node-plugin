@@ -14,7 +14,7 @@ ext {
     bintrayKey = System.env.'BINTRAY_KEY'
     isMaster = System.env.'TRAVIS_BRANCH' == "master"
     isCI = System.env.'CI'
-    compatibilityVersion = 1.7
+    compatibilityVersion = 1.6
 }
 
 sourceCompatibility = compatibilityVersion
