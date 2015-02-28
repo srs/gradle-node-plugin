@@ -20,6 +20,11 @@ class PlatformHelper
             return "linux"
         }
 
+        if ( name.contains( "freebsd" ) )
+        {
+            return "linux"
+        }
+
         throw new IllegalArgumentException( "Unsupported OS: " + name )
     }
 
