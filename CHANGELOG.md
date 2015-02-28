@@ -1,8 +1,13 @@
 Changelog
 =========
 
-Version 0.9 *(not released)*
-----------------------------
+Version 0.10 *(not released)*
+-----------------------------
+
+* ...
+
+Version 0.9 *(2015-02-28)*
+--------------------------
 
 * Updated some plugin references
 * Fixed some tests on Windows _(abelsromero)_
@@ -11,7 +16,6 @@ Version 0.9 *(not released)*
 * Renamed "ext" property on SetupTask so that it's not causing any conflicts
 * Added detection for FreeBSD as a Linux variant
 * Compiling using Java 1.6 compatiblity _(stianl)_
-* ...
 
 Version 0.8 *(2014-11-19)*
 --------------------------
