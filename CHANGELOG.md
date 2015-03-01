@@ -4,6 +4,7 @@ Changelog
 Version 0.10 *(not released)*
 -----------------------------
 
+* Fixed problem with spaces in workDir
 * ...
 
 Version 0.9 *(2015-02-28)*

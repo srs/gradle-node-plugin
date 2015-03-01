@@ -19,9 +19,9 @@ abstract class ExecRunner
     def Object workingDir
 
     def List<?> arguments = []
-    
+
     def boolean ignoreExitValue
-    
+
     def Closure execOverrides
 
     public ExecRunner( final Project project )
@@ -37,7 +37,8 @@ abstract class ExecRunner
         if ( this.variant.windows )
         {
             realExec = 'cmd'
-            realArgs = ['/c', exec] + args
+            realArgs.add( 0, exec )
+            realArgs = createWinArg( realArgs )
         }
 
         return this.project.exec( {
@@ -64,6 +65,16 @@ abstract class ExecRunner
                 this.execOverrides( it )
             }
         } )
+    }
+
+    private static List<?> createWinArg( final List<?> args )
+    {
+        def result = []
+        args.each {
+            result += '"' + it + '"'
+        }
+
+        return ['/c', '"' + result.join( ' ' ) + '"']
     }
 
     public final ExecResult execute()
