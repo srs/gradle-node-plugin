@@ -152,7 +152,7 @@ You can configure the plugin using the "node" extension block, like this:
       workDir = file("${project.buildDir}/nodejs")
     }
 
-*Note* that `download` flag is default to `false`. This will change in future versions.
+**Note** that `download` flag is default to `false`. This will change in future versions.
 
 Using a Custom (project-local) Version of `npm`
 -----------------------------------------------
