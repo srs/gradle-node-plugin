@@ -13,7 +13,11 @@ class NpmSetupTask
         this.group = 'Node'
         this.description = 'Setup a specific version of npm to be used by the build.'
         this.enabled = false
-        getOutputs().dir( new File( this.project.getProjectDir(), 'node_modules/npm' ) )
+
+        this.project.afterEvaluate {
+            getOutputs().dir( new File( this.project.node.nodeModulesDir, 'node_modules/npm' ) )
+            setWorkingDir( this.project.node.nodeModulesDir )
+        }
     }
 
     void configureNpmVersion( String npmVersion )

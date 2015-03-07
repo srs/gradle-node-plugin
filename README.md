@@ -150,6 +150,9 @@ You can configure the plugin using the "node" extension block, like this:
 
       // Set the work directory for unpacking node
       workDir = file("${project.buildDir}/nodejs")
+
+      // Set the work directory where node_modules should be located
+      nodeModulesDir = file("${project.projectDir}")
     }
 
 **Note** that `download` flag is default to `false`. This will change in future versions.

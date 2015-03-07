@@ -10,6 +10,8 @@ class NodeExtension
 
     def File workDir
 
+    def File nodeModulesDir
+
     def String version = '0.11.10'
 
     def String npmVersion = ''
@@ -21,6 +23,7 @@ class NodeExtension
     NodeExtension( final Project project )
     {
         this.workDir = new File( project.gradle.gradleUserHomeDir, 'nodejs' )
+        this.nodeModulesDir = project.projectDir
     }
 
     static NodeExtension get( final Project project )

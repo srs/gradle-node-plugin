@@ -20,7 +20,7 @@ class NpmExecRunner
         }
 
         def String npmScriptFile = this.variant.npmScriptFile
-        def File localNpm = project.file('node_modules/npm/bin/npm-cli.js')
+        def File localNpm = project.file( new File( this.ext.nodeModulesDir, 'node_modules/npm/bin/npm-cli.js' ) )
 
         // Use locally-installed npm if available
         if ( localNpm.exists() )
