@@ -15,7 +15,10 @@ class NpmInstallTask
         setNpmCommand('install')
         dependsOn( [NpmSetupTask.NAME] )
 
-        getInputs().file( new File( this.project.getProjectDir(), 'package.json' ) )
-        getOutputs().dir( new File( this.project.getProjectDir(), 'node_modules' ) )
+        this.project.afterEvaluate {
+            getInputs().file( new File( this.project.node.nodeModulesDir, 'package.json' ) )
+            getOutputs().dir( new File( this.project.node.nodeModulesDir, 'node_modules' ) )
+            setWorkingDir( this.project.node.nodeModulesDir )
+        }
     }
 }
