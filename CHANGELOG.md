@@ -5,6 +5,7 @@ Version 0.10 *(not released)*
 -----------------------------
 
 * Fixed problem with spaces in workDir
+* Add configuration for node_modules location _(nmalaguti)_
 * ...
 
 Version 0.9 *(2015-02-28)*
