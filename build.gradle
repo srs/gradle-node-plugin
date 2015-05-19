@@ -68,7 +68,7 @@ artifacts {
 }
 
 task ci {
-    dependsOn 'build', 'artifactoryPublish'
+    dependsOn 'build' // , 'artifactoryPublish'
 }
 
 publishing {
