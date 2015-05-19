@@ -26,12 +26,14 @@ class PlatformHelperTest
         'Mac OS X'  | 'x86_64' | 'darwin'  | 'x64'  | false
         'Linux'     | 'x86'    | 'linux'   | 'x86'  | false
         'Linux'     | 'x86_64' | 'linux'   | 'x64'  | false
+        'SunOS'     | 'x86'    | 'sunos'   | 'x86'  | false
+        'SunOS'     | 'x86_64' | 'sunos'   | 'x64'  | false
     }
 
     def "throw exception if unsupported os"()
     {
         given:
-        System.setProperty( "os.name", 'SunOS' )
+        System.setProperty( "os.name", 'Nonsense' )
 
         when:
         PlatformHelper.getOsName()

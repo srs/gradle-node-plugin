@@ -25,6 +25,11 @@ class PlatformHelper
             return "linux"
         }
 
+        if ( name.contains( "sunos" ) )
+        {
+            return "sunos"
+        }
+
         throw new IllegalArgumentException( "Unsupported OS: " + name )
     }
 
