@@ -6,6 +6,8 @@ Version 0.10 *(not released)*
 
 * Fixed problem with spaces in workDir
 * Add configuration for node_modules location _(nmalaguti)_
+* Solaris support _(halfninja)_
+* Upgraded wrapper to use Gradle 2.4
 * ...
 
 Version 0.9 *(2015-02-28)*
