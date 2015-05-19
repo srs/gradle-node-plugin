@@ -117,5 +117,8 @@ bintray {
         vcsUrl = 'https://github.com/srs/gradle-node-plugin.git'
         labels = ['java', 'gradle', 'groovy', 'node']
         publicDownloadNumbers = true
+        version {
+            attributes = ['gradle-plugin': 'com.moowork.node:com.moowork.gradle:gradle-node-plugin']
+        }
     }
 }
