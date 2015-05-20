@@ -40,7 +40,7 @@ Or using the old (pre 2.1) way:
         }
       }
       dependencies {
-        classpath 'com.moowork.gradle:gradle-node-plugin:0.8'
+        classpath 'com.moowork.gradle:gradle-node-plugin:0.10'
       }
     }
 
