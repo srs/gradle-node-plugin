@@ -16,7 +16,7 @@ class NodeExtension
 
     def String npmVersion = ''
 
-    def String distBaseUrl = 'http://nodejs.org/dist'
+    def String distBaseUrl = 'https://nodejs.org/dist'
 
     def boolean download = false
 
