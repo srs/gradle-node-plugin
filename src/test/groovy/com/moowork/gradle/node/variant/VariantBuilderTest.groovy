@@ -48,6 +48,39 @@ class VariantBuilderTest
     }
 
     @Unroll
+    def "test variant on windows version 4.+ (#osArch)"()
+    {
+        given:
+        def project = ProjectBuilder.builder().build()
+
+        System.setProperty( "os.name", "Windows 8" )
+        System.setProperty( "os.arch", osArch )
+
+        def ext = new NodeExtension( project )
+        ext.version = '4.0.0'
+        ext.workDir = new File( '.gradle/node' ).absoluteFile
+
+        def variant = VariantBuilder.build( ext )
+
+        expect:
+        variant != null
+        variant.windows
+        variant.exeDependency == exeDependency
+        variant.tarGzDependency == 'org.nodejs:node:4.0.0:linux-x86@tar.gz'
+
+        variant.nodeDir.toString().endsWith( NODE_BASE_PATH + nodeDir )
+        variant.nodeBinDir.toString().endsWith( NODE_BASE_PATH + nodeDir + PS + 'bin' )
+        variant.nodeExec.toString().endsWith( NODE_BASE_PATH + nodeDir + PS + "bin${PS}node.exe" )
+        variant.npmDir.toString().endsWith( NODE_BASE_PATH + "node-v4.0.0-linux-x86${PS}lib${PS}node_modules" )
+        variant.npmScriptFile.toString().endsWith( NODE_BASE_PATH + "node-v4.0.0-linux-x86${PS}lib${PS}node_modules${PS}npm${PS}bin${PS}npm-cli.js" )
+
+        where:
+        osArch   | nodeDir                    | exeDependency
+        'x86'    | 'node-v4.0.0-windows-x86'  | 'org.nodejs:win-x86/node:4.0.0@exe'
+        'x86_64' | 'node-v4.0.0-windows-x64'  | 'org.nodejs:win-x64/node:4.0.0@exe'
+    }
+
+    @Unroll
     def "test variant on non-windows (#osName, #osArch)"()
     {
         given:
