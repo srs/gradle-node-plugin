@@ -16,7 +16,7 @@ class NpmExecRunner
     {
         if ( !this.ext.download )
         {
-            return run( 'npm', this.arguments )
+            return run( this.ext.npmCommand, this.arguments )
         }
 
         def String npmScriptFile = this.variant.npmScriptFile

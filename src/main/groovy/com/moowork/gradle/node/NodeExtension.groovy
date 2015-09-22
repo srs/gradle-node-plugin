@@ -18,6 +18,8 @@ class NodeExtension
 
     def String distBaseUrl = 'http://nodejs.org/dist'
 
+    def String npmCommand = 'npm'
+
     def boolean download = false
 
     NodeExtension( final Project project )
