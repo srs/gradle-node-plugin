@@ -50,13 +50,28 @@ class VariantBuilder
     {
         def version = this.ext.version
         def osArch = PlatformHelper.getOsArch()
-        if (osArch.equals( "x86" ))
+        def majorVersion = version.tokenize('.')[0].toInteger()
+        if ( majorVersion > 3 )
         {
-            return "org.nodejs:node:${version}@exe"
+            if (osArch.equals( "x86" ))
+            {
+                return "org.nodejs:win-x86/node:${version}@exe"
+            }
+            else
+            {
+                return "org.nodejs:win-x64/node:${version}@exe"
+            }
         }
-        else 
+        else
         {
-            return "org.nodejs:x64/node:${version}@exe"            
+            if (osArch.equals( "x86" ))
+            {
+                return "org.nodejs:node:${version}@exe"
+            }
+            else
+            {
+                return "org.nodejs:x64/node:${version}@exe"
+            }
         }
     }
 
