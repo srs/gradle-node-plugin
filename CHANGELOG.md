@@ -4,6 +4,7 @@ Changelog
 Version 0.11 *(not released)*
 -----------------------------
 
+* Handle 4+ nodejs releases on windows _(dvaske)_
 * ...
 
 Version 0.10 *(2015-05-19)*
