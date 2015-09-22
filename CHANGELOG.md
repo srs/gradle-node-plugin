@@ -5,6 +5,7 @@ Version 0.11 *(not released)*
 -----------------------------
 
 * Handle 4+ nodejs releases on windows _(dvaske)_
+* Add npmCommand parameter to the node extension _(janrotter)_
 * ...
 
 Version 0.10 *(2015-05-19)*
