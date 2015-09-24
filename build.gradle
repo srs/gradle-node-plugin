@@ -1,124 +1,30 @@
-plugins {
-    id 'groovy'
-    id 'maven'
-    id 'maven-publish'
-    id 'java-gradle-plugin'
-    id 'com.jfrog.artifactory' version "3.1.0"
-    id 'com.jfrog.bintray' version "1.2"
+buildscript {
+    apply from: "$rootDir/gradle/buildscript.gradle", to: buildscript
 }
+
+apply plugin: 'groovy'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply from: "$rootDir/gradle/coverage.gradle"
+apply from: "$rootDir/gradle/additional-artifacts.gradle"
+apply from: "$rootDir/gradle/integration-test.gradle"
+apply from: "$rootDir/gradle/travis-ci.gradle"
+apply from: "$rootDir/gradle/publishing.gradle"
 
 group = 'com.moowork.gradle'
 
-ext {
-    bintrayUser = System.env.'BINTRAY_USER'
-    bintrayKey = System.env.'BINTRAY_KEY'
-    isMaster = System.env.'TRAVIS_BRANCH' == "master"
-    isCI = System.env.'CI'
-    compatibilityVersion = 1.6
-}
-
+ext.compatibilityVersion = '1.6'
 sourceCompatibility = compatibilityVersion
 targetCompatibility = compatibilityVersion
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 dependencies {
     compile gradleApi()
-    testCompile( 'com.netflix.nebula:nebula-test:2.0.2' ) {
+    testCompile( 'com.netflix.nebula:nebula-test:3.1.0' ) {
         exclude module: 'groovy-all'
     }
 }
 
-sourceSets {
-    integTest {
-        groovy.srcDir file( 'src/integTest/groovy' )
-        resources.srcDir file( 'src/integTest/resources' )
-    }
-}
-
-dependencies {
-    integTestCompile sourceSets.main.output
-    integTestCompile configurations.testCompile
-    integTestCompile sourceSets.test.output
-    integTestRuntime configurations.testRuntime
-}
-
-task integTest( type: Test ) {
-    testClassesDir = sourceSets.integTest.output.classesDir
-    classpath = sourceSets.integTest.runtimeClasspath
-}
-
-// check.dependsOn integTest
-
-task sourcesJar( type: Jar ) {
-    classifier 'sources'
-    from sourceSets.main.allSource
-}
-
-task groovydocJar( type: Jar ) {
-    classifier 'javadoc'
-    from groovydoc
-}
-
-artifacts {
-    archives sourcesJar
-    archives groovydocJar
-}
-
-task ci {
-    dependsOn 'build' // , 'artifactoryPublish'
-}
-
-publishing {
-    publications {
-        mavenJava( MavenPublication ) {
-            from components.java
-            artifact sourcesJar
-            artifact groovydocJar
-        }
-    }
-}
-
-artifactoryPublish {
-    onlyIf { isMaster }
-    mustRunAfter 'build'
-    publications 'mavenJava'
-}
-
-artifactory {
-    contextUrl = 'https://oss.jfrog.org'
-
-    publish {
-        repository {
-            repoKey = 'oss-snapshot-local'
-            username = bintrayUser
-            password = bintrayKey
-            maven = true
-        }
-    }
-}
-
-bintray {
-    user = bintrayUser
-    key = bintrayKey
-
-    publications = ['mavenJava']
-    publish = true
-
-    pkg {
-        repo = 'maven'
-        name = 'gradle-node-plugin'
-        licenses = ['Apache-2.0']
-        desc = 'Gradle plugin for executing node scripts.'
-        websiteUrl = 'https://github.com/srs/gradle-node-plugin'
-        issueTrackerUrl = 'https://github.com/srs/gradle-node-plugin/issues'
-        vcsUrl = 'https://github.com/srs/gradle-node-plugin.git'
-        labels = ['java', 'gradle', 'groovy', 'node']
-        publicDownloadNumbers = true
-        version {
-            attributes = ['gradle-plugin': 'com.moowork.node:com.moowork.gradle:gradle-node-plugin']
-        }
-    }
-}

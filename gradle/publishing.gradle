@@ -1,0 +1,74 @@
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.jfrog.artifactory'
+
+ext {
+    bintrayUser = resolveProperty( 'BINTRAY_USER', 'bintrayUser' )
+    bintrayKey = resolveProperty( 'BINTRAY_KEY', 'bintrayKey' )
+}
+
+publishing {
+    publications {
+        mavenJava( MavenPublication ) {
+            from components.java
+            artifact sourcesJar
+            artifact groovydocJar
+            artifact javadocJar
+        }
+    }
+}
+
+bintray {
+    user = bintrayUser
+    key = bintrayKey
+    publications = ['mavenJava']
+
+    pkg {
+        repo = 'maven'
+        name = 'gradle-node-plugin'
+        desc = 'Gradle plugin for executing node scripts.'
+        websiteUrl = 'https://github.com/srs/gradle-node-plugin'
+        issueTrackerUrl = 'https://github.com/srs/gradle-node-plugin/issues'
+        vcsUrl = 'https://github.com/srs/gradle-node-plugin.git'
+        licenses = ['Apache-2.0']
+        labels = ['java', 'gradle', 'groovy', 'node']
+        publicDownloadNumbers = true
+
+        version {
+            vcsTag = "v$project.version"
+            attributes = ['gradle-plugin': ["com.moowork.node:${project.group}:${project.name}"]]
+        }
+    }
+}
+
+artifactoryPublish {
+    onlyIf { isMaster }
+    mustRunAfter 'build'
+    publications 'mavenJava'
+}
+
+artifactory {
+    contextUrl = 'https://oss.jfrog.org'
+
+    publish {
+        repository {
+            repoKey = 'oss-snapshot-local'
+            username = bintrayUser
+            password = bintrayKey
+            maven = true
+        }
+    }
+}
+
+String resolveProperty( String envVarKey, String projectPropKey )
+{
+    String propValue = System.getenv()[envVarKey]
+
+    if ( propValue )
+    {
+        return propValue
+    }
+
+    hasProperty( projectPropKey ) ? getProperty( projectPropKey ) : null
+}
