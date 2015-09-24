@@ -1,9 +1,10 @@
 Gradle Plugin for Node
 =======================
 
-[![Build Status](http://goo.gl/gWKi3f)](http://goo.gl/SvKt0Y)
-[![License](http://goo.gl/MMfZhl)](http://goo.gl/D6iAcM)
-[![Download](http://goo.gl/7HBa4S)](http://goo.gl/FfQphx)
+[![Build Status](https://img.shields.io/travis/srs/gradle-node-plugin/master.svg)](https://travis-ci.org/srs/gradle-node-plugin)
+[![Coverage Status](https://coveralls.io/repos/srs/gradle-node-plugin/badge.svg?branch=master&service=github)](https://coveralls.io/github/srs/gradle-node-plugin?branch=master)
+[![License](https://img.shields.io/github/license/srs/gradle-node-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+[![Download](https://img.shields.io/bintray/v/srs/maven/gradle-node-plugin.svg)](https://bintray.com/srs/maven/gradle-node-plugin)
 
 This plugin enables you to run any NodeJS script as part of your build. It does
 not depend on NodeJS (or NPM) being installed on your system. The plugin will
