@@ -65,6 +65,7 @@ class SetupTask
         }
 
         unpackNodeTarGz()
+        setExecutableFlag()
     }
 
     private void copyNodeExe()
@@ -81,6 +82,14 @@ class SetupTask
         this.project.copy {
             from this.project.tarTree( getNodeTarGzFile() )
             into getNodeDir().parent
+        }
+    }
+
+    private void setExecutableFlag()
+    {
+        if ( !this.variant.windows )
+        {
+            new File( this.variant.nodeExec ).setExecutable( true )
         }
     }
 
