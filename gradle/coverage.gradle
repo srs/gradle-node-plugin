@@ -9,3 +9,17 @@ jacocoTestReport {
 }
 
 check.dependsOn jacocoTestReport
+
+test {
+    jacoco {
+        append = true
+        destinationFile = file( "$buildDir/jacoco/test.exec" )
+    }
+}
+
+integrationTest {
+    jacoco {
+        append = true
+        destinationFile = file( "$buildDir/jacoco/test.exec" )
+    }
+}
