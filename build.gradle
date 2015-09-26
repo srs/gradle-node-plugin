@@ -2,6 +2,8 @@ buildscript {
     apply from: "$rootDir/gradle/buildscript.gradle", to: buildscript
 }
 
+group = 'com.moowork.gradle'
+
 apply plugin: 'idea'
 apply plugin: 'groovy'
 apply plugin: 'maven'
@@ -11,8 +13,6 @@ apply from: "$rootDir/gradle/integration-test.gradle"
 apply from: "$rootDir/gradle/coverage.gradle"
 apply from: "$rootDir/gradle/travis-ci.gradle"
 apply from: "$rootDir/gradle/publishing.gradle"
-
-group = 'com.moowork.gradle'
 
 ext.compatibilityVersion = '1.6'
 sourceCompatibility = compatibilityVersion
