@@ -1,10 +1,9 @@
 package com.moowork.gradle.node
 
 import com.moowork.gradle.node.util.PlatformHelper
-import nebula.test.ProjectSpec
 
 class NodePluginTest
-    extends ProjectSpec
+    extends AbstractProjectTest
 {
     private Properties props
 

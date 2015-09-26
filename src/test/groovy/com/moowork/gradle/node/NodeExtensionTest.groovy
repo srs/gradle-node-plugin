@@ -1,9 +1,7 @@
 package com.moowork.gradle.node
 
-import nebula.test.ProjectSpec
-
 class NodeExtensionTest
-    extends ProjectSpec
+    extends AbstractProjectTest
 {
     def "check default values for extension"()
     {

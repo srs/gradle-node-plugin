@@ -1,18 +1,16 @@
 package com.moowork.gradle.node
 
-import nebula.test.IntegrationSpec
+import org.gradle.testkit.runner.TaskOutcome
 
 class Node_integTest
-    extends IntegrationSpec
+    extends AbstractIntegTest
 {
     def 'exec simple node program'()
     {
-        when:
-        writeEmptyPackageJson()
-        writeSimpleJs()
+        given:
+        writeBuild( '''
+            apply plugin: 'com.moowork.node'
 
-        this.buildFile << applyPlugin( NodePlugin )
-        this.buildFile << '''
             node {
                 version = "0.10.33"
                 npmVersion = "2.1.6"
@@ -24,23 +22,25 @@ class Node_integTest
                 script = file('simple.js')
                 args = []
             }
+        ''' )
+        writeEmptyPackageJson()
+        writeFile( 'simple.js', """
+            console.log("Hello World");
+        """ )
 
-        '''.stripIndent()
-
-        def result = runTasksSuccessfully( 'simple' )
+        when:
+        def result = gradleRunner( 'simple' ).build()
 
         then:
-        !result.wasUpToDate( 'simple' )
+        result.task( ':simple' ).outcome == TaskOutcome.SUCCESS
     }
 
     def 'check environment settings'()
     {
-        when:
-        writeEmptyPackageJson()
-        writeSimpleEnvJs()
+        given:
+        writeBuild( '''
+            apply plugin: 'com.moowork.node'
 
-        this.buildFile << applyPlugin( NodePlugin )
-        this.buildFile << '''
             node {
                 version = "0.10.33"
                 npmVersion = "2.1.6"
@@ -53,42 +53,20 @@ class Node_integTest
                 args = []
                 environment = ['MYENV': 'value']
             }
-
-        '''.stripIndent()
-
-        def result = runTasksSuccessfully( 'simple' )
-
-        then:
-        !result.wasUpToDate( 'simple' )
-    }
-
-    def writeEmptyPackageJson()
-    {
-        def packageJson = createFile( 'package.json', this.projectDir )
-        packageJson << """{
-            "name": "example",
-            "dependencies": {
-            }
-        }""".stripIndent()
-    }
-
-    def writeSimpleJs()
-    {
-        def js = createFile( 'simple.js', this.projectDir )
-        js << """
-            console.log("Hello World");
-        """.stripIndent()
-    }
-
-    def writeSimpleEnvJs()
-    {
-        def js = createFile( 'simple.js', this.projectDir )
-        js << """
+        ''' )
+        writeEmptyPackageJson()
+        writeFile( 'simple.js', """
             if (process.env.MYENV == 'value') {
                 console.log("Hello MYENV=" + process.env.MYENV);
             } else {
                 throw "Environment MYENV should be visible";
             }
-        """.stripIndent()
+        """ )
+
+        when:
+        def result = gradleRunner( 'simple' ).build()
+
+        then:
+        result.task( ':simple' ).outcome == TaskOutcome.SUCCESS
     }
 }

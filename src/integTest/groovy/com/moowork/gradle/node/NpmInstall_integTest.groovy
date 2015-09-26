@@ -1,49 +1,44 @@
 package com.moowork.gradle.node
 
-import nebula.test.IntegrationSpec
+import org.gradle.testkit.runner.TaskOutcome
 
 class NpmInstall_integTest
-    extends IntegrationSpec
+    extends AbstractIntegTest
 {
     def 'install packages with npm'()
     {
-        when:
-        writeEmptyPackageJson()
-        this.buildFile << applyPlugin( NodePlugin )
-        this.buildFile << '''
+        given:
+        writeBuild( '''
+            apply plugin: 'com.moowork.node'
+
             node {
                 version = "0.10.33"
                 npmVersion = "2.1.6"
                 download = true
                 workDir = file('build/node')
             }
-        '''.stripIndent()
-
-        def result = runTasksSuccessfully( 'npmInstall' )
-
-        then:
-        !result.wasUpToDate( 'npmInstall' )
-        fileExists( 'node_modules' )
+        ''' )
+        writeEmptyPackageJson()
 
         when:
-        result = runTasksSuccessfully( 'npmInstall' )
+        def result = gradleRunner( 'npmInstall' ).build()
 
         then:
-        result.wasUpToDate( 'npmInstall' )
+        result.task( ':npmInstall' ).outcome == TaskOutcome.SUCCESS
+
+        when:
+        result = gradleRunner( 'npmInstall' ).build()
+
+        then:
+        result.task( ':npmInstall' ).outcome == TaskOutcome.UP_TO_DATE
     }
 
     def 'install packages with npm in different directory'()
     {
-        when:
-        def packageJson = createFile( 'subdirectory/package.json' )
-        packageJson << """{
-            "name": "example",
-            "dependencies": {
-            }
-        }""".stripIndent()
+        given:
+        writeBuild( '''
+            apply plugin: 'com.moowork.node'
 
-        this.buildFile << applyPlugin( NodePlugin )
-        this.buildFile << '''
             node {
                 version = "0.10.33"
                 npmVersion = "2.1.6"
@@ -51,28 +46,17 @@ class NpmInstall_integTest
                 workDir = file('build/node')
                 nodeModulesDir = file('subdirectory')
             }
-        '''.stripIndent()
-
-        def result = runTasksSuccessfully( 'npmInstall' )
-
-        then:
-        !result.wasUpToDate( 'npmInstall' )
-        fileExists( 'subdirectory/node_modules' )
-
-        when:
-        result = runTasksSuccessfully( 'npmInstall' )
-
-        then:
-        result.wasUpToDate( 'npmInstall' )
-    }
-
-    def writeEmptyPackageJson()
-    {
-        def packageJson = createFile( 'package.json', this.projectDir )
-        packageJson << """{
+        ''' )
+        writeFile( 'subdirectory/package.json', """{
             "name": "example",
             "dependencies": {
             }
-        }""".stripIndent()
+        }""" )
+
+        when:
+        def result = gradleRunner( 'npmInstall' ).build()
+
+        then:
+        result.task( ':npmInstall' ).outcome == TaskOutcome.SUCCESS
     }
 }
