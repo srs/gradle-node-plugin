@@ -6,11 +6,8 @@ Gradle Plugin for Node
 [![License](https://img.shields.io/github/license/srs/gradle-node-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Download](https://img.shields.io/bintray/v/srs/maven/gradle-node-plugin.svg)](https://bintray.com/srs/maven/gradle-node-plugin)
 
-*NOTE!*
-
-Next version of this plugin will merge with the [Grunt](https://github.com/srs/gradle-gulp-plugin) and 
+**NOTE:** Next version of this plugin will merge with the [Grunt](https://github.com/srs/gradle-gulp-plugin) and 
 [Gulp](https://github.com/srs/gradle-gulp-plugin) plugins. 
-
 
 This plugin enables you to run any NodeJS script as part of your build. It does
 not depend on NodeJS (or NPM) being installed on your system. The plugin will
