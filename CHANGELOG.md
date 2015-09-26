@@ -16,7 +16,6 @@ Version 0.11 *(2015-09-26)*
 * Update node distribution base url to use https _(AvihayTsayeg)_
 * Added more tests (unit, integration and functional tests)
 * NodeTask environment is now correctly propagated to the runner
-* ...
 
 Version 0.10 *(2015-05-19)*
 ---------------------------
