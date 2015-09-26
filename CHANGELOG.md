@@ -9,6 +9,8 @@ Version 0.11 *(not released)*
 * Set executable flag on node in SetupTask
 * Upgraded wrapper to use Gradle 2.7
 * Update node distribution base url to use https _(AvihayTsayeg)_
+* Added more integration and functional tests
+* NodeTask environment is now correctly propagated to the runner
 * ...
 
 Version 0.10 *(2015-05-19)*
