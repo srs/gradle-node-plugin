@@ -41,6 +41,8 @@ class NodePluginTest
     def 'check repository and dependencies (download)'()
     {
         when:
+        this.props.setProperty( 'os.name', 'Linux' )
+
         this.project.apply plugin: 'com.moowork.node'
         NodeExtension.get( this.project ).download = true
         this.project.evaluate()
