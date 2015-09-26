@@ -8,6 +8,7 @@ Version 0.11 *(not released)*
 * Add npmCommand parameter to the node extension _(janrotter)_
 * Set executable flag on node in SetupTask
 * Upgraded wrapper to use Gradle 2.7
+* Update node distribution base url to use https _(AvihayTsayeg)_
 * ...
 
 Version 0.10 *(2015-05-19)*

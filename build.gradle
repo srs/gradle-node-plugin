@@ -2,6 +2,7 @@ buildscript {
     apply from: "$rootDir/gradle/buildscript.gradle", to: buildscript
 }
 
+apply plugin: 'idea'
 apply plugin: 'groovy'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
@@ -28,4 +29,5 @@ dependencies {
         exclude module: 'groovy-all'
     }
 }
+
 

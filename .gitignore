@@ -6,3 +6,4 @@ build/
 *.iml
 *.ipr
 .idea
+/out

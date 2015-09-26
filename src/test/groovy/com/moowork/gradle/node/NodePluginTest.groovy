@@ -16,4 +16,5 @@ class NodePluginTest
         this.project.tasks.getByName( 'npmInstall' )
         this.project.tasks.getByName( 'npmSetup' )
     }
+
 }
