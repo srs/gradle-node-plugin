@@ -28,6 +28,7 @@ dependencies {
     testCompile( 'org.spockframework:spock-core:1.0-groovy-2.3' ) {
         exclude module: 'groovy-all'
     }
+    testCompile 'cglib:cglib-nodep:3.1'
 }
 
 

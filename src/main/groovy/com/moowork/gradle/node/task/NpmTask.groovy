@@ -8,7 +8,7 @@ import org.gradle.process.ExecResult
 class NpmTask
     extends DefaultTask
 {
-    private NpmExecRunner runner
+    protected NpmExecRunner runner
 
     private Iterable<?> args = []
 
@@ -47,27 +47,30 @@ class NpmTask
         this.runner.workingDir = value
     }
 
-    void setIgnoreExitValue ( final boolean value )
+    void setIgnoreExitValue( final boolean value )
     {
         this.runner.ignoreExitValue = value
     }
 
-    void setExecOverrides ( final Closure closure )
+    void setExecOverrides( final Closure closure )
     {
         this.runner.execOverrides = closure
     }
 
-    ExecResult getResult() {
+    ExecResult getResult()
+    {
         return this.result
     }
 
     @TaskAction
     void exec()
     {
-        if (this.npmCommand != null) {
-            this.runner.arguments.addAll(this.npmCommand)
+        if ( this.npmCommand != null )
+        {
+            this.runner.arguments.addAll( this.npmCommand )
         }
-        this.runner.arguments.addAll(this.args)
+
+        this.runner.arguments.addAll( this.args )
         this.result = this.runner.execute()
     }
 }

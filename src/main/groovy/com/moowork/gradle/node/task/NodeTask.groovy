@@ -8,7 +8,7 @@ import org.gradle.process.ExecResult
 class NodeTask
     extends DefaultTask
 {
-    private NodeExecRunner runner
+    protected NodeExecRunner runner
 
     private File script
 

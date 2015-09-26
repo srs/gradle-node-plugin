@@ -15,7 +15,7 @@ class NpmSetupTask
         this.enabled = false
 
         this.project.afterEvaluate {
-            getOutputs().dir( new File( this.project.node.nodeModulesDir, 'node_modules/npm' ) )
+            getOutputs().dir( new File( (File) this.project.node.nodeModulesDir, 'node_modules/npm' ) )
             setWorkingDir( this.project.node.nodeModulesDir )
         }
     }

@@ -16,6 +16,8 @@ class AbstractProjectTest
 
     File projectDir
 
+    NodeExtension ext
+
     def setup()
     {
         this.projectDir = this.tmpDir.root
