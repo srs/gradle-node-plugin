@@ -2,7 +2,7 @@ package com.moowork.gradle.node
 
 import nebula.test.IntegrationSpec
 
-class NpmInstallTest
+class NpmInstall_integTest
     extends IntegrationSpec
 {
     def 'install packages with npm'()
