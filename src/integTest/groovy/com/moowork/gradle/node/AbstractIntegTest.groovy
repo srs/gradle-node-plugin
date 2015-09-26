@@ -1,26 +1,17 @@
 package com.moowork.gradle.node
 
-import org.gradle.testkit.runner.GradleRunner
-import org.junit.Rule
-import org.junit.rules.TemporaryFolder
-import spock.lang.Specification
+import nebula.test.IntegrationSpec
+import nebula.test.functional.ExecutionResult
 
 abstract class AbstractIntegTest
-    extends Specification
+    extends IntegrationSpec
 {
-    @Rule
-    TemporaryFolder projectDir = new TemporaryFolder()
-
-    protected File buildFile
-
     def setup()
     {
-        this.buildFile = this.projectDir.newFile( 'build.gradle' )
-
         def pluginClasspathResource = getClass().classLoader.getResource( "plugin-classpath.txt" )
         if ( pluginClasspathResource == null )
         {
-            throw new IllegalStateException( "Did not find plugin classpath resource, run `testClasses` build task." )
+            throw new IllegalStateException( "Did not find plugin classpath resource, run 'functionalTestClasses' build task." )
         }
 
         def pluginClasspath = pluginClasspathResource.readLines()
@@ -29,24 +20,17 @@ abstract class AbstractIntegTest
             .join( ", " )
 
         this.buildFile << """
-        buildscript {
-            dependencies {
-                classpath files($pluginClasspath)
+            buildscript {
+                dependencies {
+                    classpath files($pluginClasspath)
+                }
             }
-        }
         """
-    }
-
-    protected final GradleRunner gradleRunner( final String... arguments )
-    {
-        return GradleRunner.create().
-            withProjectDir( this.projectDir.root ).
-            withArguments( arguments )
     }
 
     protected final void writeFile( final String name, final String text )
     {
-        File file = new File( this.projectDir.root, name )
+        File file = createFile( name )
         file.parentFile.mkdirs()
         file << text
     }
@@ -58,15 +42,20 @@ abstract class AbstractIntegTest
 
     protected final void writeEmptyPackageJson()
     {
-        writePackageJson( """{
+        writePackageJson( """ {
             "name": "example",
-            "dependencies": {
-            }
-        }""" )
+            "dependencies": {}
+        }
+        """ )
     }
 
     protected final void writeBuild( final String text )
     {
         this.buildFile << text
+    }
+
+    protected final ExecutionResult build( final String... tasks )
+    {
+        return runTasksSuccessfully( tasks );
     }
 }

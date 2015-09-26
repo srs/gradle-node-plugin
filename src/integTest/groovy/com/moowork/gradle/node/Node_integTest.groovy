@@ -1,7 +1,5 @@
 package com.moowork.gradle.node
 
-import org.gradle.testkit.runner.TaskOutcome
-
 class Node_integTest
     extends AbstractIntegTest
 {
@@ -29,10 +27,10 @@ class Node_integTest
         """ )
 
         when:
-        def result = gradleRunner( 'simple' ).build()
+        def result = build( 'simple' )
 
         then:
-        result.task( ':simple' ).outcome == TaskOutcome.SUCCESS
+        result.wasExecuted( 'simple' )
     }
 
     def 'check environment settings'()
@@ -64,9 +62,9 @@ class Node_integTest
         """ )
 
         when:
-        def result = gradleRunner( 'simple' ).build()
+        def result = build( 'simple' )
 
         then:
-        result.task( ':simple' ).outcome == TaskOutcome.SUCCESS
+        result.wasExecuted( 'simple' )
     }
 }
