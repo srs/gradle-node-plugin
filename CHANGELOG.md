@@ -1,15 +1,20 @@
 Changelog
 =========
 
-Version 0.11 *(not released)*
+Version 0.12 *(not released)*
 -----------------------------
+
+* ...
+
+Version 0.11 *(2015-09-26)*
+---------------------------
 
 * Handle 4+ nodejs releases on windows _(dvaske)_
 * Add npmCommand parameter to the node extension _(janrotter)_
 * Set executable flag on node in SetupTask
 * Upgraded wrapper to use Gradle 2.7
 * Update node distribution base url to use https _(AvihayTsayeg)_
-* Added more integration and functional tests
+* Added more tests (unit, integration and functional tests)
 * NodeTask environment is now correctly propagated to the runner
 * ...
 
