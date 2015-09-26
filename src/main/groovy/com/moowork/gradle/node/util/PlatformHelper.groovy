@@ -2,9 +2,29 @@ package com.moowork.gradle.node.util
 
 class PlatformHelper
 {
-    static String getOsName()
+    static PlatformHelper INSTANCE = new PlatformHelper()
+
+    private final Properties props;
+
+    public PlatformHelper()
     {
-        final String name = System.getProperty( "os.name" ).toLowerCase()
+        this( System.getProperties() )
+    }
+
+    public PlatformHelper( final Properties props )
+    {
+        this.props = props;
+    }
+
+    private String property( final String name )
+    {
+        def value = this.props.getProperty( name )
+        return value != null ? value : System.getProperty( name )
+    }
+
+    public String getOsName()
+    {
+        final String name = property( "os.name" ).toLowerCase()
         if ( name.contains( "windows" ) )
         {
             return "windows"
@@ -33,9 +53,9 @@ class PlatformHelper
         throw new IllegalArgumentException( "Unsupported OS: " + name )
     }
 
-    static String getOsArch()
+    public String getOsArch()
     {
-        final String arch = System.getProperty( "os.arch" ).toLowerCase()
+        final String arch = property( "os.arch" ).toLowerCase()
         if ( arch.contains( "64" ) )
         {
             return "x64"
@@ -46,7 +66,7 @@ class PlatformHelper
         }
     }
 
-    static boolean isWindows()
+    public boolean isWindows()
     {
         return getOsName().equals( "windows" )
     }

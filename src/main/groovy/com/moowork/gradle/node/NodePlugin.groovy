@@ -1,10 +1,6 @@
 package com.moowork.gradle.node
 
-import com.moowork.gradle.node.task.NodeTask
-import com.moowork.gradle.node.task.NpmInstallTask
-import com.moowork.gradle.node.task.NpmTask
-import com.moowork.gradle.node.task.SetupTask
-import com.moowork.gradle.node.task.NpmSetupTask
+import com.moowork.gradle.node.task.*
 import com.moowork.gradle.node.variant.VariantBuilder
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -31,6 +27,7 @@ class NodePlugin
         addNpmRule()
 
         this.project.afterEvaluate {
+            this.config.variant = new VariantBuilder( this.config ).build()
             configureSetupTask()
             configureDependencies()
             configureNpmSetupTask()
@@ -104,7 +101,7 @@ class NodePlugin
     {
         this.project.configurations.create( NodeExtension.CONFIG_NAME )
 
-        def variant = VariantBuilder.build( this.config )
+        def variant = new VariantBuilder( this.config ).build()
         this.project.dependencies.add( NodeExtension.CONFIG_NAME, variant.tarGzDependency )
 
         if ( variant.exeDependency != null )

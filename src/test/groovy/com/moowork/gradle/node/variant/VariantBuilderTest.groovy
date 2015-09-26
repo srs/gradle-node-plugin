@@ -1,6 +1,7 @@
 package com.moowork.gradle.node.variant
 
 import com.moowork.gradle.node.NodeExtension
+import com.moowork.gradle.node.util.PlatformHelper
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -8,11 +9,21 @@ import spock.lang.Unroll
 class VariantBuilderTest
     extends Specification
 {
-
     /* OS dependant line separator */
+
     static final String PS = File.separator
+
     /* Relative base path for nodejs installation */
+
     static final String NODE_BASE_PATH = "${PS}.gradle${PS}node${PS}"
+
+    private Properties props
+
+    def setup()
+    {
+        this.props = new Properties()
+        PlatformHelper.INSTANCE = new PlatformHelper( this.props )
+    }
 
     @Unroll
     def "test variant on windows (#osArch)"()
@@ -20,14 +31,15 @@ class VariantBuilderTest
         given:
         def project = ProjectBuilder.builder().build()
 
-        System.setProperty( "os.name", "Windows 8" )
-        System.setProperty( "os.arch", osArch )
+        this.props.setProperty( "os.name", "Windows 8" )
+        this.props.setProperty( "os.arch", osArch )
 
         def ext = new NodeExtension( project )
         ext.version = '0.11.1'
         ext.workDir = new File( '.gradle/node' ).absoluteFile
 
-        def variant = VariantBuilder.build( ext )
+        def builder = new VariantBuilder( ext )
+        def variant = builder.build()
 
         expect:
         variant != null
@@ -39,7 +51,8 @@ class VariantBuilderTest
         variant.nodeBinDir.toString().endsWith( NODE_BASE_PATH + nodeDir + PS + 'bin' )
         variant.nodeExec.toString().endsWith( NODE_BASE_PATH + nodeDir + PS + "bin${PS}node.exe" )
         variant.npmDir.toString().endsWith( NODE_BASE_PATH + "node-v0.11.1-linux-x86${PS}lib${PS}node_modules" )
-        variant.npmScriptFile.toString().endsWith( NODE_BASE_PATH + "node-v0.11.1-linux-x86${PS}lib${PS}node_modules${PS}npm${PS}bin${PS}npm-cli.js" )
+        variant.npmScriptFile.toString().endsWith(
+            NODE_BASE_PATH + "node-v0.11.1-linux-x86${PS}lib${PS}node_modules${PS}npm${PS}bin${PS}npm-cli.js" )
 
         where:
         osArch   | nodeDir                    | exeDependency
@@ -53,14 +66,15 @@ class VariantBuilderTest
         given:
         def project = ProjectBuilder.builder().build()
 
-        System.setProperty( "os.name", "Windows 8" )
-        System.setProperty( "os.arch", osArch )
+        this.props.setProperty( "os.name", "Windows 8" )
+        this.props.setProperty( "os.arch", osArch )
 
         def ext = new NodeExtension( project )
         ext.version = '4.0.0'
         ext.workDir = new File( '.gradle/node' ).absoluteFile
 
-        def variant = VariantBuilder.build( ext )
+        def builder = new VariantBuilder( ext )
+        def variant = builder.build()
 
         expect:
         variant != null
@@ -72,27 +86,29 @@ class VariantBuilderTest
         variant.nodeBinDir.toString().endsWith( NODE_BASE_PATH + nodeDir + PS + 'bin' )
         variant.nodeExec.toString().endsWith( NODE_BASE_PATH + nodeDir + PS + "bin${PS}node.exe" )
         variant.npmDir.toString().endsWith( NODE_BASE_PATH + "node-v4.0.0-linux-x86${PS}lib${PS}node_modules" )
-        variant.npmScriptFile.toString().endsWith( NODE_BASE_PATH + "node-v4.0.0-linux-x86${PS}lib${PS}node_modules${PS}npm${PS}bin${PS}npm-cli.js" )
+        variant.npmScriptFile.toString().endsWith(
+            NODE_BASE_PATH + "node-v4.0.0-linux-x86${PS}lib${PS}node_modules${PS}npm${PS}bin${PS}npm-cli.js" )
 
         where:
-        osArch   | nodeDir                    | exeDependency
-        'x86'    | 'node-v4.0.0-windows-x86'  | 'org.nodejs:win-x86/node:4.0.0@exe'
-        'x86_64' | 'node-v4.0.0-windows-x64'  | 'org.nodejs:win-x64/node:4.0.0@exe'
+        osArch   | nodeDir                   | exeDependency
+        'x86'    | 'node-v4.0.0-windows-x86' | 'org.nodejs:win-x86/node:4.0.0@exe'
+        'x86_64' | 'node-v4.0.0-windows-x64' | 'org.nodejs:win-x64/node:4.0.0@exe'
     }
 
     @Unroll
     def "test variant on non-windows (#osName, #osArch)"()
     {
         given:
-        System.setProperty( "os.name", osName )
-        System.setProperty( "os.arch", osArch )
+        this.props.setProperty( "os.name", osName )
+        this.props.setProperty( "os.arch", osArch )
 
         def project = ProjectBuilder.builder().build()
         def ext = new NodeExtension( project )
         ext.version = '0.11.1'
         ext.workDir = new File( '.gradle/node' ).absoluteFile
 
-        def variant = VariantBuilder.build( ext )
+        def builder = new VariantBuilder( ext )
+        def variant = builder.build()
 
         expect:
         variant != null

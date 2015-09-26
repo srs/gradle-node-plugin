@@ -2,7 +2,6 @@ package com.moowork.gradle.node.task
 
 import com.moowork.gradle.node.NodeExtension
 import com.moowork.gradle.node.variant.Variant
-import com.moowork.gradle.node.variant.VariantBuilder
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputDirectory
@@ -52,7 +51,7 @@ class SetupTask
         }
 
         this.config = NodeExtension.get( this.project )
-        this.variant = VariantBuilder.build( this.config )
+        this.variant = this.config.variant
     }
 
     @TaskAction

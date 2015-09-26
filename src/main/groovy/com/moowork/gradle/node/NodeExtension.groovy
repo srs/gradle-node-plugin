@@ -1,5 +1,6 @@
 package com.moowork.gradle.node
 
+import com.moowork.gradle.node.variant.Variant
 import org.gradle.api.Project
 
 class NodeExtension
@@ -21,6 +22,8 @@ class NodeExtension
     def String npmCommand = 'npm'
 
     def boolean download = false
+
+    def Variant variant
 
     NodeExtension( final Project project )
     {

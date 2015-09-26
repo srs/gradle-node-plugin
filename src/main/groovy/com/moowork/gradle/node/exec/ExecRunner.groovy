@@ -2,7 +2,6 @@ package com.moowork.gradle.node.exec
 
 import com.moowork.gradle.node.NodeExtension
 import com.moowork.gradle.node.variant.Variant
-import com.moowork.gradle.node.variant.VariantBuilder
 import org.gradle.api.Project
 import org.gradle.process.ExecResult
 
@@ -80,7 +79,7 @@ abstract class ExecRunner
     public final ExecResult execute()
     {
         this.ext = NodeExtension.get( this.project )
-        this.variant = VariantBuilder.build( this.ext )
+        this.variant = this.ext.variant
         return doExecute()
     }
 

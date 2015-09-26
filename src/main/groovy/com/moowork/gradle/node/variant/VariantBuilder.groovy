@@ -7,18 +7,18 @@ class VariantBuilder
 {
     private final NodeExtension ext
 
-    private VariantBuilder( final NodeExtension ext )
+    public VariantBuilder( final NodeExtension ext )
     {
         this.ext = ext
     }
 
-    private Variant create()
+    public Variant build()
     {
-        def osName = PlatformHelper.getOsName()
-        def osArch = PlatformHelper.getOsArch()
+        def osName = PlatformHelper.INSTANCE.getOsName()
+        def osArch = PlatformHelper.INSTANCE.getOsArch()
 
         def variant = new Variant()
-        variant.windows = PlatformHelper.isWindows()
+        variant.windows = PlatformHelper.INSTANCE.isWindows()
         variant.nodeDir = getNodeDir( osName, osArch )
         variant.nodeBinDir = new File( variant.nodeDir, 'bin' )
 
@@ -49,11 +49,11 @@ class VariantBuilder
     private String getExeDependency()
     {
         def version = this.ext.version
-        def osArch = PlatformHelper.getOsArch()
-        def majorVersion = version.tokenize('.')[0].toInteger()
+        def osArch = PlatformHelper.INSTANCE.getOsArch()
+        def majorVersion = version.tokenize( '.' )[0].toInteger()
         if ( majorVersion > 3 )
         {
-            if (osArch.equals( "x86" ))
+            if ( osArch.equals( "x86" ) )
             {
                 return "org.nodejs:win-x86/node:${version}@exe"
             }
@@ -64,7 +64,7 @@ class VariantBuilder
         }
         else
         {
-            if (osArch.equals( "x86" ))
+            if ( osArch.equals( "x86" ) )
             {
                 return "org.nodejs:node:${version}@exe"
             }
@@ -86,10 +86,5 @@ class VariantBuilder
     {
         def nodeDir = getNodeDir( osName, osArch )
         return new File( nodeDir, 'lib/node_modules' )
-    }
-
-    def static Variant build( final NodeExtension ext )
-    {
-        return new VariantBuilder( ext ).create()
     }
 }

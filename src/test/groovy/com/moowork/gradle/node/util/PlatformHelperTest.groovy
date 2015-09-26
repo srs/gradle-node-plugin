@@ -6,17 +6,27 @@ import spock.lang.Unroll
 class PlatformHelperTest
     extends Specification
 {
+    private Properties props
+
+    private PlatformHelper helper
+
+    def setup()
+    {
+        this.props = new Properties()
+        PlatformHelper.INSTANCE = this.helper = new PlatformHelper( this.props )
+    }
+
     @Unroll
     def "check os and architecture for #osProp (#archProp)"()
     {
         given:
-        System.setProperty( "os.name", osProp )
-        System.setProperty( "os.arch", archProp )
+        this.props.setProperty( "os.name", osProp )
+        this.props.setProperty( "os.arch", archProp )
 
         expect:
-        PlatformHelper.getOsName() == osName
-        PlatformHelper.getOsArch() == osArch
-        PlatformHelper.isWindows() == isWindows
+        this.helper.getOsName() == osName
+        this.helper.getOsArch() == osArch
+        this.helper.isWindows() == isWindows
 
         where:
         osProp      | archProp | osName    | osArch | isWindows
@@ -33,10 +43,10 @@ class PlatformHelperTest
     def "throw exception if unsupported os"()
     {
         given:
-        System.setProperty( "os.name", 'Nonsense' )
+        this.props.setProperty( "os.name", 'Nonsense' )
 
         when:
-        PlatformHelper.getOsName()
+        this.helper.getOsName()
 
         then:
         thrown( IllegalArgumentException )
