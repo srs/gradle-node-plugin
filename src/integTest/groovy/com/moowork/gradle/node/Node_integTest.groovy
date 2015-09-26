@@ -10,7 +10,7 @@ class Node_integTest
         when:
         writeEmptyPackageJson()
         writeSimpleJs()
-        
+
         this.buildFile << applyPlugin( NodePlugin )
         this.buildFile << '''
             node {
@@ -23,6 +23,35 @@ class Node_integTest
             task simple(type: NodeTask) {
                 script = file('simple.js')
                 args = []
+            }
+
+        '''.stripIndent()
+
+        def result = runTasksSuccessfully( 'simple' )
+
+        then:
+        !result.wasUpToDate( 'simple' )
+    }
+
+    def 'check environment settings'()
+    {
+        when:
+        writeEmptyPackageJson()
+        writeSimpleEnvJs()
+
+        this.buildFile << applyPlugin( NodePlugin )
+        this.buildFile << '''
+            node {
+                version = "0.10.33"
+                npmVersion = "2.1.6"
+                download = true
+                workDir = file('build/node')
+            }
+
+            task simple(type: NodeTask) {
+                script = file('simple.js')
+                args = []
+                environment = ['MYENV': 'value']
             }
 
         '''.stripIndent()
@@ -48,6 +77,18 @@ class Node_integTest
         def js = createFile( 'simple.js', this.projectDir )
         js << """
             console.log("Hello World");
+        """.stripIndent()
+    }
+
+    def writeSimpleEnvJs()
+    {
+        def js = createFile( 'simple.js', this.projectDir )
+        js << """
+            if (process.env.MYENV == 'value') {
+                console.log("Hello MYENV=" + process.env.MYENV);
+            } else {
+                throw "Environment MYENV should be visible";
+            }
         """.stripIndent()
     }
 }
