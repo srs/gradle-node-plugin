@@ -1,16 +1,28 @@
 package com.moowork.gradle.node.task
 
-import com.moowork.gradle.node.AbstractProjectTest
-import com.moowork.gradle.node.exec.NodeExecRunner
-import org.gradle.process.ExecResult
+import org.gradle.process.ExecSpec
 
 class NodeTaskTest
-    extends AbstractProjectTest
+    extends AbstractTaskTest
 {
+    def "script not set"()
+    {
+        given:
+        def task = this.project.tasks.create( 'simple', NodeTask )
+
+        when:
+        this.project.evaluate()
+        task.exec()
+
+        then:
+        thrown( IllegalStateException )
+    }
+
     def "exec node task"()
     {
         given:
-        this.project.apply plugin: 'com.moowork.node'
+        this.props.setProperty( 'os.name', 'Linux' )
+        this.execSpec = Mock( ExecSpec )
 
         def task = this.project.tasks.create( 'simple', NodeTask )
         task.args = ['a', 'b']
@@ -20,18 +32,6 @@ class NodeTaskTest
         task.workingDir = this.projectDir
         task.execOverrides = {}
 
-        def result = Mock( ExecResult )
-        result.exitValue >> 0
-
-        task.runner = new NodeExecRunner( this.project ) {
-            @Override
-            protected ExecResult doExecute()
-            {
-                return result
-            }
-        }
-        task.runner.execute() >> result
-
         when:
         this.project.evaluate()
         task.exec()
@@ -39,7 +39,51 @@ class NodeTaskTest
         then:
         task.args == ['a', 'b']
         task.result.exitValue == 0
-        task.runner.arguments
-        task.runner.arguments.size() > 2
+        1 * this.execSpec.setIgnoreExitValue( true )
+        1 * this.execSpec.setEnvironment( ['a': '1'] )
+
+        // TODO: Better assertions
+    }
+
+    def "exec node task (download)"()
+    {
+        given:
+        this.props.setProperty( 'os.name', 'Linux' )
+        this.ext.download = true
+        this.execSpec = Mock( ExecSpec )
+
+        def task = this.project.tasks.create( 'simple', NodeTask )
+        task.script = new File( this.projectDir, 'script.js' )
+
+        when:
+        this.project.evaluate()
+        task.exec()
+
+        then:
+        task.result.exitValue == 0
+        1 * this.execSpec.setIgnoreExitValue( false )
+
+        // TODO: Better assertions
+    }
+
+    def "exec node task (windows download)"()
+    {
+        given:
+        this.props.setProperty( 'os.name', 'Windows' )
+        this.ext.download = true
+        this.execSpec = Mock( ExecSpec )
+
+        def task = this.project.tasks.create( 'simple', NodeTask )
+        task.script = new File( this.projectDir, 'script.js' )
+
+        when:
+        this.project.evaluate()
+        task.exec()
+
+        then:
+        task.result.exitValue == 0
+        1 * this.execSpec.setIgnoreExitValue( false )
+
+        // TODO: Better assertions
     }
 }

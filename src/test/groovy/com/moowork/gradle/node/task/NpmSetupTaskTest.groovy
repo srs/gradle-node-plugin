@@ -2,44 +2,37 @@ package com.moowork.gradle.node.task
 
 import org.gradle.process.ExecSpec
 
-class NpmTaskTest
+class NpmSetupTaskTest
     extends AbstractTaskTest
 {
-    def "exec npm task"()
+    def "exec npmSetup task"()
     {
         given:
         this.props.setProperty( 'os.name', 'Linux' )
         this.execSpec = Mock( ExecSpec )
 
-        def task = this.project.tasks.create( 'simple', NpmTask )
-        task.args = ['a', 'b']
-        task.environment = ['a': '1']
-        task.ignoreExitValue = true
-        task.workingDir = this.projectDir
-        task.execOverrides = {}
-        task.npmCommand = 'npm'
+        def task = this.project.tasks.create( 'simple', NpmSetupTask )
 
         when:
         this.project.evaluate()
         task.exec()
 
         then:
-        task.args == ['a', 'b']
         task.result.exitValue == 0
-        1 * this.execSpec.setIgnoreExitValue( true )
-        1 * this.execSpec.setEnvironment( ['a': '1'] )
+        1 * this.execSpec.setArgs( _ )
 
         // TODO: Better assertions
     }
 
-    def "exec npm task (download)"()
+    def "exec npmSetup task (version specified)"()
     {
         given:
         this.props.setProperty( 'os.name', 'Linux' )
-        this.ext.download = true
+        this.ext.npmVersion = '2.1.6'
         this.execSpec = Mock( ExecSpec )
 
-        def task = this.project.tasks.create( 'simple', NpmTask )
+        this.execSpec = Mock( ExecSpec )
+        def task = this.project.tasks.create( 'simple', NpmSetupTask )
 
         when:
         this.project.evaluate()
@@ -47,7 +40,7 @@ class NpmTaskTest
 
         then:
         task.result.exitValue == 0
-        1 * this.execSpec.setIgnoreExitValue( false )
+        1 * this.execSpec.setArgs( _ )
 
         // TODO: Better assertions
     }
