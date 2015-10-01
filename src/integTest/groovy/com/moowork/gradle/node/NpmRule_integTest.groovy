@@ -1,5 +1,7 @@
 package com.moowork.gradle.node
 
+import com.moowork.gradle.AbstractIntegTest
+
 class NpmRule_integTest
     extends AbstractIntegTest
 {
@@ -19,7 +21,7 @@ class NpmRule_integTest
         writeEmptyPackageJson()
 
         when:
-        def result = build( 'npm_install' )
+        def result = runTasksSuccessfully( 'npm_install' )
 
         then:
         result.wasExecuted( 'npm_install' )

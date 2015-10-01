@@ -1,7 +1,6 @@
-package com.moowork.gradle.node
+package com.moowork.gradle
 
 import nebula.test.IntegrationSpec
-import nebula.test.functional.ExecutionResult
 
 abstract class AbstractIntegTest
     extends IntegrationSpec
@@ -52,10 +51,5 @@ abstract class AbstractIntegTest
     protected final void writeBuild( final String text )
     {
         this.buildFile << text
-    }
-
-    protected final ExecutionResult build( final String... tasks )
-    {
-        return runTasksSuccessfully( tasks );
     }
 }

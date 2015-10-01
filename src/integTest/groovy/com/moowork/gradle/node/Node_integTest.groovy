@@ -1,5 +1,7 @@
 package com.moowork.gradle.node
 
+import com.moowork.gradle.AbstractIntegTest
+
 class Node_integTest
     extends AbstractIntegTest
 {
@@ -27,7 +29,7 @@ class Node_integTest
         """ )
 
         when:
-        def result = build( 'simple' )
+        def result = runTasksSuccessfully( 'simple' )
 
         then:
         result.wasExecuted( 'simple' )
@@ -62,7 +64,7 @@ class Node_integTest
         """ )
 
         when:
-        def result = build( 'simple' )
+        def result = runTasksSuccessfully( 'simple' )
 
         then:
         result.wasExecuted( 'simple' )
