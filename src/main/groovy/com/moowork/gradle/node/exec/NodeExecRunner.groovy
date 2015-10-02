@@ -1,5 +1,6 @@
 package com.moowork.gradle.node.exec
 
+import com.moowork.gradle.node.NodeExtension
 import org.gradle.api.Project
 import org.gradle.process.ExecResult
 
@@ -24,7 +25,11 @@ class NodeExecRunner
                 nodeEnvironment << System.getenv()
             }
 
-            def nodeBinDirPath = this.variant.nodeBinDir.getAbsolutePath()
+            String nodeModulesBinPath =
+                    project.extensions.findByType(NodeExtension).nodeModulesDir.absolutePath + '/node_modules/.bin'
+
+            String nodeBinDirPath =
+                    this.variant.nodeBinDir.getAbsolutePath() + File.pathSeparator + nodeModulesBinPath
 
             // Take care of Windows environments that may contain "Path" OR "PATH" - both existing
             // possibly (but not in parallel as of now)

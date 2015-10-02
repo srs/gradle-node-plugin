@@ -1,5 +1,6 @@
 package com.moowork.gradle.node.task
 
+import com.moowork.gradle.node.NodeExtension
 import com.moowork.gradle.node.exec.NodeExecRunner
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
@@ -25,6 +26,13 @@ class NodeTask
     void setScript( final File value )
     {
         this.script = value
+    }
+
+    void setExecutable( final String execName )
+    {
+        File modulesDir = project.extensions.findByType(NodeExtension).nodeModulesDir
+        setScript(new File(modulesDir, 'node_modules/.bin/' + execName))
+        dependsOn( NpmInstallTask.NAME )
     }
 
     void setArgs( final Iterable<?> value )
