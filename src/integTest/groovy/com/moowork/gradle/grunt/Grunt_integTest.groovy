@@ -16,7 +16,7 @@ class Grunt_integTest
             }
 
             grunt {
-                colors = true
+                colors = false
                 bufferOutput = true
             }
 

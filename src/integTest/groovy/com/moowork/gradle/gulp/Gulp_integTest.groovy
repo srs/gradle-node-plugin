@@ -16,7 +16,7 @@ class Gulp_integTest
             }
 
             gulp {
-                colors = true
+                colors = false
                 bufferOutput = true
             }
 
