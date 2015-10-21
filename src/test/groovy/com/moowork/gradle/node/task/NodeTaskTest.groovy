@@ -50,6 +50,8 @@ class NodeTaskTest
 
     def "exec node task (download)"()
     {
+        def capturedEnv = [:]
+
         given:
         this.props.setProperty( 'os.name', 'Linux' )
         this.ext.download = true
@@ -67,6 +69,11 @@ class NodeTaskTest
         task.result.exitValue == 0
         1 * this.execSpec.setIgnoreExitValue( false )
         1 * this.execSpec.setArgs( [script.absolutePath] )
+
+        1 * this.execSpec.setEnvironment( _ ) >> { map -> capturedEnv = map
+        }
+
+        capturedEnv['PATH'] != null
     }
 
     def "exec node task (windows)"()
