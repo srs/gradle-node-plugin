@@ -23,12 +23,15 @@ class NodeTaskTest
         given:
         this.props.setProperty( 'os.name', 'Linux' )
         this.execSpec = Mock( ExecSpec )
+        this.ext.download = false
 
         def task = this.project.tasks.create( 'simple', NodeTask )
         task.args = ['a', 'b']
         task.environment = ['a': '1']
         task.ignoreExitValue = true
-        task.script = new File( this.projectDir, 'script.js' )
+
+        def script = new File( this.projectDir, 'script.js' )
+        task.script = script
         task.workingDir = this.projectDir
         task.execOverrides = {}
 
@@ -41,8 +44,8 @@ class NodeTaskTest
         task.result.exitValue == 0
         1 * this.execSpec.setIgnoreExitValue( true )
         1 * this.execSpec.setEnvironment( ['a': '1'] )
-
-        // TODO: Better assertions
+        1 * this.execSpec.setExecutable( 'node' )
+        1 * this.execSpec.setArgs( [script.absolutePath, 'a', 'b'] )
     }
 
     def "exec node task (download)"()
@@ -53,7 +56,8 @@ class NodeTaskTest
         this.execSpec = Mock( ExecSpec )
 
         def task = this.project.tasks.create( 'simple', NodeTask )
-        task.script = new File( this.projectDir, 'script.js' )
+        def script = new File( this.projectDir, 'script.js' )
+        task.script = script
 
         when:
         this.project.evaluate()
@@ -62,8 +66,30 @@ class NodeTaskTest
         then:
         task.result.exitValue == 0
         1 * this.execSpec.setIgnoreExitValue( false )
+        1 * this.execSpec.setArgs( [script.absolutePath] )
+    }
 
-        // TODO: Better assertions
+    def "exec node task (windows)"()
+    {
+        given:
+        this.props.setProperty( 'os.name', 'Windows' )
+        this.ext.download = false
+        this.execSpec = Mock( ExecSpec )
+
+        def task = this.project.tasks.create( 'simple', NodeTask )
+        def script = new File( this.projectDir, 'script.js' )
+
+        task.args = ['a', 'b']
+        task.script = script
+
+        when:
+        this.project.evaluate()
+        task.exec()
+
+        then:
+        task.result.exitValue == 0
+        1 * this.execSpec.setIgnoreExitValue( false )
+        1 * this.execSpec.setArgs( ['/c', '""node" "' + script.absolutePath + '" "a" "b""'] )
     }
 
     def "exec node task (windows download)"()
@@ -74,7 +100,8 @@ class NodeTaskTest
         this.execSpec = Mock( ExecSpec )
 
         def task = this.project.tasks.create( 'simple', NodeTask )
-        task.script = new File( this.projectDir, 'script.js' )
+        def script = new File( this.projectDir, 'script.js' )
+        task.script = script
 
         when:
         this.project.evaluate()
@@ -83,7 +110,5 @@ class NodeTaskTest
         then:
         task.result.exitValue == 0
         1 * this.execSpec.setIgnoreExitValue( false )
-
-        // TODO: Better assertions
     }
 }

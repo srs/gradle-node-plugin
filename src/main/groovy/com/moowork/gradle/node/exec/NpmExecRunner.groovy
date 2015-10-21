@@ -25,7 +25,7 @@ class NpmExecRunner
         // Use locally-installed npm if available
         if ( localNpm.exists() )
         {
-           npmScriptFile = localNpm.absolutePath
+            npmScriptFile = localNpm.absolutePath
         }
 
         def runner = new NodeExecRunner( this.project )

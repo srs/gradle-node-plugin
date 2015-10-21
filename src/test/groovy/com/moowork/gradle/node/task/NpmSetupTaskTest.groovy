@@ -19,9 +19,7 @@ class NpmSetupTaskTest
 
         then:
         task.result.exitValue == 0
-        1 * this.execSpec.setArgs( _ )
-
-        // TODO: Better assertions
+        1 * this.execSpec.setArgs( [] )
     }
 
     def "exec npmSetup task (version specified)"()
@@ -40,8 +38,6 @@ class NpmSetupTaskTest
 
         then:
         task.result.exitValue == 0
-        1 * this.execSpec.setArgs( _ )
-
-        // TODO: Better assertions
+        1 * this.execSpec.setArgs( [] )
     }
 }

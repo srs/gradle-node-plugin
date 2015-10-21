@@ -14,7 +14,7 @@ class NpmTask
 
     private ExecResult result
 
-    def String[] npmCommand
+    private String[] npmCommand
 
     public NpmTask()
     {

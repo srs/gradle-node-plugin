@@ -17,7 +17,6 @@ class NpmTaskTest
         task.ignoreExitValue = true
         task.workingDir = this.projectDir
         task.execOverrides = {}
-        task.npmCommand = 'npm'
 
         when:
         this.project.evaluate()
@@ -28,8 +27,34 @@ class NpmTaskTest
         task.result.exitValue == 0
         1 * this.execSpec.setIgnoreExitValue( true )
         1 * this.execSpec.setEnvironment( ['a': '1'] )
+        1 * this.execSpec.setExecutable( 'npm' )
+        1 * this.execSpec.setArgs( ['a', 'b'] )
+    }
 
-        // TODO: Better assertions
+    def "exec npm task (windows)"()
+    {
+        given:
+        this.props.setProperty( 'os.name', 'Windows' )
+        this.execSpec = Mock( ExecSpec )
+
+        def task = this.project.tasks.create( 'simple', NpmTask )
+        task.args = ['a', 'b']
+        task.environment = ['a': '1']
+        task.ignoreExitValue = true
+        task.workingDir = this.projectDir
+        task.execOverrides = {}
+
+        when:
+        this.project.evaluate()
+        task.exec()
+
+        then:
+        task.args == ['a', 'b']
+        task.result.exitValue == 0
+        1 * this.execSpec.setIgnoreExitValue( true )
+        1 * this.execSpec.setEnvironment( ['a': '1'] )
+        1 * this.execSpec.setExecutable( 'cmd' )
+        1 * this.execSpec.setArgs( ['/c', '""npm" "a" "b""'] )
     }
 
     def "exec npm task (download)"()
@@ -48,7 +73,5 @@ class NpmTaskTest
         then:
         task.result.exitValue == 0
         1 * this.execSpec.setIgnoreExitValue( false )
-
-        // TODO: Better assertions
     }
 }

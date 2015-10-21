@@ -4,7 +4,9 @@ Changelog
 Version 0.12 *(not released)*
 -----------------------------
 
-* ...
+* Merged Grunt and Gulp plugin into project
+* Updated wrapper to use Gradle 2.8
+...
 
 Version 0.11 *(2015-09-26)*
 ---------------------------
