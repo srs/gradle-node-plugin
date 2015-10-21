@@ -5,3 +5,10 @@ jdk:
 
 script:
    - ./gradlew clean build
+
+cache: true
+
+archive: true
+
+after_success:
+   - cp ./build/libs/* $SHIPPABLE_REPO_DIR/.
