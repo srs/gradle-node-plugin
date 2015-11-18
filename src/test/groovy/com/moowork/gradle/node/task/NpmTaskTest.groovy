@@ -53,8 +53,8 @@ class NpmTaskTest
         task.result.exitValue == 0
         1 * this.execSpec.setIgnoreExitValue( true )
         1 * this.execSpec.setEnvironment( ['a': '1'] )
-        1 * this.execSpec.setExecutable( 'cmd' )
-        1 * this.execSpec.setArgs( ['/c', '""npm" "a" "b""'] )
+        1 * this.execSpec.setExecutable( 'npm.cmd' )
+        1 * this.execSpec.setArgs( ['a', 'b'] )
     }
 
     def "exec npm task (download)"()
