@@ -33,13 +33,6 @@ abstract class ExecRunner
         def realExec = exec
         def realArgs = args
 
-        if ( this.variant.windows )
-        {
-            realExec = 'cmd'
-            realArgs.add( 0, exec )
-            realArgs = createWinArg( realArgs )
-        }
-
         return this.project.exec( {
             it.executable = realExec
             it.args = realArgs
@@ -64,16 +57,6 @@ abstract class ExecRunner
                 this.execOverrides( it )
             }
         } )
-    }
-
-    private static List<?> createWinArg( final List<?> args )
-    {
-        def result = []
-        args.each {
-            result += '"' + it + '"'
-        }
-
-        return ['/c', '"' + result.join( ' ' ) + '"']
     }
 
     public final ExecResult execute()

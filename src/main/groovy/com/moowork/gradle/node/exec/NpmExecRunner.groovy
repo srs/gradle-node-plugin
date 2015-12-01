@@ -14,6 +14,10 @@ class NpmExecRunner
     @Override
     protected ExecResult doExecute()
     {
+        if ( this.ext.npmCommand == 'npm' && this.ext.variant.windows ) {
+            this.ext.npmCommand = 'npm.cmd'
+        }
+
         if ( !this.ext.download )
         {
             return run( this.ext.npmCommand, this.arguments )

@@ -96,7 +96,8 @@ class NodeTaskTest
         then:
         task.result.exitValue == 0
         1 * this.execSpec.setIgnoreExitValue( false )
-        1 * this.execSpec.setArgs( ['/c', '""node" "' + script.absolutePath + '" "a" "b""'] )
+        1 * this.execSpec.setExecutable( 'node' )
+        1 * this.execSpec.setArgs( [script.absolutePath, 'a', 'b'] )
     }
 
     def "exec node task (windows download)"()
