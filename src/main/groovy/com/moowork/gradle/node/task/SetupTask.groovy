@@ -3,7 +3,8 @@ package com.moowork.gradle.node.task
 import com.moowork.gradle.node.NodeExtension
 import com.moowork.gradle.node.variant.Variant
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.InputFiles
+import org.gradle.api.artifacts.repositories.IvyArtifactRepository
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 
@@ -16,6 +17,8 @@ class SetupTask
 
     protected Variant variant
 
+    private IvyArtifactRepository repo
+
     SetupTask()
     {
         this.group = 'Node'
@@ -23,17 +26,16 @@ class SetupTask
         this.enabled = false
     }
 
-    @InputFiles
-    public Set<File> getDependencies()
+    @Input
+    public Set<String> getInput()
     {
         configureIfNeeded()
 
-        if ( !this.config.download )
-        {
-            return new HashSet<File>()
-        }
-
-        return this.project.configurations.getByName( NodeExtension.CONFIG_NAME ).files
+        def set = new HashSet<>()
+        set.add( this.config.download )
+        set.add( this.variant.tarGzDependency )
+        set.add( this.variant.exeDependency )
+        return set
     }
 
     @OutputDirectory
@@ -58,6 +60,8 @@ class SetupTask
     void exec()
     {
         configureIfNeeded()
+        addRepository()
+
         if ( this.variant.windows )
         {
             copyNodeExe()
@@ -65,6 +69,7 @@ class SetupTask
 
         unpackNodeTarGz()
         setExecutableFlag()
+        removeRepository()
     }
 
     private void copyNodeExe()
@@ -94,16 +99,36 @@ class SetupTask
 
     protected File getNodeExeFile()
     {
-        return findSingleFile( '.exe' )
+        return resloveSingle( this.variant.exeDependency )
     }
 
     protected File getNodeTarGzFile()
     {
-        return findSingleFile( '.tar.gz' )
+        return resloveSingle( this.variant.tarGzDependency )
     }
 
-    private File findSingleFile( final String suffix )
+    private File resloveSingle( String name )
     {
-        return getDependencies().find { it.name.endsWith( suffix ) }
+        def dep = this.project.dependencies.create( name )
+        def conf = this.project.configurations.detachedConfiguration( dep )
+        conf.transitive = false
+        return conf.resolve().iterator().next();
+    }
+
+    private void addRepository()
+    {
+        def distUrl = this.config.distBaseUrl
+        this.repo = this.project.repositories.ivy {
+            url distUrl
+            layout 'pattern', {
+                artifact 'v[revision]/[artifact](-v[revision]-[classifier]).[ext]'
+                ivy 'v[revision]/ivy.xml'
+            }
+        }
+    }
+
+    private void removeRepository()
+    {
+        this.project.repositories.remove( this.repo )
     }
 }

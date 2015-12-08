@@ -29,7 +29,6 @@ class NodePlugin
         this.project.afterEvaluate {
             this.config.variant = new VariantBuilder( this.config ).build()
             configureSetupTask()
-            configureDependencies()
             configureNpmSetupTask()
         }
     }
@@ -74,39 +73,5 @@ class NodePlugin
     private void configureNpmSetupTask()
     {
         this.npmSetupTask.configureNpmVersion( this.config.npmVersion )
-    }
-
-    private void configureDependencies()
-    {
-        if ( this.config.download )
-        {
-            addRepositories()
-            addDependencies()
-        }
-    }
-
-    private void addRepositories()
-    {
-        this.project.repositories {
-            ivy {
-                url this.config.distBaseUrl
-                layout 'pattern', {
-                    artifact 'v[revision]/[artifact](-v[revision]-[classifier]).[ext]'
-                }
-            }
-        }
-    }
-
-    private void addDependencies()
-    {
-        this.project.configurations.create( NodeExtension.CONFIG_NAME )
-
-        def variant = new VariantBuilder( this.config ).build()
-        this.project.dependencies.add( NodeExtension.CONFIG_NAME, variant.tarGzDependency )
-
-        if ( variant.exeDependency != null )
-        {
-            this.project.dependencies.add( NodeExtension.CONFIG_NAME, variant.exeDependency )
-        }
     }
 }

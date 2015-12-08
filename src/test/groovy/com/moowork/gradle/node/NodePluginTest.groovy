@@ -37,37 +37,6 @@ class NodePluginTest
         !this.project.configurations.contains( 'nodeDist' )
     }
 
-    def 'check repository and dependencies (download)'()
-    {
-        when:
-        this.props.setProperty( 'os.name', 'Linux' )
-
-        this.project.apply plugin: 'com.moowork.node'
-        NodeExtension.get( this.project ).download = true
-        this.project.evaluate()
-
-        then:
-        this.project.repositories.size() == 1
-        def conf = this.project.configurations.getByName( 'nodeDist' )
-        conf.dependencies.size() == 1
-    }
-
-    def 'check repository and dependencies (download windows)'()
-    {
-        when:
-        this.props.setProperty( 'os.name', 'Windows 98' )
-
-        this.project.apply plugin: 'com.moowork.node'
-        NodeExtension.get( this.project ).download = true
-
-        this.project.evaluate()
-
-        then:
-        this.project.repositories.size() == 1
-        def conf = this.project.configurations.getByName( 'nodeDist' )
-        conf.dependencies.size() == 2
-    }
-
     def 'check npm rule task'()
     {
         when:
