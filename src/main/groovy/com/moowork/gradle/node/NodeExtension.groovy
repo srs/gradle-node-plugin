@@ -13,7 +13,7 @@ class NodeExtension
 
     def File nodeModulesDir
 
-    def String version = '0.11.10'
+    def String version = '4.4.0'
 
     def String npmVersion = ''
 

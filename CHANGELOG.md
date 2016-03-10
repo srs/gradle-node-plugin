@@ -7,6 +7,7 @@ Version 0.12 *(not released)*
 * Updated wrapper to use Gradle 2.11
 * Refactored windows-specific logic for npm _(peol)_
 * Use temporary repository for resolving node dependencies
+* Using 4.4.0 (latest LTS) as default node version
 * ...
 
 Version 0.11 *(2015-09-26)*

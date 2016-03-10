@@ -15,7 +15,7 @@ class NodeExtensionTest
         ext.distBaseUrl == 'https://nodejs.org/dist'
         ext.workDir != null
         ext.nodeModulesDir != null
-        ext.version == '0.11.10'
+        ext.version == '4.4.0'
         !ext.download
         ext.npmVersion == ''
     }
