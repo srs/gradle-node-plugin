@@ -7,8 +7,6 @@ class NodeExtension
 {
     final static String NAME = 'node'
 
-    final static String CONFIG_NAME = 'nodeDist'
-
     def File workDir
 
     def File nodeModulesDir
@@ -27,7 +25,8 @@ class NodeExtension
 
     NodeExtension( final Project project )
     {
-        this.workDir = new File( project.gradle.gradleUserHomeDir, 'nodejs' )
+        def cacheDir = new File( project.projectDir, '.gradle' )
+        this.workDir = new File( cacheDir, 'nodejs' )
         this.nodeModulesDir = project.projectDir
     }
 
