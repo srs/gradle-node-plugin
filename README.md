@@ -40,7 +40,7 @@ Or:
         }
 
         dependencies {
-            classpath "com.moowork.gradle:gradle-node-plugin:0.11"
+            classpath "com.moowork.gradle:gradle-node-plugin:0.12"
         }
     }
 
