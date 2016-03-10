@@ -27,7 +27,7 @@ you will need to add OJO to your `buildscript` configuration.
 Setup the plugin like this:
 
     plugins {
-      id "com.moowork.node" version "0.11"
+      id "com.moowork.node" version "0.12"
     }
 
 Or:

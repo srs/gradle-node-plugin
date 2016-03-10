@@ -1,15 +1,14 @@
 Changelog
 =========
 
-Version 0.12 *(not released)*
------------------------------
+Version 0.12 *(2016-03-10)*
+---------------------------
 
 * Updated wrapper to use Gradle 2.11
 * Refactored windows-specific logic for npm _(peol)_
 * Use temporary repository for resolving node dependencies
 * Using 4.4.0 (latest LTS) as default node version
 * Changed default workDir location to be local to project directory
-* ...
 
 Version 0.11 *(2015-09-26)*
 ---------------------------
