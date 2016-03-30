@@ -1,0 +1,15 @@
+{
+  "name": "example",
+  "devDependencies": {
+    "npm": "3.8.3",
+    "npm-run-all": "1.6.0"
+  },
+  "dependencies": {
+    "less": "2.6.1"
+  },
+  "scripts": {
+    "child1": "echo \"child1\" > child1.txt",
+    "child2": "echo \"child2\" > child2.txt",
+    "parent": "echo \"parent1\" > parent1.txt && npm-run-all child1 child2 && echo \"parent2\" > parent2.txt"
+  }
+}

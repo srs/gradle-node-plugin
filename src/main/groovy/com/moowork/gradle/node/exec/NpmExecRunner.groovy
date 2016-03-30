@@ -1,5 +1,6 @@
 package com.moowork.gradle.node.exec
 
+import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Project
 import org.gradle.process.ExecResult
 
@@ -30,6 +31,18 @@ class NpmExecRunner
         if ( localNpm.exists() )
         {
             npmScriptFile = localNpm.absolutePath
+        }
+
+        boolean notInstalling = !arguments.join(' ').startsWith('install')
+        boolean configuredLocalNpm = !project.node.npmVersion.empty
+
+        if ( !localNpm.exists() && configuredLocalNpm && notInstalling )
+        {
+            throw new InvalidUserDataException("""
+                Could not run npm command - local npm not found but requested in gradle node configuration.
+                A common reason for this is an npm-shrinkwrap.json file is present and un-installs npm.
+                To resolve this, add npm with version '${project.node.npmVersion}' to your package.json.
+            """.stripIndent())
         }
 
         def runner = new NodeExecRunner( this.project )
