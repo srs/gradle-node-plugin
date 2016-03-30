@@ -7,6 +7,12 @@ sourceSets {
     }
 }
 
+idea {
+    module {
+        testSourceDirs += file('src/integTest/groovy')
+    }
+}
+
 task integrationTest( type: Test ) {
     description = 'Runs the integration tests.'
     group = 'verification'
