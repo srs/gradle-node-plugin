@@ -63,7 +63,7 @@ class PlatformHelper
         //as Java just returns "arm" on all ARM variants, we need a system call to determine the exact arch
         if( arch.equals( "arm" ))
         {
-            def systemArch = 'uname -m'.execute().text
+            def systemArch = 'uname -m'.execute().text.trim()
             //the node binaries for 'armv8l' are called 'arm64', so we need to distinguish here
             if(systemArch.equals("armv8l"))
             {
