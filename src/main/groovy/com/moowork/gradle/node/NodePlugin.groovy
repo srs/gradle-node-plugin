@@ -58,8 +58,13 @@ class NodePlugin
             if ( taskName.startsWith( "npm_" ) )
             {
                 NpmTask npmTask = project.getTasks().create( taskName, NpmTask.class )
-                String[] tokens = taskName.split( '_' )
-                npmTask.npmCommand = tokens.tail() // all except first
+                String[] tokens = taskName.split( '_' ).tail() // all except first
+                npmTask.npmCommand = tokens
+
+                if (tokens.head().equalsIgnoreCase("run")) {
+                    npmTask.dependsOn(NpmInstallTask.NAME)
+                }
+
                 return npmTask
             }
         }
