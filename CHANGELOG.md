@@ -4,9 +4,10 @@ Changelog
 Version 0.13 *(not released)*
 -----------------------------
 
-* Bumped gradle wrapper version to 2.12 _(jmcampanini)_
+* Bumped gradle wrapper version to 2.14 
 * Implement ARM compatibility _(madmas)_
 * Allow node modules to be used when calling npm_run _(jmcampanini)_
+* Updated plugin versions and test versions
 * ...
 
 Version 0.12 *(2016-03-10)*

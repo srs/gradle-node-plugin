@@ -23,9 +23,10 @@ repositories {
 }
 
 dependencies {
-    compile files( gradleApi().resolve().findAll { !it.name.startsWith( 'xerces' ) && !it.name.startsWith( 'xml-apis' ) } )
-    testCompile 'com.netflix.nebula:nebula-test:3.1.0'
-    testCompile( 'org.spockframework:spock-core:1.0-groovy-2.4' ) {
+    //compile files( gradleApi().resolve().findAll { !it.name.startsWith( 'xerces' ) && !it.name.startsWith( 'xml-apis' ) } )
+    compile gradleApi()
+    testCompile 'com.netflix.nebula:nebula-test:4.2.2'
+    /*testCompile( 'org.spockframework:spock-core:1.0-groovy-2.4' ) {
         exclude module: 'groovy-all'
-    }
+    }*/
 }
