@@ -5,6 +5,7 @@ Version 0.13 *(not released)*
 -----------------------------
 
 * Bumped gradle wrapper version to 2.12 _(jmcampanini)_
+* Implement ARM compatibility _(madmas)_
 * ...
 
 Version 0.12 *(2016-03-10)*
