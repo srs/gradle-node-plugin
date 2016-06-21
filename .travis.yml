@@ -1,6 +1,10 @@
 language: groovy
 sudo: false
 
+cache:
+  directories:
+    - $HOME/.gradle
+
 jdk:
 - oraclejdk7
 
