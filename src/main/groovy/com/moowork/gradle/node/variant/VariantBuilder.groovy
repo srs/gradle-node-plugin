@@ -6,19 +6,27 @@ import com.moowork.gradle.node.util.PlatformHelper
 class VariantBuilder
 {
     private final NodeExtension ext
+    private PlatformHelper platformHelper
 
     public VariantBuilder( final NodeExtension ext )
     {
         this.ext = ext
+        this.platformHelper = PlatformHelper.INSTANCE
+    }
+
+    public VariantBuilder( final NodeExtension ext , PlatformHelper platformHelper)
+    {
+        this(ext)
+        this.platformHelper = platformHelper
     }
 
     public Variant build()
     {
-        def osName = PlatformHelper.INSTANCE.getOsName()
-        def osArch = PlatformHelper.INSTANCE.getOsArch()
+        def osName = platformHelper.getOsName()
+        def osArch = platformHelper.getOsArch()
 
         def variant = new Variant()
-        variant.windows = PlatformHelper.INSTANCE.isWindows()
+        variant.windows = platformHelper.isWindows()
         variant.nodeDir = getNodeDir( osName, osArch )
         variant.nodeBinDir = new File( variant.nodeDir, 'bin' )
 
@@ -49,7 +57,7 @@ class VariantBuilder
     private String getExeDependency()
     {
         def version = this.ext.version
-        def osArch = PlatformHelper.INSTANCE.getOsArch()
+        def osArch = platformHelper.getOsArch()
         def majorVersion = version.tokenize( '.' )[0].toInteger()
         if ( majorVersion > 3 )
         {
