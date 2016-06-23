@@ -22,13 +22,16 @@ class NpmTask
         dependsOn( SetupTask.NAME )
 
         this.project.afterEvaluate {
-            def workingDir = this.project.node.nodeModulesDir;
-            if ( !workingDir.exists() )
+            if ( !this.runner.workingDir )
             {
-                workingDir.mkdirs();
+                def workingDir = this.project.node.nodeModulesDir
+                setWorkingDir( workingDir )
             }
 
-            setWorkingDir( workingDir )
+            if ( !this.runner.workingDir.exists() )
+            {
+                this.runner.workingDir.mkdirs();
+            }
         }
     }
 
