@@ -17,15 +17,6 @@ class NpmInstallTask
         this.project.afterEvaluate {
             getInputs().file( new File( (File) this.project.node.nodeModulesDir, 'package.json' ) )
             getOutputs().dir( new File( (File) this.project.node.nodeModulesDir, 'node_modules' ) )
-
-            def workingDir = this.project.node.nodeModulesDir;
-
-            if ( !workingDir.exists() )
-            {
-                workingDir.mkdirs();
-            }
-
-            setWorkingDir( workingDir )
         }
     }
 }

@@ -20,6 +20,16 @@ class NpmTask
     {
         this.runner = new NpmExecRunner( this.project )
         dependsOn( SetupTask.NAME )
+
+        this.project.afterEvaluate {
+            def workingDir = this.project.node.nodeModulesDir;
+            if ( !workingDir.exists() )
+            {
+                workingDir.mkdirs();
+            }
+
+            setWorkingDir( workingDir )
+        }
     }
 
     void setArgs( final Iterable<?> value )

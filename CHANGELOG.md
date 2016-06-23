@@ -8,6 +8,8 @@ Version 0.13 *(not released)*
 * Implement ARM compatibility _(madmas)_
 * Allow node modules to be used when calling npm_run _(jmcampanini)_
 * Updated plugin versions and test versions
+* Node.workingDir set to nodeModulesDir (fixes #107)
+* Creates nodeModulesDir if it does not exist (fixes #108)
 * ...
 
 Version 0.12 *(2016-03-10)*
