@@ -3,6 +3,7 @@ package com.moowork.gradle.node.task
 import com.moowork.gradle.node.NodeExtension
 import com.moowork.gradle.node.variant.Variant
 import org.gradle.api.DefaultTask
+import org.gradle.api.artifacts.repositories.ArtifactRepository
 import org.gradle.api.artifacts.repositories.IvyArtifactRepository
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
@@ -18,6 +19,8 @@ class SetupTask
     protected Variant variant
 
     private IvyArtifactRepository repo
+
+    private List<ArtifactRepository> allRepos;
 
     SetupTask()
     {
@@ -69,7 +72,7 @@ class SetupTask
 
         unpackNodeTarGz()
         setExecutableFlag()
-        removeRepository()
+        restoreRepositories()
     }
 
     private void copyNodeExe()
@@ -117,6 +120,10 @@ class SetupTask
 
     private void addRepository()
     {
+        this.allRepos = new ArrayList<>()
+        this.allRepos.addAll( this.project.repositories )
+        this.project.repositories.clear()
+
         def distUrl = this.config.distBaseUrl
         this.repo = this.project.repositories.ivy {
             url distUrl
@@ -127,8 +134,9 @@ class SetupTask
         }
     }
 
-    private void removeRepository()
+    private void restoreRepositories()
     {
-        this.project.repositories.remove( this.repo )
+        this.project.repositories.clear();
+        this.project.repositories.addAll( this.allRepos );
     }
 }
