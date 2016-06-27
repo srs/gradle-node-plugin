@@ -1,8 +1,13 @@
 Changelog
 =========
 
-Version 0.13 *(not released)*
+Version 0.14 *(not released)*
 -----------------------------
+
+* ...
+
+Version 0.13 *(2016-06-27)*
+---------------------------
 
 * Bumped gradle wrapper version to 2.14 
 * Implement ARM compatibility _(madmas)_
@@ -11,7 +16,6 @@ Version 0.13 *(not released)*
 * Node.workingDir set to nodeModulesDir (fixes #107)
 * Creates nodeModulesDir if it does not exist (fixes #108)
 * Use single repo for node download (fixes #120)
-* ...
 
 Version 0.12 *(2016-03-10)*
 ---------------------------
