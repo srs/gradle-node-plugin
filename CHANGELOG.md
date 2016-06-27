@@ -10,6 +10,7 @@ Version 0.13 *(not released)*
 * Updated plugin versions and test versions
 * Node.workingDir set to nodeModulesDir (fixes #107)
 * Creates nodeModulesDir if it does not exist (fixes #108)
+* Use single repo for node download (fixes #120)
 * ...
 
 Version 0.12 *(2016-03-10)*
