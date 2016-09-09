@@ -27,7 +27,7 @@ class PlatformHelper
         final String name = property( "os.name" ).toLowerCase()
         if ( name.contains( "windows" ) )
         {
-            return "windows"
+            return "win"
         }
 
         if ( name.contains( "mac" ) )
@@ -80,6 +80,6 @@ class PlatformHelper
 
     public boolean isWindows()
     {
-        return getOsName().equals( "windows" )
+        return getOsName().equals( "win" )
     }
 }

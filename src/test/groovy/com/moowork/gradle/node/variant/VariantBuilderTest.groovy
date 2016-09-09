@@ -56,8 +56,8 @@ class VariantBuilderTest
 
         where:
           osArch   | nodeDir                    | exeDependency
-          'x86'    | 'node-v0.11.1-windows-x86' | 'org.nodejs:node:0.11.1@exe'
-          'x86_64' | 'node-v0.11.1-windows-x64' | 'org.nodejs:x64/node:0.11.1@exe'
+          'x86'    | 'node-v0.11.1-win-x86' | 'org.nodejs:node:0.11.1@exe'
+          'x86_64' | 'node-v0.11.1-win-x64' | 'org.nodejs:x64/node:0.11.1@exe'
     }
 
     @Unroll
@@ -91,8 +91,8 @@ class VariantBuilderTest
 
         where:
           osArch   | nodeDir                   | exeDependency
-          'x86'    | 'node-v4.0.0-windows-x86' | 'org.nodejs:win-x86/node:4.0.0@exe'
-          'x86_64' | 'node-v4.0.0-windows-x64' | 'org.nodejs:win-x64/node:4.0.0@exe'
+          'x86'    | 'node-v4.0.0-win-x86' | 'org.nodejs:win-x86/node:4.0.0@exe'
+          'x86_64' | 'node-v4.0.0-win-x64' | 'org.nodejs:win-x64/node:4.0.0@exe'
     }
 
     @Unroll
