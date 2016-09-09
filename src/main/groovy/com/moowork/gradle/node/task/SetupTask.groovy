@@ -86,9 +86,30 @@ class SetupTask
 
     private void unpackNodeTarGz()
     {
-        this.project.copy {
-            from this.project.tarTree( getNodeTarGzFile() )
-            into getNodeDir().parent
+        if ( this.variant.exeDependency )
+        {
+            //Remap lib/node_modules to node_modules (the same directory as node.exe) because that's how the zip dist does it
+            this.project.copy {
+                from this.project.tarTree( getNodeTarGzFile() )
+                into this.variant.nodeBinDir
+                eachFile {
+                    def m = it.path =~ /^.*?[\\/]lib[\\/](node_modules.*$)/
+                    if (m.matches()) {
+                        // remap the file to the root
+                        it.path = m.group(1)
+                    } else {
+                        it.exclude()
+                    }
+                }
+                includeEmptyDirs = false
+            }
+        }
+        else
+        {
+            this.project.copy {
+                from this.project.tarTree( getNodeTarGzFile() )
+                into getNodeDir().parent
+            }
         }
     }
 

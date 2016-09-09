@@ -48,11 +48,10 @@ class VariantBuilderTest
           variant.tarGzDependency == 'org.nodejs:node:0.11.1:linux-x86@tar.gz'
 
           variant.nodeDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
-          variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + 'bin')
-          variant.nodeExec.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "bin${PS}node.exe")
-          variant.npmDir.toString().endsWith(NODE_BASE_PATH + "node-v0.11.1-linux-x86${PS}lib${PS}node_modules")
-          variant.npmScriptFile.toString().endsWith(
-                  NODE_BASE_PATH + "node-v0.11.1-linux-x86${PS}lib${PS}node_modules${PS}npm${PS}bin${PS}npm-cli.js")
+          variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
+          variant.nodeExec.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node.exe")
+          variant.npmDir.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules")
+          variant.npmScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules${PS}npm${PS}bin${PS}npm-cli.js")
 
         where:
           osArch   | nodeDir                    | exeDependency
@@ -83,11 +82,10 @@ class VariantBuilderTest
           variant.tarGzDependency == 'org.nodejs:node:4.0.0:linux-x86@tar.gz'
 
           variant.nodeDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
-          variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + 'bin')
-          variant.nodeExec.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "bin${PS}node.exe")
-          variant.npmDir.toString().endsWith(NODE_BASE_PATH + "node-v4.0.0-linux-x86${PS}lib${PS}node_modules")
-          variant.npmScriptFile.toString().endsWith(
-                  NODE_BASE_PATH + "node-v4.0.0-linux-x86${PS}lib${PS}node_modules${PS}npm${PS}bin${PS}npm-cli.js")
+          variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
+          variant.nodeExec.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node.exe")
+          variant.npmDir.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules")
+          variant.npmScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules${PS}npm${PS}bin${PS}npm-cli.js")
 
         where:
           osArch   | nodeDir                   | exeDependency

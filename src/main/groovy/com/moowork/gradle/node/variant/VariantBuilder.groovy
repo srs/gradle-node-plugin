@@ -28,19 +28,20 @@ class VariantBuilder
         def variant = new Variant()
         variant.windows = platformHelper.isWindows()
         variant.nodeDir = getNodeDir( osName, osArch )
-        variant.nodeBinDir = new File( variant.nodeDir, 'bin' )
 
         if ( variant.windows )
         {
+            variant.nodeBinDir = variant.nodeDir
             variant.tarGzDependency = getTarGzDependency( 'linux', 'x86' )
             variant.exeDependency = getExeDependency()
-            variant.npmDir = getNpmDir( 'linux', 'x86' )
+            variant.npmDir = new File( variant.nodeBinDir, 'node_modules' )
             variant.nodeExec = new File( variant.nodeBinDir, 'node.exe' ).absolutePath
         }
         else
         {
+            variant.nodeBinDir = new File( variant.nodeDir, 'bin' )
             variant.tarGzDependency = getTarGzDependency( osName, osArch )
-            variant.npmDir = getNpmDir( osName, osArch )
+            variant.npmDir = new File( variant.nodeDir, 'lib/node_modules' )
             variant.nodeExec = new File( variant.nodeBinDir, 'node' ).absolutePath
         }
 
@@ -88,11 +89,5 @@ class VariantBuilder
         def version = this.ext.version
         def dirName = "node-v${version}-${osName}-${osArch}"
         return new File( this.ext.workDir, dirName )
-    }
-
-    private File getNpmDir( final String osName, final String osArch )
-    {
-        def nodeDir = getNodeDir( osName, osArch )
-        return new File( nodeDir, 'lib/node_modules' )
     }
 }
