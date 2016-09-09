@@ -14,7 +14,7 @@ class Variant
 
     def String npmScriptFile
 
-    def String tarGzDependency
+    def String archiveDependency
 
     def String exeDependency
 }

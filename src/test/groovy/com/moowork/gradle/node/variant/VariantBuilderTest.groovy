@@ -26,7 +26,7 @@ class VariantBuilderTest
     }
 
     @Unroll
-    def "test variant on windows (#osArch)"()
+    def "test variant on windows version <4 (#osArch)"()
     {
         given:
           def project = ProjectBuilder.builder().build()
@@ -45,7 +45,7 @@ class VariantBuilderTest
           variant != null
           variant.windows
           variant.exeDependency == exeDependency
-          variant.tarGzDependency == 'org.nodejs:node:0.11.1:linux-x86@tar.gz'
+          variant.archiveDependency == 'org.nodejs:node:0.11.1:linux-x86@tar.gz'
 
           variant.nodeDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
           variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
@@ -60,7 +60,7 @@ class VariantBuilderTest
     }
 
     @Unroll
-    def "test variant on windows version 4.+ (#osArch)"()
+    def "test variant on windows version 4.+ with exe (#osArch)"()
     {
         given:
           def project = ProjectBuilder.builder().build()
@@ -79,7 +79,7 @@ class VariantBuilderTest
           variant != null
           variant.windows
           variant.exeDependency == exeDependency
-          variant.tarGzDependency == 'org.nodejs:node:4.0.0:linux-x86@tar.gz'
+          variant.archiveDependency == 'org.nodejs:node:4.0.0:linux-x86@tar.gz'
 
           variant.nodeDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
           variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
@@ -91,6 +91,39 @@ class VariantBuilderTest
           osArch   | nodeDir                   | exeDependency
           'x86'    | 'node-v4.0.0-win-x86' | 'org.nodejs:win-x86/node:4.0.0@exe'
           'x86_64' | 'node-v4.0.0-win-x64' | 'org.nodejs:win-x64/node:4.0.0@exe'
+    }
+    
+    @Unroll
+    def "test variant on windows without exe (#osArch)"()
+    {
+        given:
+          def project = ProjectBuilder.builder().build()
+
+          this.props.setProperty("os.name", "Windows 8")
+          this.props.setProperty("os.arch", osArch)
+
+          def ext = new NodeExtension(project)
+          ext.version = '4.5.0'
+          ext.workDir = new File('.gradle/node').absoluteFile
+
+          def builder = new VariantBuilder(ext)
+          def variant = builder.build()
+
+        expect:
+          variant != null
+          variant.windows
+          variant.exeDependency == null
+          variant.archiveDependency == depName
+
+          variant.nodeDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
+          variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
+          variant.nodeExec.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node.exe")
+          variant.npmDir.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules")
+          variant.npmScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules${PS}npm${PS}bin${PS}npm-cli.js")
+        where:
+          osArch   | nodeDir               |  depName
+          'x86'    | 'node-v4.5.0-win-x86' |  'org.nodejs:node:4.5.0:win-x86@zip'
+          'x86_64' | 'node-v4.5.0-win-x64' |  'org.nodejs:node:4.5.0:win-x64@zip'
     }
 
     @Unroll
@@ -112,7 +145,7 @@ class VariantBuilderTest
           variant != null
           !variant.windows
           variant.exeDependency == null
-          variant.tarGzDependency == depName
+          variant.archiveDependency == depName
 
           variant.nodeDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
           variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + 'bin')
@@ -153,7 +186,7 @@ class VariantBuilderTest
           variant != null
           !variant.windows
           variant.exeDependency == null
-          variant.tarGzDependency == depName
+          variant.archiveDependency == depName
 
           variant.nodeDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
           variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + 'bin')
