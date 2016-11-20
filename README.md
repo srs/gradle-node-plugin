@@ -128,6 +128,44 @@ the class `NpmTask`:
       args = ['install', 'express', '--save-dev']
     }
 
+Executing Yarn Tasks
+---------------------
+
+When adding the node plugin, you will have a yarn task already added. This
+task will execute `yarn` and installs all dependencies in `package.json`.
+It will only run when changes are made to `package.json`, `yarn.lock`, or `node_modules`.
+Execute it like this:
+
+    $ gradle yarn
+
+All npm command can also be invoked using underscore notation based on a gradle
+rule:
+
+    $ gradle yarn_install
+    $ gradle yarn_upgrade
+    $ gradle yarn_ls
+    $ gradle yarn_cache_clean
+    ...
+
+These however are not shown when running gradle tasks, as they generated
+dynamically. However they can be used for dependency declarations, such as:
+
+    yarn_install.dependsOn(yarn_cache_clean)
+
+More arguments can be passed via the build.gradle file:
+
+    yarn_cache_clean {
+      args = ['--no-emoji', '--json']
+    }
+
+If you want to extend the tasks more or create custom variants, you can extend
+the class `YarnTask`:
+
+    task addExpress(type: YarnTask) {
+      // add the express package only
+      args = ['add', 'express', '--dev']
+    }
+
 Configuring the Plugin
 ----------------------
 
@@ -140,6 +178,9 @@ You can configure the plugin using the "node" extension block, like this:
       // Version of npm to use.
       npmVersion = '2.1.5'
 
+      // Version of Yarn to use.
+      yarnVersion = '0.16.1'
+
       // Base URL for fetching node distributions (change if you have a mirror).
       distBaseUrl = 'https://nodejs.org/dist'
 
@@ -149,6 +190,9 @@ You can configure the plugin using the "node" extension block, like this:
 
       // Set the work directory for unpacking node
       workDir = file("${project.buildDir}/nodejs")
+
+      // Set the work directory for Yarn
+      yarnWorkDir = file("${project.buildDir}/yarn")
 
       // Set the work directory where node_modules should be located
       nodeModulesDir = file("${project.projectDir}")
@@ -166,6 +210,17 @@ If you would like the plugin to install use a custom version of npm rather than
 the one bundled with the version of node installation, you can set `npmVersion`
 in the `node` extension block. The plugin will install the npm to the project's
 `node_modules` directory by configuring the `npmSetup` task.
+
+Using a Custom (project-local) Version of `yarn`
+-----------------------------------------------
+
+The plugin never uses a locally-installed `yarn` because it may be deleted during
+`yarn` execution.
+Instead, it installs `yarn` into `yarnWorkDir` (`.gradle/yarn/` by default) by
+the `yarnSetup` task and use it.
+
+If you would like the plugin to install use a custom version of yarn, you can set
+`yarnVersion` in the `node` extension block.
 
 Building the Plugin
 -------------------
