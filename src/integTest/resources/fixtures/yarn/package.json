@@ -1,0 +1,15 @@
+{
+  "name": "example",
+  "devDependencies": {
+    "yarn": "0.16.1",
+    "concurrently": "3.1.0"
+  },
+  "dependencies": {
+    "less": "2.6.1"
+  },
+  "scripts": {
+    "child1": "echo \"child1\" > child1.txt",
+    "child2": "echo \"child2\" > child2.txt",
+    "parent": "echo \"parent1\" > parent1.txt && concurrently \"yarn run child1\" \"yarn run child2\" && echo \"parent2\" > parent2.txt"
+  }
+}
