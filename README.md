@@ -191,6 +191,9 @@ You can configure the plugin using the "node" extension block, like this:
       // Set the work directory for unpacking node
       workDir = file("${project.buildDir}/nodejs")
 
+      // Set the work directory for NPM
+      npmWorkDir = file("${project.buildDir}/npm")
+
       // Set the work directory for Yarn
       yarnWorkDir = file("${project.buildDir}/yarn")
 
@@ -203,13 +206,13 @@ You can configure the plugin using the "node" extension block, like this:
 Using a Custom (project-local) Version of `npm`
 -----------------------------------------------
 
-The plugin will use a locally-installed `npm` if it exists, regardless of the
-method of installation.
+If `npmVersion` is specified, the plugin installs that version of `npm` into `npmWorkDir`
+by the `npmSetup` task and use it.
 
-If you would like the plugin to install use a custom version of npm rather than
-the one bundled with the version of node installation, you can set `npmVersion`
-in the `node` extension block. The plugin will install the npm to the project's
-`node_modules` directory by configuring the `npmSetup` task.
+If `npmVersion` is not specified and a locally-installed `npm` exists, The plugin will
+use it.
+
+Otherwise, the plugin will use the `npm` bundled with the version of node installation.
 
 Using a Custom (project-local) Version of `yarn`
 -----------------------------------------------

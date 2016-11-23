@@ -9,6 +9,8 @@ class NodeExtension
 
     def File workDir
 
+    def File npmWorkDir
+
     def File yarnWorkDir
 
     def File nodeModulesDir
@@ -33,6 +35,7 @@ class NodeExtension
     {
         def cacheDir = new File( project.projectDir, '.gradle' )
         this.workDir = new File( cacheDir, 'nodejs' )
+        this.npmWorkDir = new File( cacheDir, 'npm' )
         this.yarnWorkDir = new File( cacheDir, 'yarn' )
         this.nodeModulesDir = project.projectDir
     }
