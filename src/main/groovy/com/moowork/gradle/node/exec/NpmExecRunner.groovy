@@ -26,23 +26,16 @@ class NpmExecRunner
 
         def String npmScriptFile = this.variant.npmScriptFile
         def File localNpm = project.file( new File( this.ext.nodeModulesDir, 'node_modules/npm/bin/npm-cli.js' ) )
+        def File workNpm = project.file( new File( this.ext.npmWorkDir, 'node_modules/npm/bin/npm-cli.js' ) )
 
-        // Use locally-installed npm if available
-        if ( localNpm.exists() )
+        // Use npm specified by user if available
+        if ( workNpm.exists() )
         {
-            npmScriptFile = localNpm.absolutePath
+            npmScriptFile = workNpm.absolutePath
         }
-
-        boolean notInstalling = !arguments.join(' ').startsWith('install')
-        boolean configuredLocalNpm = !project.node.npmVersion.empty
-
-        if ( !localNpm.exists() && configuredLocalNpm && notInstalling )
-        {
-            throw new InvalidUserDataException("""
-                Could not run npm command - local npm not found but requested in gradle node configuration.
-                A common reason for this is an npm-shrinkwrap.json file is present and un-installs npm.
-                To resolve this, add npm with version '${project.node.npmVersion}' to your package.json.
-            """.stripIndent())
+        // Use locally-installed npm if available
+        else if ( localNpm.exists() ) {
+          npmScriptFile = localNpm.absolutePath
         }
 
         def runner = new NodeExecRunner( this.project )

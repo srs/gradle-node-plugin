@@ -15,7 +15,7 @@ class NpmSetupTask
         this.enabled = false
 
         this.project.afterEvaluate {
-            getOutputs().dir( new File( (File) this.project.node.nodeModulesDir, 'node_modules/npm' ) )
+            getOutputs().dir( this.project.node.npmWorkDir )
             setWorkingDir( this.project.node.nodeModulesDir )
         }
     }
@@ -25,7 +25,7 @@ class NpmSetupTask
         if ( !npmVersion.isEmpty() )
         {
             logger.debug( "Setting npmVersion to ${npmVersion}" )
-            setArgs( ['install', "npm@${npmVersion}"] )
+            setArgs( ['install', '--prefix', this.project.node.npmWorkDir, "npm@${npmVersion}"] )
             setEnabled( true )
             getInputs().property( 'npmVersion', npmVersion )
         }
