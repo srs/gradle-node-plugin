@@ -25,6 +25,7 @@ issue to [GitHub Issues](https://github.com/srs/gradle-node-plugin/issues).
 * [Node Plugin](https://github.com/srs/gradle-node-plugin/wiki/Node+Plugin)
 * [Grunt Plugin](https://github.com/srs/gradle-node-plugin/wiki/Grunt+Plugin)
 * [Gulp Plugin](https://github.com/srs/gradle-node-plugin/wiki/Gulp+Plugin)
+* [Migration](https://github.com/srs/gradle-node-plugin/wiki/Migration)
 * [FAQ](https://github.com/srs/gradle-node-plugin/wiki/FAQ)
 
 
