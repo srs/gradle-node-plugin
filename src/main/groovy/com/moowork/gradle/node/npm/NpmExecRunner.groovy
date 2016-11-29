@@ -1,5 +1,7 @@
-package com.moowork.gradle.node.exec
+package com.moowork.gradle.node.npm
 
+import com.moowork.gradle.node.exec.ExecRunner
+import com.moowork.gradle.node.exec.NodeExecRunner
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Project
 import org.gradle.process.ExecResult

@@ -1,5 +1,7 @@
 package com.moowork.gradle.node
 
+import com.moowork.gradle.AbstractProjectTest
+
 class NodeExtensionTest
     extends AbstractProjectTest
 {

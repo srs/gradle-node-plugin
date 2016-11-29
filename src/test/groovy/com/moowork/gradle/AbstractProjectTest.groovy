@@ -1,4 +1,4 @@
-package com.moowork.gradle.node
+package com.moowork.gradle
 
 import org.gradle.api.internal.project.ProjectInternal
 import org.gradle.testfixtures.ProjectBuilder

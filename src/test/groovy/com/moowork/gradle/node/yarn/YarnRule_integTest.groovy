@@ -1,5 +1,6 @@
-package com.moowork.gradle.node.itest
+package com.moowork.gradle.node.yarn
 
+import com.moowork.gradle.AbstractIntegTest
 import org.gradle.testkit.runner.TaskOutcome
 
 class YarnRule_integTest

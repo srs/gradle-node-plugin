@@ -1,5 +1,6 @@
 package com.moowork.gradle.node
 
+import com.moowork.gradle.AbstractProjectTest
 import com.moowork.gradle.node.util.PlatformHelper
 
 class NodePluginTest

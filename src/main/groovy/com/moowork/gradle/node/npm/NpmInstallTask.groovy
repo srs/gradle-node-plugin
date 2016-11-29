@@ -1,4 +1,4 @@
-package com.moowork.gradle.node.task
+package com.moowork.gradle.node.npm
 
 /**
  * npm install that only gets executed if gradle decides so.*/

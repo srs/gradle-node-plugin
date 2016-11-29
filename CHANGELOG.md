@@ -1,9 +1,10 @@
 Changelog
 =========
 
-Version 0.15 *(not released)*
------------------------------
+Version 1.0 *(not released)*
+----------------------------
 
+* Move npm and yarn classes into separate package (#158)
 * ...
 
 Version 0.14 *(2016-11-29)*

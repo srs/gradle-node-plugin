@@ -1,5 +1,7 @@
-package com.moowork.gradle.node.task
+package com.moowork.gradle.node.yarn
 
+import com.moowork.gradle.node.task.AbstractTaskTest
+import com.moowork.gradle.node.yarn.YarnSetupTask
 import org.gradle.process.ExecSpec
 
 class YarnSetupTaskTest

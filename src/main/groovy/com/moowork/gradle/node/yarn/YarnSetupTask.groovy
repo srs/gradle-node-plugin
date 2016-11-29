@@ -1,4 +1,7 @@
-package com.moowork.gradle.node.task
+package com.moowork.gradle.node.yarn
+
+import com.moowork.gradle.node.npm.NpmSetupTask
+import com.moowork.gradle.node.npm.NpmTask
 
 /**
  * Setup a specific version of Yarn to be used by the build.

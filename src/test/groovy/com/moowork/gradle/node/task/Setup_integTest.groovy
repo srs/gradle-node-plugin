@@ -1,5 +1,6 @@
-package com.moowork.gradle.node.itest
+package com.moowork.gradle.node.task
 
+import com.moowork.gradle.AbstractIntegTest
 import org.gradle.testkit.runner.TaskOutcome
 
 class Setup_integTest

@@ -1,25 +1,25 @@
-package com.moowork.gradle.node.task
+package com.moowork.gradle.node.npm
 
-import com.moowork.gradle.node.exec.YarnExecRunner
+import com.moowork.gradle.node.task.SetupTask
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 import org.gradle.process.ExecResult
 
-class YarnTask
+class NpmTask
     extends DefaultTask
 {
-    protected YarnExecRunner runner
+    protected NpmExecRunner runner
 
     private Iterable<?> args = []
 
     private ExecResult result
 
-    private String[] yarnCommand
+    private String[] npmCommand
 
-    public YarnTask()
+    public NpmTask()
     {
-        this.runner = new YarnExecRunner( this.project )
-        dependsOn( YarnSetupTask.NAME )
+        this.runner = new NpmExecRunner( this.project )
+        dependsOn( SetupTask.NAME )
 
         this.project.afterEvaluate {
             if ( !this.runner.workingDir )
@@ -40,9 +40,9 @@ class YarnTask
         this.args = value
     }
 
-    void setYarnCommand( String[] cmd )
+    void setNpmCommand( String[] cmd )
     {
-        this.yarnCommand = cmd
+        this.npmCommand = cmd
     }
 
     Iterable<?> getArgs()
@@ -78,9 +78,9 @@ class YarnTask
     @TaskAction
     void exec()
     {
-        if ( this.yarnCommand != null )
+        if ( this.npmCommand != null )
         {
-            this.runner.arguments.addAll( this.yarnCommand )
+            this.runner.arguments.addAll( this.npmCommand )
         }
 
         this.runner.arguments.addAll( this.args )

@@ -1,6 +1,6 @@
 package com.moowork.gradle.node.task
 
-import com.moowork.gradle.node.AbstractProjectTest
+import com.moowork.gradle.AbstractProjectTest
 import com.moowork.gradle.node.NodeExtension
 import com.moowork.gradle.node.util.PlatformHelper
 import org.gradle.process.ExecResult
