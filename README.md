@@ -26,7 +26,7 @@ you will need to add OJO to your `buildscript` configuration.
 Setup the plugin like this:
 
     plugins {
-      id "com.moowork.node" version "0.13"
+      id "com.moowork.node" version "0.14"
     }
 
 Or:
@@ -39,7 +39,7 @@ Or:
         }
 
         dependencies {
-            classpath "com.moowork.gradle:gradle-node-plugin:0.13"
+            classpath "com.moowork.gradle:gradle-node-plugin:0.14"
         }
     }
 

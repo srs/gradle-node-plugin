@@ -1,8 +1,8 @@
 Changelog
 =========
 
-Version 0.14 *(not released)*
------------------------------
+Version 0.14 *(2016-11-29)*
+---------------------------
 
 * Bumped gradle wrapper version to 3.2.1
 * Use gradle-testkit instead of nebula (#153)
