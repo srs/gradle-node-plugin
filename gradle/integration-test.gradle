@@ -1,3 +1,5 @@
+apply plugin: 'java-gradle-plugin'
+
 sourceSets {
     integrationTest {
         groovy.srcDir file( 'src/integTest/groovy' )
@@ -9,7 +11,7 @@ sourceSets {
 
 idea {
     module {
-        testSourceDirs += file('src/integTest/groovy')
+        testSourceDirs += file( 'src/integTest/groovy' )
     }
 }
 
@@ -24,22 +26,15 @@ task integrationTest( type: Test ) {
         html.destination = project.file( "$html.destination/integration" )
         junitXml.destination = project.file( "$junitXml.destination/integration" )
     }
+
+    testLogging {
+        events "skipped", "failed"
+        exceptionFormat "full"
+    }
 }
 
 check.dependsOn integrationTest
 
-task createClasspathManifest {
-    def outputDir = file( "$buildDir/$name" )
-
-    inputs.files sourceSets.main.runtimeClasspath
-    outputs.dir outputDir
-
-    doLast {
-        outputDir.mkdirs()
-        file( "$outputDir/plugin-classpath.txt" ).text = sourceSets.main.runtimeClasspath.join( "\n" )
-    }
-}
-
-dependencies {
-    testRuntime files( createClasspathManifest )
+gradlePlugin {
+    testSourceSets sourceSets.integrationTest
 }

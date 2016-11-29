@@ -1,6 +1,7 @@
 package com.moowork.gradle.node
 
 import com.moowork.gradle.AbstractIntegTest
+import org.gradle.testkit.runner.TaskOutcome
 
 class Setup_integTest
     extends AbstractIntegTest
@@ -16,7 +17,9 @@ class Setup_integTest
     {
         given:
         writeBuild( '''
-            apply plugin: 'com.moowork.node'
+            plugins {
+                id 'com.moowork.node'
+            }
 
             node {
                 version = "0.10.33"
@@ -25,17 +28,19 @@ class Setup_integTest
         ''' )
 
         when:
-        def result = runTasksSuccessfully( 'nodeSetup' )
+        def result = buildTask( 'nodeSetup' )
 
         then:
-        result.wasExecuted( 'nodeSetup' )
+        result.outcome == TaskOutcome.SKIPPED
     }
 
     def 'setup node (download)'()
     {
         given:
         writeBuild( '''
-            apply plugin: 'com.moowork.node'
+            plugins {
+                id 'com.moowork.node'
+            }
 
             node {
                 version = "0.10.33"
@@ -44,10 +49,10 @@ class Setup_integTest
         ''' )
 
         when:
-        def result = runTasksSuccessfully( 'nodeSetup' )
+        def result = buildTask( 'nodeSetup' )
 
         then:
-        result.wasExecuted( 'nodeSetup' )
+        result.outcome == TaskOutcome.SUCCESS
     }
 
     def 'setup node (windows)'()
@@ -56,7 +61,9 @@ class Setup_integTest
 
         given:
         writeBuild( '''
-            apply plugin: 'com.moowork.node'
+            plugins {
+                id 'com.moowork.node'
+            }
 
             node {
                 version = "0.10.33"
@@ -65,10 +72,10 @@ class Setup_integTest
         ''' )
 
         when:
-        def result = runTasksSuccessfully( 'nodeSetup' )
+        def result = buildTask( 'nodeSetup' )
 
         then:
-        result.wasExecuted( 'nodeSetup' )
+        result.outcome == TaskOutcome.SKIPPED
     }
 
     def 'setup node (windows download)'()
@@ -77,7 +84,9 @@ class Setup_integTest
 
         given:
         writeBuild( '''
-            apply plugin: 'com.moowork.node'
+            plugins {
+                id 'com.moowork.node'
+            }
 
             node {
                 version = "0.10.33"
@@ -86,9 +95,9 @@ class Setup_integTest
         ''' )
 
         when:
-        def result = runTasksSuccessfully( 'nodeSetup' )
+        def result = buildTask( 'nodeSetup' )
 
         then:
-        result.wasExecuted( 'nodeSetup' )
+        result.outcome == TaskOutcome.SUCCESS
     }
 }

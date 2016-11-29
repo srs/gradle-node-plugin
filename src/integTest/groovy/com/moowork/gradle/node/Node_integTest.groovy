@@ -1,6 +1,7 @@
 package com.moowork.gradle.node
 
 import com.moowork.gradle.AbstractIntegTest
+import org.gradle.testkit.runner.TaskOutcome
 
 class Node_integTest
     extends AbstractIntegTest
@@ -9,7 +10,9 @@ class Node_integTest
     {
         given:
         writeBuild( '''
-            apply plugin: 'com.moowork.node'
+            plugins {
+                id 'com.moowork.node'
+            }
 
             node {
                 download = true
@@ -27,17 +30,19 @@ class Node_integTest
         """ )
 
         when:
-        def result = runTasksSuccessfully( 'simple' )
+        def result = buildTask( 'simple' )
 
         then:
-        result.wasExecuted( 'simple' )
+        result.outcome == TaskOutcome.SUCCESS
     }
 
     def 'check environment settings'()
     {
         given:
         writeBuild( '''
-            apply plugin: 'com.moowork.node'
+            plugins {
+                id 'com.moowork.node'
+            }
 
             node {
                 version = "0.10.33"
@@ -62,9 +67,9 @@ class Node_integTest
         """ )
 
         when:
-        def result = runTasksSuccessfully( 'simple' )
+        def result = buildTask( 'simple' )
 
         then:
-        result.wasExecuted( 'simple' )
+        result.outcome == TaskOutcome.SUCCESS
     }
 }

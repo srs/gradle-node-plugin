@@ -1,6 +1,7 @@
 package com.moowork.gradle.node
 
 import com.moowork.gradle.AbstractIntegTest
+import org.gradle.testkit.runner.TaskOutcome
 
 class NpmInstall_integTest
     extends AbstractIntegTest
@@ -9,7 +10,9 @@ class NpmInstall_integTest
     {
         given:
         writeBuild( '''
-            apply plugin: 'com.moowork.node'
+            plugins {
+                id 'com.moowork.node'
+            }
 
             node {
                 version = "0.10.33"
@@ -21,23 +24,25 @@ class NpmInstall_integTest
         writeEmptyPackageJson()
 
         when:
-        def result = runTasksSuccessfully( 'npmInstall' )
+        def result = buildTask( 'npmInstall' )
 
         then:
-        result.wasExecuted( 'npmInstall' )
+        result.outcome == TaskOutcome.SUCCESS
 
         when:
-        result = runTasksSuccessfully( 'npmInstall' )
+        result = buildTask( 'npmInstall' )
 
         then:
-        result.wasUpToDate( 'npmInstall' )
+        result.outcome == TaskOutcome.UP_TO_DATE
     }
 
     def 'install packages with npm in different directory'()
     {
         given:
         writeBuild( '''
-            apply plugin: 'com.moowork.node'
+            plugins {
+                id 'com.moowork.node'
+            }
 
             node {
                 version = "0.10.33"
@@ -54,9 +59,9 @@ class NpmInstall_integTest
         }""" )
 
         when:
-        def result = runTasksSuccessfully( 'npmInstall' )
+        def result = build( 'npmInstall' )
 
         then:
-        result.wasExecuted( 'npmInstall' )
+        result.task( ':npmInstall' ).outcome == TaskOutcome.SUCCESS
     }
 }
