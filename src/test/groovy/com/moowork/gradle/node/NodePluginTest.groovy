@@ -44,11 +44,16 @@ class NodePluginTest
         this.project.evaluate()
 
         then:
-        this.project.tasks.getRules().size() == 1
-        def rule = this.project.tasks.getRules().get( 0 )
+        this.project.tasks.getRules().size() == 2
+        def npmRule = this.project.tasks.getRules().get( 0 )
+        def yarnRule = this.project.tasks.getRules().get( 1 )
 
         !this.project.tasks.getAsMap().containsKey( 'npm_install' )
-        rule.apply( 'npm_install' )
+        npmRule.apply( 'npm_install' )
         this.project.tasks.getAsMap().containsKey( 'npm_install' )
+
+        !this.project.tasks.getAsMap().containsKey( 'yarn_upgrade' )
+        yarnRule.apply( 'yarn_upgrade' )
+        this.project.tasks.getAsMap().containsKey( 'yarn_upgrade' )
     }
 }

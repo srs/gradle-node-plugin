@@ -16,6 +16,8 @@ class NodePlugin
 
     private NpmSetupTask npmSetupTask
 
+    private YarnSetupTask yarnSetupTask
+
     @Override
     void apply( final Project project )
     {
@@ -25,11 +27,13 @@ class NodePlugin
         addGlobalTypes()
         addTasks()
         addNpmRule()
+        addYarnRule()
 
         this.project.afterEvaluate {
             this.config.variant = new VariantBuilder( this.config ).build()
             configureSetupTask()
             configureNpmSetupTask()
+            configureYarnSetupTask()
         }
     }
 
@@ -37,13 +41,16 @@ class NodePlugin
     {
         addGlobalTaskType( NodeTask )
         addGlobalTaskType( NpmTask )
+        addGlobalTaskType( YarnTask )
     }
 
     private void addTasks()
     {
         this.project.tasks.create( NpmInstallTask.NAME, NpmInstallTask )
+        this.project.tasks.create( YarnInstallTask.NAME, YarnInstallTask )
         this.setupTask = this.project.tasks.create( SetupTask.NAME, SetupTask )
         this.npmSetupTask = this.project.tasks.create( NpmSetupTask.NAME, NpmSetupTask )
+        this.yarnSetupTask = this.project.tasks.create( YarnSetupTask.NAME, YarnSetupTask )
     }
 
     private void addGlobalTaskType( Class type )
@@ -70,6 +77,25 @@ class NodePlugin
         }
     }
 
+    private void addYarnRule()
+    {
+        // note this rule also makes it possible to specify e.g. "dependsOn yarn_install"
+        project.getTasks().addRule( 'Pattern: "yarn_<command>": Executes an Yarn command.' ) { String taskName ->
+            if ( taskName.startsWith( "yarn_" ) )
+            {
+                YarnTask yarnTask = project.getTasks().create( taskName, YarnTask.class )
+                String[] tokens = taskName.split( '_' ).tail() // all except first
+                yarnTask.yarnCommand = tokens
+
+                if (tokens.head().equalsIgnoreCase("run")) {
+                    yarnTask.dependsOn(YarnInstallTask.NAME)
+                }
+
+                return yarnTask
+            }
+        }
+    }
+
     private void configureSetupTask()
     {
         this.setupTask.setEnabled( this.config.download )
@@ -78,5 +104,10 @@ class NodePlugin
     private void configureNpmSetupTask()
     {
         this.npmSetupTask.configureNpmVersion( this.config.npmVersion )
+    }
+
+    private void configureYarnSetupTask()
+    {
+        this.yarnSetupTask.configureYarnVersion( this.config.yarnVersion )
     }
 }
