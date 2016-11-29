@@ -45,6 +45,15 @@ Here's the documentation for older releases of the plugin:
 * [0.13](https://github.com/srs/gradle-node-plugin/blob/v0.13/README.md)
 * [0.12](https://github.com/srs/gradle-node-plugin/blob/v0.12/README.md)
 * [0.11](https://github.com/srs/gradle-node-plugin/blob/v0.11/README.md)
+* [0.10](https://github.com/srs/gradle-node-plugin/blob/v0.10/README.md)
+* [0.9](https://github.com/srs/gradle-node-plugin/blob/v0.9/README.md)
+* [0.8](https://github.com/srs/gradle-node-plugin/blob/v0.8/README.md)
+* [0.7](https://github.com/srs/gradle-node-plugin/blob/v0.7/README.md)
+* [0.6](https://github.com/srs/gradle-node-plugin/blob/v0.6/README.md)
+* [0.5](https://github.com/srs/gradle-node-plugin/blob/v0.5/README.md)
+* [0.4](https://github.com/srs/gradle-node-plugin/blob/v0.4/README.md)
+* [0.3](https://github.com/srs/gradle-node-plugin/blob/v0.3/README.md)
+* [0.2](https://github.com/srs/gradle-node-plugin/blob/v0.2/README.md)
 
 
 ## Building the Plugin
