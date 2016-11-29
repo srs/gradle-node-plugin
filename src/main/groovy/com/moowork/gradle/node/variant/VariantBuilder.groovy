@@ -28,19 +28,27 @@ class VariantBuilder
         def variant = new Variant()
         variant.windows = platformHelper.isWindows()
         variant.nodeDir = getNodeDir( osName, osArch )
-        variant.nodeBinDir = new File( variant.nodeDir, 'bin' )
 
         if ( variant.windows )
         {
-            variant.tarGzDependency = getTarGzDependency( 'linux', 'x86' )
-            variant.exeDependency = getExeDependency()
-            variant.npmDir = getNpmDir( 'linux', 'x86' )
+            variant.nodeBinDir = variant.nodeDir
+            if (hasWindowsZip())
+            {
+                variant.archiveDependency = getArchiveDependency( osName, osArch, 'zip' )
+            }
+            else
+            {
+                variant.archiveDependency = getArchiveDependency( 'linux', 'x86', 'tar.gz' )
+                variant.exeDependency = getExeDependency()
+            }
+            variant.npmDir = new File( variant.nodeBinDir, 'node_modules' )
             variant.nodeExec = new File( variant.nodeBinDir, 'node.exe' ).absolutePath
         }
         else
         {
-            variant.tarGzDependency = getTarGzDependency( osName, osArch )
-            variant.npmDir = getNpmDir( osName, osArch )
+            variant.nodeBinDir = new File( variant.nodeDir, 'bin' )
+            variant.archiveDependency = getArchiveDependency( osName, osArch, 'tar.gz' )
+            variant.npmDir = new File( variant.nodeDir, 'lib/node_modules' )
             variant.nodeExec = new File( variant.nodeBinDir, 'node' ).absolutePath
         }
 
@@ -48,10 +56,10 @@ class VariantBuilder
         return variant
     }
 
-    private String getTarGzDependency( final String osName, final String osArch )
+    private String getArchiveDependency( final String osName, final String osArch, final String type )
     {
         def version = this.ext.version
-        return "org.nodejs:node:${version}:${osName}-${osArch}@tar.gz"
+        return "org.nodejs:node:${version}:${osName}-${osArch}@${type}"
     }
 
     private String getExeDependency()
@@ -83,16 +91,29 @@ class VariantBuilder
         }
     }
 
+    //https://github.com/nodejs/node/pull/5995    
+    private boolean hasWindowsZip()
+    {
+        def version = this.ext.version
+        def osArch = platformHelper.getOsArch()
+        def tokens = version.tokenize( '.' );
+        def majorVersion = tokens[0].toInteger()
+        def minorVersion = tokens[1].toInteger()
+        if (
+               ( majorVersion == 4 && minorVersion >= 5 ) // >= 4.5.0
+               || ( majorVersion == 6 && (minorVersion > 2 || (minorVersion == 2 && microVersion >= 1)) ) // >= 6.2.1
+               || majorVersion > 6
+           )
+        {
+            return true
+        }
+        return false
+    }
+
     private File getNodeDir( final String osName, final String osArch )
     {
         def version = this.ext.version
         def dirName = "node-v${version}-${osName}-${osArch}"
         return new File( this.ext.workDir, dirName )
-    }
-
-    private File getNpmDir( final String osName, final String osArch )
-    {
-        def nodeDir = getNodeDir( osName, osArch )
-        return new File( nodeDir, 'lib/node_modules' )
     }
 }

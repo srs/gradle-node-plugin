@@ -76,7 +76,7 @@ class Setup_integTest
         then:
         result.outcome == TaskOutcome.SKIPPED
     }
-
+    
     def 'setup node (windows download)'()
     {
         System.setProperty( 'os.name', 'Windows' )
@@ -86,6 +86,27 @@ class Setup_integTest
             plugins {
                 id 'com.moowork.node'
             }
+
+            node {
+                version = "4.5.0"
+                download = true
+            }
+        ''' )
+
+        when:
+        def result = runTasksSuccessfully( 'nodeSetup' )
+
+        then:
+        result.wasExecuted( 'nodeSetup' )
+    }
+
+    def 'setup node (windows download separate exe)'()
+    {
+        System.setProperty( 'os.name', 'Windows' )
+
+        given:
+        writeBuild( '''
+            apply plugin: 'com.moowork.node'
 
             node {
                 version = "0.10.33"

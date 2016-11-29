@@ -36,7 +36,7 @@ class SetupTask
 
         def set = new HashSet<>()
         set.add( this.config.download )
-        set.add( this.variant.tarGzDependency )
+        set.add( this.variant.archiveDependency )
         set.add( this.variant.exeDependency )
         return set
     }
@@ -65,12 +65,12 @@ class SetupTask
         configureIfNeeded()
         addRepository()
 
-        if ( this.variant.windows )
+        if ( this.variant.exeDependency )
         {
             copyNodeExe()
         }
 
-        unpackNodeTarGz()
+        unpackNodeArchive()
         setExecutableFlag()
         restoreRepositories()
     }
@@ -84,11 +84,39 @@ class SetupTask
         }
     }
 
-    private void unpackNodeTarGz()
+    private void unpackNodeArchive()
     {
-        this.project.copy {
-            from this.project.tarTree( getNodeTarGzFile() )
-            into getNodeDir().parent
+        if ( getNodeArchiveFile().getName().endsWith('zip') )
+        {
+            this.project.copy {
+                from this.project.zipTree( getNodeArchiveFile() )
+                into getNodeDir().parent
+            }
+        }
+        else if ( this.variant.exeDependency )
+        {
+            //Remap lib/node_modules to node_modules (the same directory as node.exe) because that's how the zip dist does it
+            this.project.copy {
+                from this.project.tarTree( getNodeArchiveFile() )
+                into this.variant.nodeBinDir
+                eachFile {
+                    def m = it.path =~ /^.*?[\\/]lib[\\/](node_modules.*$)/
+                    if (m.matches()) {
+                        // remap the file to the root
+                        it.path = m.group(1)
+                    } else {
+                        it.exclude()
+                    }
+                }
+                includeEmptyDirs = false
+            }
+        }
+        else
+        {
+            this.project.copy {
+                from this.project.tarTree( getNodeArchiveFile() )
+                into getNodeDir().parent
+            }
         }
     }
 
@@ -105,9 +133,9 @@ class SetupTask
         return resloveSingle( this.variant.exeDependency )
     }
 
-    protected File getNodeTarGzFile()
+    protected File getNodeArchiveFile()
     {
-        return resloveSingle( this.variant.tarGzDependency )
+        return resloveSingle( this.variant.archiveDependency )
     }
 
     private File resloveSingle( String name )

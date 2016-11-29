@@ -30,8 +30,8 @@ class PlatformHelperTest
 
         where:
         osProp      | archProp | osName    | osArch | isWindows
-        'Windows 8' | 'x86'    | 'windows' | 'x86'  | true
-        'Windows 8' | 'x86_64' | 'windows' | 'x64'  | true
+        'Windows 8' | 'x86'    | 'win' | 'x86'  | true
+        'Windows 8' | 'x86_64' | 'win' | 'x64'  | true
         'Mac OS X'  | 'x86'    | 'darwin'  | 'x86'  | false
         'Mac OS X'  | 'x86_64' | 'darwin'  | 'x64'  | false
         'Linux'     | 'x86'    | 'linux'   | 'x86'  | false
