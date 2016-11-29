@@ -9,10 +9,10 @@ Gradle Plugin for Node
 This plugin enabled you to use a lot of [NodeJS](https://nodejs.org)-based technologies as part of your 
 build without having NodeJS installed locally on your system.
 
-<img align="right" width="120" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/nodejs.png">
-<img align="right" width="120" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/grunt.png">
-<img align="right" width="120" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/gulp.png">
-<img align="right" width="120" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/yarn.png">
+<img height="120" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/nodejs.png">
+<img height="120" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/grunt.png">
+<img height="120" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/gulp.png">
+<img height="120" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/yarn.png">
 
 
 
