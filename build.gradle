@@ -38,3 +38,9 @@ tasks.withType( Test ) {
     }
 }
 
+test {
+    if ( project.hasProperty( 'skipIT' ) )
+    {
+        exclude '**/*_integTest*'
+    }
+}
