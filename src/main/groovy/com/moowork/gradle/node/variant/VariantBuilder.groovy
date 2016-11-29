@@ -27,6 +27,7 @@ class VariantBuilder
 
         def variant = new Variant()
         variant.windows = platformHelper.isWindows()
+        variant.packaged = platformHelper.isPackaged()
         variant.nodeDir = getNodeDir( osName, osArch )
         variant.nodeBinDir = new File( variant.nodeDir, 'bin' )
 
@@ -39,7 +40,9 @@ class VariantBuilder
         }
         else
         {
-            variant.tarGzDependency = getTarGzDependency( osName, osArch )
+            if ( variant.isPackaged() ) {
+                variant.tarGzDependency = getTarGzDependency(osName, osArch)
+            }
             variant.npmDir = getNpmDir( osName, osArch )
             variant.nodeExec = new File( variant.nodeBinDir, 'node' ).absolutePath
         }

@@ -72,7 +72,9 @@ class NodePlugin
 
     private void configureSetupTask()
     {
-        this.setupTask.setEnabled( this.config.download )
+        if ( this.config.variant.packaged ) {
+            this.setupTask.setEnabled(this.config.download)
+        }
     }
 
     private void configureNpmSetupTask()
