@@ -40,9 +40,9 @@ class PlatformHelper
             return "linux"
         }
 
-        if ( name.contains( "freebsd" ) )
+        if ( name.contains( "bsd" ) )
         {
-            return "linux"
+            return "bsd"
         }
 
         if ( name.contains( "sunos" ) )
@@ -81,5 +81,12 @@ class PlatformHelper
     public boolean isWindows()
     {
         return getOsName().equals( "windows" )
+    }
+
+    public boolean isPackaged()
+    {
+        // This works fine on BSD if node is already installed.
+        // But since BSD is not Linux installing the Linux version of node does not work.
+        return !getOsName().equals( "bsd" )
     }
 }

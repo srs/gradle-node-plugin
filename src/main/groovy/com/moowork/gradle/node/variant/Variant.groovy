@@ -4,6 +4,8 @@ class Variant
 {
     def boolean windows
 
+    def boolean packaged
+
     def File nodeDir
 
     def File npmDir
