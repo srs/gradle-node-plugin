@@ -88,6 +88,29 @@ class Setup_integTest
             }
 
             node {
+                version = "4.5.0"
+                download = true
+            }
+        ''' )
+
+        when:
+        def result = buildTask( 'nodeSetup' )
+
+        then:
+        result.outcome == TaskOutcome.SUCCESS
+    }
+
+    def 'setup node (windows download separate exe)'()
+    {
+        System.setProperty( 'os.name', 'Windows' )
+
+        given:
+        writeBuild( '''
+            plugins {
+                id 'com.moowork.node'
+            }
+
+            node {
                 version = "0.10.33"
                 download = true
             }
