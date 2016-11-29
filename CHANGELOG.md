@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 0.15 *(not released)*
+-----------------------------
+
+* ...
+
 Version 0.14 *(2016-11-29)*
 ---------------------------
 
@@ -8,7 +13,6 @@ Version 0.14 *(2016-11-29)*
 * Use gradle-testkit instead of nebula (#153)
 * Update to use Windows zip dists when available (#142) _(datallah)_
 * Added support for Yarn (#145, #151) _(kaitoy)_
-* ...
 
 Version 0.13 *(2016-06-27)*
 ---------------------------
