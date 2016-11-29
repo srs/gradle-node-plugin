@@ -1,7 +1,13 @@
 package com.moowork.gradle.node
 
+import com.moowork.gradle.node.npm.NpmInstallTask
+import com.moowork.gradle.node.npm.NpmSetupTask
+import com.moowork.gradle.node.npm.NpmTask
 import com.moowork.gradle.node.task.*
 import com.moowork.gradle.node.variant.VariantBuilder
+import com.moowork.gradle.node.yarn.YarnInstallTask
+import com.moowork.gradle.node.yarn.YarnSetupTask
+import com.moowork.gradle.node.yarn.YarnTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

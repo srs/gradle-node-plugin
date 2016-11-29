@@ -37,3 +37,10 @@ tasks.withType( Test ) {
         exceptionFormat "full"
     }
 }
+
+test {
+    if ( project.hasProperty( 'skipIT' ) )
+    {
+        exclude '**/*_integTest*'
+    }
+}
