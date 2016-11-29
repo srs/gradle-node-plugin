@@ -5,8 +5,8 @@
 [![License](https://img.shields.io/github/license/srs/gradle-node-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Download](https://api.bintray.com/packages/srs/maven/gradle-node-plugin/images/download.svg) ](https://bintray.com/srs/maven/gradle-node-plugin/_latestVersion)
 
-**NOTE:** 1.0 release is not out yet. Please refer to the current release here: 
-https://github.com/srs/gradle-node-plugin/blob/v0.14/README.md
+> **_NOTE_: 1.0 release is not out yet. Please refer to the 
+[current 0.14 release](https://github.com/srs/gradle-node-plugin/blob/v0.14/README.md).**
 
 This plugin enabled you to use a lot of [NodeJS](https://nodejs.org)-based technologies as part of your 
 build without having NodeJS installed locally on your system. It integrates the following NodeJS-based system
