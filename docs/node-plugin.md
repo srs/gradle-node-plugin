@@ -1,4 +1,4 @@
-<img align="right" width="150" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/nodejs.png">
+<img align="right" width="120" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/nodejs.png">
 
 # Node Plugin
 

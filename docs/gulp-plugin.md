@@ -1,6 +1,6 @@
-<img align="right" width="150" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/gulp.png">
+<img align="right" width="120" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/gulp.png">
 
-# Grunt Plugin
+# Gulp Plugin
 
 This is a very simple Gradle plugin for running [Gulp](http://gulpjs.com/) tasks part of the build.
 It merely wraps calls to `gulp xyz` as gradle `gulp_xyz` tasks. Gulp is installed locally using npm.
