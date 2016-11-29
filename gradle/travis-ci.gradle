@@ -4,7 +4,7 @@ ext {
 }
 
 task ci {
-    dependsOn 'build', 'coveralls'
+    dependsOn 'build'
     description = 'Continuous integration tasks'
     group = 'Build'
 }

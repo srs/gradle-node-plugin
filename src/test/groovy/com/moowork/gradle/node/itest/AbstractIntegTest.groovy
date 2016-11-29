@@ -1,4 +1,4 @@
-package com.moowork.gradle
+package com.moowork.gradle.node.itest
 
 import org.apache.commons.io.FileUtils
 import org.gradle.testkit.runner.BuildResult

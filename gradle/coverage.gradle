@@ -1,5 +1,4 @@
 apply plugin: 'jacoco'
-apply plugin: 'com.github.kt3k.coveralls'
 
 jacocoTestReport {
     reports {
@@ -7,27 +6,3 @@ jacocoTestReport {
         html.enabled = true
     }
 }
-
-task jacocoMerge( type: JacocoMerge ) {
-    destinationFile = file( "${buildDir}/jacoco/test.exec" )
-    executionData tasks.withType( Test )
-}
-
-jacocoTestReport.dependsOn jacocoMerge
-check.dependsOn jacocoTestReport
-
-/*
-test {
-    jacoco {
-        append = true
-        destinationFile = file( "$buildDir/jacoco/test.exec" )
-    }
-}
-
-integrationTest {
-    jacoco {
-        append = true
-        destinationFile = file( "$buildDir/jacoco/test.exec" )
-    }
-}
-*/
