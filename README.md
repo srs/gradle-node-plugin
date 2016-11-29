@@ -20,11 +20,12 @@ with Gradle:
 Here's how you get started using this plugin. If you do not find what you are looking for, please add an 
 issue to [GitHub Issues](https://github.com/srs/gradle-node-plugin/issues).
 
-* [Installing](docs/installing.md)
-* [Node Plugin](docs/node-plugin.md)
-* [Grunt Plugin](docs/grunt-plugin.md)
-* [Gulp Plugin](docs/gulp-plugin.md)
-* [FAQ](docs/faq.md)
+* [Home](https://github.com/srs/gradle-node-plugin/wiki)
+* [Installing](https://github.com/srs/gradle-node-plugin/wiki/Installing)
+* [Node Plugin](https://github.com/srs/gradle-node-plugin/wiki/Node+Plugin)
+* [Grunt Plugin](https://github.com/srs/gradle-node-plugin/wiki/Grunt+Plugin)
+* [Gulp Plugin](https://github.com/srs/gradle-node-plugin/wiki/Gulp+Plugin)
+* [FAQ](https://github.com/srs/gradle-node-plugin/wiki/FAQ)
 
 
 ## Building the Plugin
