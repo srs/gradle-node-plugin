@@ -1,4 +1,4 @@
-<img align="right" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/grunt.png">
+<img align="right" width="100" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/grunt.png">
 
 # Grunt Plugin
 
