@@ -1,3 +1,5 @@
+<img align="right" width="150" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/nodejs.png">
+
 # Node Plugin
 
 This plugin is used to execute [NodeJS](https://nodejs.org) scripts and install [NPM](https://www.npmjs.com/) 
