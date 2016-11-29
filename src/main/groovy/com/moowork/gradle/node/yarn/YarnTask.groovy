@@ -1,6 +1,7 @@
 package com.moowork.gradle.node.yarn
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import org.gradle.process.ExecResult
 
@@ -44,6 +45,7 @@ class YarnTask
         this.yarnCommand = cmd
     }
 
+    @Internal
     Iterable<?> getArgs()
     {
         return this.args
@@ -69,6 +71,7 @@ class YarnTask
         this.runner.execOverrides = closure
     }
 
+    @Internal
     ExecResult getResult()
     {
         return this.result

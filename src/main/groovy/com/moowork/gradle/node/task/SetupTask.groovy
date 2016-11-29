@@ -6,6 +6,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.repositories.ArtifactRepository
 import org.gradle.api.artifacts.repositories.IvyArtifactRepository
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 
@@ -86,7 +87,7 @@ class SetupTask
 
     private void unpackNodeArchive()
     {
-        if ( getNodeArchiveFile().getName().endsWith('zip') )
+        if ( getNodeArchiveFile().getName().endsWith( 'zip' ) )
         {
             this.project.copy {
                 from this.project.zipTree( getNodeArchiveFile() )
@@ -101,10 +102,13 @@ class SetupTask
                 into this.variant.nodeBinDir
                 eachFile {
                     def m = it.path =~ /^.*?[\\/]lib[\\/](node_modules.*$)/
-                    if (m.matches()) {
+                    if ( m.matches() )
+                    {
                         // remap the file to the root
-                        it.path = m.group(1)
-                    } else {
+                        it.path = m.group( 1 )
+                    }
+                    else
+                    {
                         it.exclude()
                     }
                 }
@@ -128,11 +132,13 @@ class SetupTask
         }
     }
 
+    @Internal
     protected File getNodeExeFile()
     {
         return resloveSingle( this.variant.exeDependency )
     }
 
+    @Internal
     protected File getNodeArchiveFile()
     {
         return resloveSingle( this.variant.archiveDependency )

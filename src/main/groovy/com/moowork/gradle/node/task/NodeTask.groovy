@@ -2,6 +2,7 @@ package com.moowork.gradle.node.task
 
 import com.moowork.gradle.node.exec.NodeExecRunner
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import org.gradle.process.ExecResult
 
@@ -52,11 +53,13 @@ class NodeTask
         this.runner.execOverrides = closure
     }
 
+    @Internal
     ExecResult getResult()
     {
         return this.result
     }
 
+    @Internal
     Iterable<?> getArgs()
     {
         return this.args

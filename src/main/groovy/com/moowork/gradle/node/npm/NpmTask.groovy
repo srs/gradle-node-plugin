@@ -2,6 +2,7 @@ package com.moowork.gradle.node.npm
 
 import com.moowork.gradle.node.task.SetupTask
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import org.gradle.process.ExecResult
 
@@ -45,6 +46,7 @@ class NpmTask
         this.npmCommand = cmd
     }
 
+    @Internal
     Iterable<?> getArgs()
     {
         return this.args
@@ -70,6 +72,7 @@ class NpmTask
         this.runner.execOverrides = closure
     }
 
+    @Internal
     ExecResult getResult()
     {
         return this.result
