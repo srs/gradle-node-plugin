@@ -29,7 +29,7 @@ class YarnTaskTest
         1 * this.execSpec.setArgs( ['a', 'b'] )
     }
 
-    def "exec npm task (download)"()
+    def "exec yarn task (download)"()
     {
         given:
         this.ext.download = true
