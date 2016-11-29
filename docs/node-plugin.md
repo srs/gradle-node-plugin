@@ -2,7 +2,7 @@
 
 This plugin is used to execute [NodeJS](https://nodejs.org) scripts and install [NPM](https://www.npmjs.com/) 
 packages from NPM or [Yarn](https://yarnpkg.com/). To start using the plugin, add this into your `build.gradle` 
-file (see [Installing](Installing.md) for details):
+file (see [Installing](installing.md) for details):
 
 ```gradle
 plugins {
