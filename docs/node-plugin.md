@@ -1,5 +1,3 @@
-<img align="right" width="120" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/nodejs.png">
-
 # Node Plugin
 
 This plugin enables you to run any [NodeJS](https://nodejs.org) script as part of your build. It does

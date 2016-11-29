@@ -1,5 +1,3 @@
-<img align="right" width="120" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/gulp.png">
-
 # Gulp Plugin
 
 This is a very simple Gradle plugin for running [Gulp](http://gulpjs.com/) tasks part of the build.
