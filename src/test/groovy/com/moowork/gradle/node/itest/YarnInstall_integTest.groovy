@@ -1,6 +1,6 @@
-package com.moowork.gradle.node
+package com.moowork.gradle.node.itest
 
-import com.moowork.gradle.AbstractIntegTest
+import org.gradle.testkit.runner.TaskOutcome
 
 class YarnInstall_integTest
     extends AbstractIntegTest
@@ -9,7 +9,9 @@ class YarnInstall_integTest
     {
         given:
         writeBuild( '''
-            apply plugin: 'com.moowork.node'
+            plugins {
+                id 'com.moowork.node'
+            }
 
             node {
                 version = "6.9.1"
@@ -22,23 +24,25 @@ class YarnInstall_integTest
         writeEmptyPackageJson()
 
         when:
-        def result = runTasksSuccessfully( 'yarn' )
+        def result = buildTask( 'yarn' )
 
         then:
-        result.wasExecuted( 'yarn' )
+        result.outcome == TaskOutcome.SUCCESS
 
         when:
-        result = runTasksSuccessfully( 'yarn' )
+        result = buildTask( 'yarn' )
 
         then:
-        result.wasUpToDate( 'yarn' )
+        result.outcome == TaskOutcome.UP_TO_DATE
     }
 
     def 'install packages with yarn in different directory'()
     {
         given:
         writeBuild( '''
-            apply plugin: 'com.moowork.node'
+            plugins {
+                id 'com.moowork.node'
+            }
 
             node {
                 version = "6.9.1"
@@ -56,9 +60,9 @@ class YarnInstall_integTest
         }""" )
 
         when:
-        def result = runTasksSuccessfully( 'yarn' )
+        def result = buildTask( 'yarn' )
 
         then:
-        result.wasExecuted( 'yarn' )
+        result.outcome == TaskOutcome.SUCCESS
     }
 }
