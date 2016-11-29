@@ -14,19 +14,24 @@ with Gradle:
 * [Grunt](https://gruntjs.com/)
 * [Gulp](https://gulpjs.com/)
 
+It's actually 3 plugins in one:
+
+* [Node Plugin](docs/node.md) (`com.moowork.node`)
+* [Grunt Plugin](docs/grunt.md) (`com.moowork.grunt`)
+* [Gulp Plugin](docs/gulp.md) (`com.moowork.gulp`)
+
 
 ## Documentation
 
 Here's how you get started using this plugin. If you do not find what you are looking for, please add an 
 issue to [GitHub Issues](https://github.com/srs/gradle-node-plugin/issues).
 
-* [Home](https://github.com/srs/gradle-node-plugin/wiki)
-* [Installing](https://github.com/srs/gradle-node-plugin/wiki/Installing)
-* [Node Plugin](https://github.com/srs/gradle-node-plugin/wiki/Node+Plugin)
-* [Grunt Plugin](https://github.com/srs/gradle-node-plugin/wiki/Grunt+Plugin)
-* [Gulp Plugin](https://github.com/srs/gradle-node-plugin/wiki/Gulp+Plugin)
-* [Migration](https://github.com/srs/gradle-node-plugin/wiki/Migration)
-* [FAQ](https://github.com/srs/gradle-node-plugin/wiki/FAQ)
+* [Installing](docs/installing.md)
+* [Node Plugin](docs/node.md)
+* [Grunt Plugin](docs/grunt.md)
+* [Gulp Plugin](docs/gulp.md)
+* [Migration](docs/migration.md)
+* [FAQ](docs/faq.md)
 
 
 ## Documentation for older releases
