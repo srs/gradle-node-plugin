@@ -29,6 +29,16 @@ issue to [GitHub Issues](https://github.com/srs/gradle-node-plugin/issues).
 * [FAQ](https://github.com/srs/gradle-node-plugin/wiki/FAQ)
 
 
+## Documentation for older releases
+
+Here's the documentation for older releases of the plugin:
+
+* [0.14](https://github.com/srs/gradle-node-plugin/blob/v0.14/README.md)
+* [0.13](https://github.com/srs/gradle-node-plugin/blob/v0.13/README.md)
+* [0.12](https://github.com/srs/gradle-node-plugin/blob/v0.12/README.md)
+* [0.11](https://github.com/srs/gradle-node-plugin/blob/v0.11/README.md)
+
+
 ## Building the Plugin
 
 To build the plugin, just type the following command:
