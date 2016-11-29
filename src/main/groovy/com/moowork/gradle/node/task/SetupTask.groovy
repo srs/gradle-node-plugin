@@ -157,8 +157,12 @@ class SetupTask
             url distUrl
             layout 'pattern', {
                 artifact 'v[revision]/[artifact](-v[revision]-[classifier]).[ext]'
-                ivy 'v[revision]/ivy.xml'
             }
+        }
+
+        if ( this.config.distCredentialsAction != null )
+        {
+            this.repo.credentials( this.config.distCredentialsType, this.config.distCredentialsAction )
         }
     }
 
