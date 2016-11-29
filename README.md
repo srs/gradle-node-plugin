@@ -6,10 +6,23 @@ Gradle Plugin for Node
 [![License](https://img.shields.io/github/license/srs/gradle-node-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Download](https://api.bintray.com/packages/srs/maven/gradle-node-plugin/images/download.svg) ](https://bintray.com/srs/maven/gradle-node-plugin/_latestVersion)
 
+This plugin enabled you to use a lot of [NodeJS](https://nodejs.org)-based technologies as part of your 
+build without having NodeJS installed locally on your system.
+
+<img align="right" width="120" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/nodejs.png">
+<img align="right" width="120" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/grunt.png">
+<img align="right" width="120" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/gulp.png">
+<img align="right" width="120" src="https://raw.githubusercontent.com/srs/gradle-node-plugin/master/docs/assets/yarn.png">
+
+
+
+
 This plugin enables you to run any NodeJS script as part of your build. It does
 not depend on NodeJS (or NPM) being installed on your system. The plugin will
 download and manage NodeJS distributions, unpack them into your local `.gradle`
 directory and use them from there.
+
+It also 
 
 Installing the Plugin
 ---------------------

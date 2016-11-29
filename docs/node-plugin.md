@@ -2,9 +2,13 @@
 
 # Node Plugin
 
-This plugin is used to execute [NodeJS](https://nodejs.org) scripts and install [NPM](https://www.npmjs.com/) 
+This plugin enables you to run any [NodeJS](https://nodejs.org) script as part of your build. It does
+not depend on NodeJS (or NPM) being installed on your system. The plugin will
+download and manage NodeJS distributions, unpack them into your local `.gradle`
+directory and use them from there. It can also install [NPM](https://www.npmjs.com/) 
 packages from NPM or [Yarn](https://yarnpkg.com/). To start using the plugin, add this into your `build.gradle` 
 file (see [Installing](installing.md) for details):
+
 
 ```gradle
 plugins {
