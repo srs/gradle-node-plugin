@@ -83,4 +83,37 @@ class NpmRule_integTest
         fileExists( 'parent1.txt' )
         fileExists( 'parent2.txt' )
     }
+
+    def 'can execute subtasks using npm'()
+    {
+        given:
+        writeBuild( '''
+            plugins {
+                id 'com.moowork.node'
+            }
+            node {
+                download = true
+            }
+        ''' )
+        writePackageJson(""" {
+            "name": "example",
+            "dependencies": {},
+            "scripts": {
+                "parent" : "echo 'parent1' > parent1.txt && npm run child1 && npm run child2 && echo 'parent2' > parent2.txt",
+                "child1": "echo 'child1' > child1.txt",
+                "child2": "echo 'child2' > child2.txt"
+            }
+        }
+        """)
+
+        when:
+        def result = buildTask( 'npm_run_parent' )
+
+        then:
+        result.outcome == TaskOutcome.SUCCESS
+        fileExists( 'parent1.txt' )
+        fileExists( 'child1.txt' )
+        fileExists( 'child2.txt' )
+        fileExists( 'parent2.txt' )
+    }
 }
