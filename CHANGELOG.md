@@ -8,6 +8,7 @@ Version 1.0 *(not released)*
 * Move grunt plugin code to this plugin (#159)
 * Move gulp plugin code to this plugin (#160)
 * Use 6.9.1 as default node version (#163)
+* Fix missing property exception when using plugin in conjunction with Node 6.x.x on Windows (#167) _(mark-vieira)_
 * ...
 
 Version 0.14 *(2016-11-29)*
