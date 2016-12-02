@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/github/license/srs/gradle-node-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Download](https://api.bintray.com/packages/srs/maven/gradle-node-plugin/images/download.svg) ](https://bintray.com/srs/maven/gradle-node-plugin/_latestVersion)
 
-> **_NOTE_: 1.0 release is not out yet. Please refer to the 
+> **_NOTE_: 1.0.0 release is not out yet. Please refer to the 
 [current 0.14 release](https://github.com/srs/gradle-node-plugin/blob/v0.14/README.md).**
 
 This plugin enabled you to use a lot of [NodeJS](https://nodejs.org)-based technologies as part of your 
