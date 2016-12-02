@@ -7,6 +7,7 @@ Version 1.0 *(not released)*
 * Move npm and yarn classes into separate package (#158)
 * Move grunt plugin code to this plugin (#159)
 * Move gulp plugin code to this plugin (#160)
+* Use 6.9.1 as default node version (#163)
 * ...
 
 Version 0.14 *(2016-11-29)*
