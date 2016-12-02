@@ -31,6 +31,7 @@ issue to [GitHub Issues](https://github.com/srs/gradle-node-plugin/issues).
 * [Grunt Plugin](docs/grunt.md)
 * [Gulp Plugin](docs/gulp.md)
 * [FAQ](docs/faq.md)
+* [Changelog](CHANGELOG.md)
 
 
 ## Documentation for older releases
