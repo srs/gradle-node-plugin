@@ -99,6 +99,7 @@ class VariantBuilder
         def tokens = version.tokenize( '.' );
         def majorVersion = tokens[0].toInteger()
         def minorVersion = tokens[1].toInteger()
+        def microVersion = tokens[2].toInteger()
         if (
                ( majorVersion == 4 && minorVersion >= 5 ) // >= 4.5.0
                || ( majorVersion == 6 && (minorVersion > 2 || (minorVersion == 2 && microVersion >= 1)) ) // >= 6.2.1
