@@ -33,7 +33,6 @@ issue to [GitHub Issues](https://github.com/srs/gradle-node-plugin/issues).
 * [Node Plugin](docs/node.md)
 * [Grunt Plugin](docs/grunt.md)
 * [Gulp Plugin](docs/gulp.md)
-* [Migration](docs/migration.md)
 * [FAQ](docs/faq.md)
 
 
