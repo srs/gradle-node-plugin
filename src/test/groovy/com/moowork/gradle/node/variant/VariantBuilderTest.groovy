@@ -103,11 +103,13 @@ class VariantBuilderTest
           this.props.setProperty("os.arch", osArch)
 
           def ext = new NodeExtension(project)
-          ext.version = '4.5.0'
+          ext.version = version
           ext.workDir = new File('.gradle/node').absoluteFile
 
           def builder = new VariantBuilder(ext)
           def variant = builder.build()
+          def nodeDir = "node-v${version}-${osArch}".toString()
+          def depName = "org.nodejs:node:${version}:${osArch}@zip".toString()
 
         expect:
           variant != null
@@ -121,9 +123,13 @@ class VariantBuilderTest
           variant.npmDir.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules")
           variant.npmScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules${PS}npm${PS}bin${PS}npm-cli.js")
         where:
-          osArch   | nodeDir               |  depName
-          'x86'    | 'node-v4.5.0-win-x86' |  'org.nodejs:node:4.5.0:win-x86@zip'
-          'x86_64' | 'node-v4.5.0-win-x64' |  'org.nodejs:node:4.5.0:win-x64@zip'
+          version | osArch
+          "4.5.0" | "win-x86"
+          "6.2.1" | "win-x86"
+          "7.0.0" | "win-x86"
+          "4.5.0" | "win-x64"
+          "6.2.1" | "win-x64"
+          "7.0.0" | "win-x64"
     }
 
     @Unroll
