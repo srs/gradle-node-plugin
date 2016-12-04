@@ -54,6 +54,7 @@ abstract class ExecRunner
 
             if ( this.execOverrides != null )
             {
+                this.execOverrides.setDelegate( getDelegate() )
                 this.execOverrides( it )
             }
         } )
