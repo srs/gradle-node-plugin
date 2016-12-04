@@ -1,12 +1,7 @@
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.jfrog.artifactory'
-
-ext {
-    bintrayUser = resolveProperty( 'BINTRAY_USER', 'bintrayUser' )
-    bintrayKey = resolveProperty( 'BINTRAY_KEY', 'bintrayKey' )
-}
+apply plugin: 'com.gradle.plugin-publish'
 
 publishing {
     publications {
@@ -15,31 +10,6 @@ publishing {
             artifact sourcesJar
             artifact groovydocJar
             artifact javadocJar
-        }
-    }
-}
-
-bintray {
-    user = bintrayUser
-    key = bintrayKey
-    publications = ['mavenJava']
-
-    pkg {
-        repo = 'maven'
-        name = 'gradle-node-plugin'
-        desc = 'Gradle plugin for executing node scripts.'
-        websiteUrl = 'https://github.com/srs/gradle-node-plugin'
-        issueTrackerUrl = 'https://github.com/srs/gradle-node-plugin/issues'
-        vcsUrl = 'https://github.com/srs/gradle-node-plugin.git'
-        licenses = ['Apache-2.0']
-        labels = ['java', 'gradle', 'groovy', 'node']
-        publicDownloadNumbers = true
-
-        version {
-            vcsTag = "v$project.version"
-            attributes = ['gradle-plugin': ["com.moowork.node:${project.group}:${project.name}",
-                                            "com.moowork.grunt:${project.group}:${project.name}",
-                                            "com.moowork.gulp:${project.group}:${project.name}"]]
         }
     }
 }
@@ -63,14 +33,33 @@ artifactory {
     }
 }
 
-String resolveProperty( String envVarKey, String projectPropKey )
-{
-    String propValue = System.getenv()[envVarKey]
+pluginBundle {
+    website = 'https://github.com/srs/gradle-node-plugin'
+    vcsUrl = 'https://github.com/srs/gradle-node-plugin'
 
-    if ( propValue )
-    {
-        return propValue
+    plugins {
+        nodePlugin {
+            id = 'com.moowork.node'
+            displayName = 'Gradle Node Plugin'
+            description = 'Gradle plugin for executing node scripts.'
+            tags = ['java', 'gradle', 'node', 'yarn', 'npm']
+        }
+        gruntPlugin {
+            id = 'com.moowork.grunt'
+            displayName = 'Gradle Grunt Plugin'
+            description = 'Gradle pluign for executing grunt builds.'
+            tags = ['java', 'gradle', 'node', 'yarn', 'npm', 'grunt']
+        }
+        gulpPlugin {
+            id = 'com.moowork.gulp'
+            displayName = 'Gradle Gulp Plugin'
+            description = 'Gradle plugin for executing gulp builds.'
+            tags = ['java', 'gradle', 'node', 'yarn', 'npm', 'gulp']
+        }
     }
 
-    hasProperty( projectPropKey ) ? getProperty( projectPropKey ) : null
+    mavenCoordinates {
+        groupId = 'com.moowork.gradle'
+        artifactId = 'gradle-node-plugin'
+    }
 }

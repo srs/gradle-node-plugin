@@ -6,7 +6,7 @@ start using the plugin, add this into your `build.gradle` file (see [Installing]
 
 ```gradle
 plugins {
-  id "com.moowork.grunt" version "1.0.0"
+  id "com.moowork.grunt" version "1.0.1"
 }
 ```
 

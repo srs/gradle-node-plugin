@@ -6,7 +6,7 @@ To start using the plugin, add this into your `build.gradle` file (see [Installi
 
 ```gradle
 plugins {
-  id "com.moowork.gulp" version "1.0.0"
+  id "com.moowork.gulp" version "1.0.1"
 }
 ```
 

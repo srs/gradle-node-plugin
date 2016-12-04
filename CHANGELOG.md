@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 1.0.1 *(2016-12-04)*
+----------------------------
+
+* Publish directly to plugins.gradle.org instead of bintray (#172)
+* Fixed problem with resolving Grunt and Gulp plugins (#170)
+
 Version 1.0.0 *(2016-12-02)*
 ----------------------------
 
