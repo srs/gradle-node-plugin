@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/srs/gradle-node-plugin.svg?branch=master)](https://travis-ci.org/srs/gradle-node-plugin)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/06pg08c36mnes0w3?svg=true)](https://ci.appveyor.com/project/srs/gradle-node-plugin)
 [![License](https://img.shields.io/github/license/srs/gradle-node-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+[![Version](https://img.shields.io/badge/Version-1.0.1-orange.svg)]
+
 
 This plugin enabled you to use a lot of [NodeJS](https://nodejs.org)-based technologies as part of your 
 build without having NodeJS installed locally on your system. It integrates the following NodeJS-based system
@@ -15,9 +17,9 @@ with Gradle:
 
 It's actually 3 plugins in one:
 
-* [Node Plugin](docs/node.md) (`com.moowork.node`)
-* [Grunt Plugin](docs/grunt.md) (`com.moowork.grunt`)
-* [Gulp Plugin](docs/gulp.md) (`com.moowork.gulp`)
+* [Node Plugin](https://plugins.gradle.org/plugin/com.moowork.node) (`com.moowork.node`) - [See docs](docs/node.md).
+* [Grunt Plugin](https://plugins.gradle.org/plugin/com.moowork.grunt) (`com.moowork.grunt`) - [See docs](docs/grunt.md)
+* [Gulp Plugin](https://plugins.gradle.org/plugin/com.moowork.gulp) (`com.moowork.gulp`) - [See docs](docs/gulp.md)
 
 
 ## Documentation
