@@ -37,7 +37,9 @@ bintray {
 
         version {
             vcsTag = "v$project.version"
-            attributes = ['gradle-plugin': ["com.moowork.node:${project.group}:${project.name}"]]
+            attributes = ['gradle-plugin': ["com.moowork.node:${project.group}:${project.name}",
+                                            "com.moowork.grunt:${project.group}:${project.name}",
+                                            "com.moowork.gulp:${project.group}:${project.name}"]]
         }
     }
 }
