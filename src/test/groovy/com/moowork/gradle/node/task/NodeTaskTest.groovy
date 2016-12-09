@@ -27,6 +27,7 @@ class NodeTaskTest
 
         def task = this.project.tasks.create( 'simple', NodeTask )
         task.args = ['a', 'b']
+        task.options = ['c', 'd']
         task.environment = ['a': '1']
         task.ignoreExitValue = true
 
@@ -41,11 +42,12 @@ class NodeTaskTest
 
         then:
         task.args == ['a', 'b']
+        task.options == ['c', 'd']
         task.result.exitValue == 0
         1 * this.execSpec.setIgnoreExitValue( true )
         1 * this.execSpec.setEnvironment( ['a': '1'] )
         1 * this.execSpec.setExecutable( 'node' )
-        1 * this.execSpec.setArgs( [script.absolutePath, 'a', 'b'] )
+        1 * this.execSpec.setArgs( ['c', 'd', script.absolutePath, 'a', 'b'] )
     }
 
     def "exec node task (download)"()
@@ -87,6 +89,7 @@ class NodeTaskTest
         def script = new File( this.projectDir, 'script.js' )
 
         task.args = ['a', 'b']
+        task.options = ['c', 'd']
         task.script = script
 
         when:
@@ -97,7 +100,7 @@ class NodeTaskTest
         task.result.exitValue == 0
         1 * this.execSpec.setIgnoreExitValue( false )
         1 * this.execSpec.setExecutable( 'node' )
-        1 * this.execSpec.setArgs( [script.absolutePath, 'a', 'b'] )
+        1 * this.execSpec.setArgs( ['c', 'd', script.absolutePath, 'a', 'b'] )
     }
 
     def "exec node task (windows download)"()

@@ -14,6 +14,8 @@ class NodeTask
     private File script
 
     private Iterable<?> args = []
+    
+    private Iterable<?> options = []
 
     private ExecResult result
 
@@ -31,6 +33,11 @@ class NodeTask
     void setArgs( final Iterable<?> value )
     {
         this.args = value
+    }
+    
+    void setOptions( final Iterable<?> value )
+    {
+        this.options = value
     }
 
     void setEnvironment( final Map<String, ?> value )
@@ -64,6 +71,12 @@ class NodeTask
     {
         return this.args
     }
+    
+    @Internal
+    Iterable<?> getOptions()
+    {
+        return this.options
+    }
 
     @TaskAction
     void exec()
@@ -74,6 +87,7 @@ class NodeTask
         }
 
         def execArgs = []
+        execArgs.addAll( this.options as List )
         execArgs.add( this.script.absolutePath )
         execArgs.addAll( this.args as List )
 

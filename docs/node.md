@@ -34,6 +34,15 @@ task myScript(type: NodeTask) {
 }
 ```
 
+You can add node options like this:
+
+```gradle
+task myScript(type: NodeTask) {
+  script = file('src/scripts/my.js')
+  options = ['--node-option', '--another-node-option']
+}
+```
+
 `NodeTask` is a wrapper around the core `Exec` task. You can set the `ignoreExitValue` property on it:
 
 ```gradle
