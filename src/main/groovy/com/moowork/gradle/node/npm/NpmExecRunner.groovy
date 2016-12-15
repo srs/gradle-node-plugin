@@ -42,6 +42,7 @@ class NpmExecRunner
 
         def runner = new NodeExecRunner( this.project )
         runner.arguments = [npmScriptFile] + this.arguments
+        runner.pathExtensions = [ this.ext.npmWorkDir.getAbsolutePath() ]
         runner.environment = this.environment
         runner.workingDir = this.workingDir
         runner.execOverrides = this.execOverrides

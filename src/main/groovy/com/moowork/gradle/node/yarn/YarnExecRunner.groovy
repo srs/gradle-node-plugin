@@ -29,6 +29,7 @@ class YarnExecRunner
         def String yarnScriptFile = "${this.project.node.yarnWorkDir}/node_modules/yarn/bin/yarn.js"
         def runner = new NodeExecRunner( this.project )
         runner.arguments = [yarnScriptFile] + this.arguments
+        runner.pathExtensions = [ this.project.node.yarnWorkDir.getAbsolutePath() ]
         runner.environment = this.environment
         runner.workingDir = this.workingDir
         runner.execOverrides = this.execOverrides

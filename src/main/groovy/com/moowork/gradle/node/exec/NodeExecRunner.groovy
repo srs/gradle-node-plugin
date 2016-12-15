@@ -6,9 +6,20 @@ import org.gradle.process.ExecResult
 class NodeExecRunner
     extends ExecRunner
 {
+
+    private List<String> pathExtensions = []
+
     public NodeExecRunner( final Project project )
     {
         super( project )
+    }
+
+    public void setPathExtensions(List<String> pathExtensions) {
+      this.pathExtensions = pathExtensions
+    }
+
+    public List<String> getPathExtensions() {
+      return pathExtensions
     }
 
     @Override
@@ -24,17 +35,18 @@ class NodeExecRunner
                 nodeEnvironment << System.getenv()
             }
 
-            def nodeBinDirPath = this.variant.nodeBinDir.getAbsolutePath()
+            def allExtensions = [this.variant.nodeBinDir.getAbsolutePath()] + this.pathExtensions
+            def pathExtension = allExtensions.join(File.pathSeparator)
 
             // Take care of Windows environments that may contain "Path" OR "PATH" - both existing
             // possibly (but not in parallel as of now)
             if ( System.getenv( 'Path' ) != null )
             {
-                nodeEnvironment['Path'] = nodeBinDirPath + File.pathSeparator + System.getenv( 'Path' )
+                nodeEnvironment['Path'] = pathExtension + File.pathSeparator + System.getenv( 'Path' )
             }
             else
             {
-                nodeEnvironment['PATH'] = nodeBinDirPath + File.pathSeparator + System.getenv( 'PATH' )
+                nodeEnvironment['PATH'] = pathExtension + File.pathSeparator + System.getenv( 'PATH' )
             }
 
             this.environment = nodeEnvironment
