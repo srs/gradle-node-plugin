@@ -13,7 +13,7 @@ abstract class ExecRunner
 
     protected Variant variant
 
-    def Map<String, ?> environment
+    def Map<String, ?> environment = [:]
 
     def Object workingDir
 
@@ -26,6 +26,7 @@ abstract class ExecRunner
     public ExecRunner( final Project project )
     {
         this.project = project
+        this.environment << System.getenv()
     }
 
     protected final ExecResult run( final String exec, final List<?> args )
@@ -36,11 +37,7 @@ abstract class ExecRunner
         return this.project.exec( {
             it.executable = realExec
             it.args = realArgs
-
-            if ( this.environment != null )
-            {
-                it.environment = this.environment
-            }
+            it.environment = this.environment
 
             if ( this.workingDir != null )
             {

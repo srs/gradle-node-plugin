@@ -46,4 +46,8 @@ abstract class AbstractTaskTest
             }
         }
     }
+
+    protected containsPath( final Map<String, ?> env ) {
+        return env['PATH'] != null || env['Path'] != null;
+    }
 }

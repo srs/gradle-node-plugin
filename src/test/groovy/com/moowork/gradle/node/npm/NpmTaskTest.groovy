@@ -28,7 +28,7 @@ class NpmTaskTest
         task.args == ['a', 'b']
         task.result.exitValue == 0
         1 * this.execSpec.setIgnoreExitValue( true )
-        1 * this.execSpec.setEnvironment( ['a': '1'] )
+        1 * this.execSpec.setEnvironment( { it['a'] == '1' && containsPath(it) } )
         1 * this.execSpec.setExecutable( 'npm' )
         1 * this.execSpec.setArgs( ['a', 'b'] )
     }
@@ -54,7 +54,7 @@ class NpmTaskTest
         task.args == ['a', 'b']
         task.result.exitValue == 0
         1 * this.execSpec.setIgnoreExitValue( true )
-        1 * this.execSpec.setEnvironment( ['a': '1'] )
+        1 * this.execSpec.setEnvironment( { it['a'] == '1' && containsPath( it ) } )
         1 * this.execSpec.setExecutable( 'npm.cmd' )
         1 * this.execSpec.setArgs( ['a', 'b'] )
     }
