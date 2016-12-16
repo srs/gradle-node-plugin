@@ -38,13 +38,14 @@ class NodeExecRunner
             def allExtensions = [this.variant.nodeBinDir.getAbsolutePath()] + this.pathExtensions
             def pathExtension = allExtensions.join(File.pathSeparator)
 
+
             // Take care of Windows environments that may contain "Path" OR "PATH" - both existing
             // possibly (but not in parallel as of now)
             if ( System.getenv( 'Path' ) != null )
             {
                 nodeEnvironment['Path'] = pathExtension + File.pathSeparator + System.getenv( 'Path' )
             }
-            else
+            if ( System.getenv( 'PATH' ) != null )
             {
                 nodeEnvironment['PATH'] = pathExtension + File.pathSeparator + System.getenv( 'PATH' )
             }
