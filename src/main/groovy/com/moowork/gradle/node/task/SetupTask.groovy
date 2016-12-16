@@ -70,10 +70,21 @@ class SetupTask
         {
             copyNodeExe()
         }
+        if ( this.variant.windows )
+        {
+          addBashLauncher()
+        }
 
         unpackNodeArchive()
         setExecutableFlag()
         restoreRepositories()
+    }
+
+    private void addBashLauncher() {
+      File nodeBashLauncher = new File(this.variant.nodeBinDir, 'node')
+      if(!nodeBashLauncher.exists()) {
+            nodeBashLauncher.text = getClass().getClassLoader().getResourceAsStream('node-launcher.sh').text
+      }
     }
 
     private void copyNodeExe()
