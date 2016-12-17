@@ -135,16 +135,16 @@ class SetupTask
     @Internal
     protected File getNodeExeFile()
     {
-        return resloveSingle( this.variant.exeDependency )
+        return resolveSingle( this.variant.exeDependency )
     }
 
     @Internal
     protected File getNodeArchiveFile()
     {
-        return resloveSingle( this.variant.archiveDependency )
+        return resolveSingle( this.variant.archiveDependency )
     }
 
-    private File resloveSingle( String name )
+    private File resolveSingle( String name )
     {
         def dep = this.project.dependencies.create( name )
         def conf = this.project.configurations.detachedConfiguration( dep )
