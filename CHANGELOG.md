@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 1.0.2 *(not released)*
+------------------------------
+
+* Override environment instead of setting it (#176) _(s0x)_
+* ...
+
 Version 1.0.1 *(2016-12-04)*
 ----------------------------
 
