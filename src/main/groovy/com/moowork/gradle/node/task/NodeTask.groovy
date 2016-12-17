@@ -35,7 +35,7 @@ class NodeTask
 
     void setEnvironment( final Map<String, ?> value )
     {
-        this.runner.environment = value
+        this.runner.environment << value
     }
 
     void setWorkingDir( final Object value )

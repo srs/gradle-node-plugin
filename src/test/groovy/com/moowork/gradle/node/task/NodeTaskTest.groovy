@@ -43,15 +43,13 @@ class NodeTaskTest
         task.args == ['a', 'b']
         task.result.exitValue == 0
         1 * this.execSpec.setIgnoreExitValue( true )
-        1 * this.execSpec.setEnvironment( ['a': '1'] )
+        1 * this.execSpec.setEnvironment( { it['a'] == '1' && containsPath( it ) } )
         1 * this.execSpec.setExecutable( 'node' )
         1 * this.execSpec.setArgs( [script.absolutePath, 'a', 'b'] )
     }
 
     def "exec node task (download)"()
     {
-        def capturedEnv = [:]
-
         given:
         this.props.setProperty( 'os.name', 'Linux' )
         this.ext.download = true
@@ -68,12 +66,8 @@ class NodeTaskTest
         then:
         task.result.exitValue == 0
         1 * this.execSpec.setIgnoreExitValue( false )
+        1 * this.execSpec.setEnvironment( { containsPath( it ) } )
         1 * this.execSpec.setArgs( [script.absolutePath] )
-
-        1 * this.execSpec.setEnvironment( _ ) >> { map -> capturedEnv = map
-        }
-
-        capturedEnv['PATH'] != null
     }
 
     def "exec node task (windows)"()
@@ -96,6 +90,7 @@ class NodeTaskTest
         then:
         task.result.exitValue == 0
         1 * this.execSpec.setIgnoreExitValue( false )
+        1 * this.execSpec.setEnvironment( { containsPath( it ) } )
         1 * this.execSpec.setExecutable( 'node' )
         1 * this.execSpec.setArgs( [script.absolutePath, 'a', 'b'] )
     }
@@ -117,6 +112,7 @@ class NodeTaskTest
 
         then:
         task.result.exitValue == 0
+        1 * this.execSpec.setEnvironment( { containsPath( it ) } )
         1 * this.execSpec.setIgnoreExitValue( false )
     }
 }
