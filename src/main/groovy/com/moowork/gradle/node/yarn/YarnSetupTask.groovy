@@ -2,12 +2,14 @@ package com.moowork.gradle.node.yarn
 
 import com.moowork.gradle.node.npm.NpmSetupTask
 import com.moowork.gradle.node.npm.NpmTask
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.OutputDirectory
 
 /**
  * Setup a specific version of Yarn to be used by the build.
  **/
 class YarnSetupTask
-    extends NpmTask
+    extends NpmSetupTask
 {
     public final static String NAME = 'yarnSetup'
 
@@ -15,25 +17,37 @@ class YarnSetupTask
     {
         this.group = 'Node'
         this.description = 'Setup a specific version of Yarn to be used by the build.'
-        dependsOn( [NpmSetupTask.NAME] )
 
-        this.project.afterEvaluate {
-            getOutputs().dir( this.project.node.yarnWorkDir )
-        }
+        this.enabled = false;
     }
 
-    void configureYarnVersion( String yarnVersion )
+    @Input
+    public Set<String> getInput()
     {
-        def yarnDir = this.project.node.yarnWorkDir
+        def set = new HashSet<>()
+        set.add( this.getConfig().download )
+        set.add( this.getConfig().yarnVersion )
+        set.add( this.getConfig().yarnWorkDir )
+        return set
+    }
+
+    @OutputDirectory
+    public File getYarnDir()
+    {
+        return this.getVariant().yarnDir
+    }
+
+    void configureVersion( String yarnVersion )
+    {
+        def pkg = "yarn"
+
         if ( !yarnVersion.isEmpty() )
         {
             logger.debug( "Setting yarnVersion to ${yarnVersion}" )
-            setArgs( ['install', '--prefix', yarnDir, "yarn@${yarnVersion}"] )
-            getInputs().property( 'yarnVersion', yarnVersion )
+            pkg += "@${yarnVersion}"
         }
-        else
-        {
-          setArgs( ['install', '--prefix', yarnDir, "yarn"] )
-        }
+
+        this.setArgs( ['install', '--global', '--prefix', this.getVariant().yarnDir, pkg] )
+        enabled = true
     }
 }

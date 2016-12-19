@@ -35,6 +35,7 @@ class VariantBuilderTest
           this.props.setProperty("os.arch", osArch)
 
           def ext = new NodeExtension(project)
+          ext.download = true
           ext.version = '0.11.1'
           ext.workDir = new File('.gradle/node').absoluteFile
 
@@ -50,7 +51,6 @@ class VariantBuilderTest
           variant.nodeDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
           variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
           variant.nodeExec.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node.exe")
-          variant.npmDir.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules")
           variant.npmScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules${PS}npm${PS}bin${PS}npm-cli.js")
 
         where:
@@ -69,6 +69,7 @@ class VariantBuilderTest
           this.props.setProperty("os.arch", osArch)
 
           def ext = new NodeExtension(project)
+          ext.download = true
           ext.version = '4.0.0'
           ext.workDir = new File('.gradle/node').absoluteFile
 
@@ -84,7 +85,6 @@ class VariantBuilderTest
           variant.nodeDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
           variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
           variant.nodeExec.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node.exe")
-          variant.npmDir.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules")
           variant.npmScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules${PS}npm${PS}bin${PS}npm-cli.js")
 
         where:
@@ -103,6 +103,7 @@ class VariantBuilderTest
           this.props.setProperty("os.arch", osArch)
 
           def ext = new NodeExtension(project)
+          ext.download = true
           ext.version = version
           ext.workDir = new File('.gradle/node').absoluteFile
 
@@ -120,7 +121,6 @@ class VariantBuilderTest
           variant.nodeDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
           variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
           variant.nodeExec.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node.exe")
-          variant.npmDir.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules")
           variant.npmScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules${PS}npm${PS}bin${PS}npm-cli.js")
         where:
           version | osArch
@@ -141,6 +141,7 @@ class VariantBuilderTest
 
           def project = ProjectBuilder.builder().build()
           def ext = new NodeExtension(project)
+          ext.download = true
           ext.version = '0.11.1'
           ext.workDir = new File('.gradle/node').absoluteFile
 
@@ -156,7 +157,6 @@ class VariantBuilderTest
           variant.nodeDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
           variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + 'bin')
           variant.nodeExec.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "bin${PS}node")
-          variant.npmDir.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "lib${PS}node_modules")
           variant.npmScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "lib${PS}node_modules${PS}npm${PS}bin${PS}npm-cli.js")
 
         where:
@@ -180,6 +180,7 @@ class VariantBuilderTest
 
           def project = ProjectBuilder.builder().build()
           def ext = new NodeExtension(project)
+          ext.download = true
           ext.version = '5.6.0'
           ext.workDir = new File('.gradle/node').absoluteFile
 
@@ -197,7 +198,6 @@ class VariantBuilderTest
           variant.nodeDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
           variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + 'bin')
           variant.nodeExec.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "bin${PS}node")
-          variant.npmDir.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "lib${PS}node_modules")
           variant.npmScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "lib${PS}node_modules${PS}npm${PS}bin${PS}npm-cli.js")
 
         where:
@@ -205,5 +205,91 @@ class VariantBuilderTest
           'Linux' | 'arm'  | 'armv6l'  | 'node-v5.6.0-linux-armv6l' | 'org.nodejs:node:5.6.0:linux-armv6l@tar.gz'
           'Linux' | 'arm'  | 'armv7l'  | 'node-v5.6.0-linux-armv7l' | 'org.nodejs:node:5.6.0:linux-armv7l@tar.gz'
           'Linux' | 'arm'  | 'arm64'   | 'node-v5.6.0-linux-arm64'  | 'org.nodejs:node:5.6.0:linux-arm64@tar.gz'
+    }
+
+    @Unroll
+    def "test npm paths on windows"()
+    {
+        given:
+          this.props.setProperty("os.name", "Windows 8")
+          this.props.setProperty("os.arch", "x86")
+          def project = ProjectBuilder.builder().build()
+
+          def ext = new NodeExtension(project)
+          ext.download = download
+          ext.npmVersion = npmVersion
+
+          def builder = new VariantBuilder(ext)
+          def variant = builder.build()
+
+          def npmDir = variant.nodeDir
+          def npm = ext.npmCommand + ".cmd"
+
+          if (npmVersion != "") {
+            npmDir = new File(ext.npmWorkDir, "npm-v${npmVersion}".toString())
+          }
+
+          if (download) {
+            npm = new File(npmDir, npm).toString()
+          }
+        expect:
+          variant.npmDir == npmDir
+          variant.npmBinDir == npmDir
+          variant.npmExec == npm
+
+          // if no version use node paths
+          npmVersion != "" || variant.npmDir == variant.nodeDir
+          npmVersion != "" || variant.npmBinDir == variant.nodeBinDir
+
+        where:
+          download | npmVersion
+          true     | "4.0.2"
+          true     | ""
+          false    | "4.0.2"
+          false     | ""
+    }
+
+    @Unroll
+    def "test npm paths on non-windows"()
+    {
+        given:
+          this.props.setProperty("os.name", "Linux")
+          this.props.setProperty("os.arch", "x86")
+          def project = ProjectBuilder.builder().build()
+
+          def ext = new NodeExtension(project)
+          ext.download = download
+          ext.npmVersion = npmVersion
+
+          def builder = new VariantBuilder(ext)
+          def variant = builder.build()
+
+          def npmDir = variant.nodeDir
+          def npm = ext.npmCommand
+
+          if (npmVersion != "") {
+            npmDir = new File(ext.npmWorkDir, "npm-v${npmVersion}".toString())
+          }
+
+          def npmBinDir = new File(npmDir, "bin")
+
+          if (download) {
+            npm = new File(npmBinDir, npm).toString()
+          }
+        expect:
+          variant.npmDir == npmDir
+          variant.npmBinDir == npmBinDir
+          variant.npmExec == npm
+
+          // if no version use node paths
+          npmVersion != "" || variant.npmDir == variant.nodeDir
+          npmVersion != "" || variant.npmBinDir == variant.nodeBinDir
+
+        where:
+          download | npmVersion
+          true     | "4.0.2"
+          true     | ""
+          false    | "4.0.2"
+          false    | ""
     }
 }

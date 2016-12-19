@@ -1,6 +1,5 @@
 package com.moowork.gradle.node.npm
 
-import com.moowork.gradle.node.task.SetupTask
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
@@ -20,7 +19,7 @@ class NpmTask
     public NpmTask()
     {
         this.runner = new NpmExecRunner( this.project )
-        dependsOn( SetupTask.NAME )
+        dependsOn( NpmSetupTask.NAME )
 
         this.project.afterEvaluate {
             if ( !this.runner.workingDir )

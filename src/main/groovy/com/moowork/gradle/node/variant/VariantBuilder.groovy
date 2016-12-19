@@ -27,11 +27,28 @@ class VariantBuilder
 
         def variant = new Variant()
         variant.windows = platformHelper.isWindows()
+
         variant.nodeDir = getNodeDir( osName, osArch )
+        variant.npmDir = ext.npmVersion ? getNpmDir() : variant.nodeDir
+        variant.yarnDir = getYarnDir()
+
+        variant.nodeBinDir = variant.nodeDir
+        variant.npmBinDir = variant.npmDir
+        variant.yarnBinDir = variant.yarnDir
+
+        variant.nodeExec = "node"
+        variant.npmExec = this.ext.npmCommand
+        variant.yarnExec = this.ext.yarnCommand
 
         if ( variant.windows )
         {
-            variant.nodeBinDir = variant.nodeDir
+            if (variant.npmExec == 'npm') {
+                variant.npmExec = 'npm.cmd'
+            }
+            if (variant.yarnExec == 'yarn') {
+                variant.yarnExec = 'yarn.cmd'
+            }
+
             if (hasWindowsZip())
             {
                 variant.archiveDependency = getArchiveDependency( osName, osArch, 'zip' )
@@ -41,18 +58,28 @@ class VariantBuilder
                 variant.archiveDependency = getArchiveDependency( 'linux', 'x86', 'tar.gz' )
                 variant.exeDependency = getExeDependency()
             }
-            variant.npmDir = new File( variant.nodeBinDir, 'node_modules' )
-            variant.nodeExec = new File( variant.nodeBinDir, 'node.exe' ).absolutePath
+            variant.npmScriptFile = new File( variant.nodeDir , 'node_modules/npm/bin/npm-cli.js')
         }
         else
         {
-            variant.nodeBinDir = new File( variant.nodeDir, 'bin' )
+            variant.nodeBinDir = new File( variant.nodeBinDir, 'bin' )
+            variant.npmBinDir = new File( variant.npmBinDir, 'bin' )
+            variant.yarnBinDir = new File( variant.yarnBinDir, 'bin' )
             variant.archiveDependency = getArchiveDependency( osName, osArch, 'tar.gz' )
-            variant.npmDir = new File( variant.nodeDir, 'lib/node_modules' )
-            variant.nodeExec = new File( variant.nodeBinDir, 'node' ).absolutePath
+            variant.npmScriptFile = new File( variant.nodeDir , 'lib/node_modules/npm/bin/npm-cli.js')
         }
 
-        variant.npmScriptFile = new File( variant.npmDir, 'npm/bin/npm-cli.js' ).absolutePath
+        if (this.ext.download)
+        {
+            if (variant.nodeExec == "node" && variant.windows) {
+                variant.nodeExec = "node.exe"
+            }
+
+            variant.nodeExec = new File( variant.nodeBinDir, variant.nodeExec ).absolutePath
+            variant.npmExec = new File( variant.npmBinDir, variant.npmExec ).absolutePath
+            variant.yarnExec = new File( variant.yarnBinDir, variant.yarnExec ).absolutePath
+        }
+
         return variant
     }
 
@@ -116,5 +143,25 @@ class VariantBuilder
         def version = this.ext.version
         def dirName = "node-v${version}-${osName}-${osArch}"
         return new File( this.ext.workDir, dirName )
+    }
+
+    private File getNpmDir()
+    {
+        def version = this.ext.npmVersion
+        return new File(this.ext.npmWorkDir, "npm-v${version}")
+    }
+
+    private File getYarnDir()
+    {
+        def dirname = "yarn"
+        if (this.ext.yarnVersion)
+        {
+            dirname += "-v${this.ext.yarnVersion}"
+        }
+        else
+        {
+            dirname += "-latest"
+        }
+        return new File( this.ext.yarnWorkDir, dirname )
     }
 }
