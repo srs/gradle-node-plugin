@@ -30,6 +30,51 @@ class NpmRule_integTest
         result.outcome == TaskOutcome.SUCCESS
     }
 
+    def 'Use downloaded npm version'()
+    {
+        given:
+        writeBuild( '''
+            plugins {
+                id 'com.moowork.node'
+            }
+            node {
+                npmVersion = "2.1.6"
+                download = true
+            }
+        ''' )
+        writeEmptyPackageJson()
+
+        when:
+        def result = build( 'npm_run_--version' )
+
+        then:
+        result.output =~ /\n2\.1\.6\n/
+        result.task( ':npm_run_--version' ).outcome == TaskOutcome.SUCCESS
+    }
+
+    def 'Use local npm installation'()
+    {
+        given:
+        writeBuild( '''
+            plugins {
+                id 'com.moowork.node'
+            }
+            node {
+                npmVersion = "2.1.6"
+                download = true
+            }
+        ''' )
+        writeEmptyPackageJson()
+
+        when:
+        build( 'npm_install_npm@4.0.2' )
+        def result = build( 'npm_run_--version' )
+
+        then:
+        result.output =~ /\n4\.0\.2\n/
+        result.task( ':npm_run_--version' ).outcome == TaskOutcome.SUCCESS
+    }
+
     def 'can execute an npm module using npm_run_'()
     {
         given:
