@@ -47,7 +47,7 @@ class YarnInstall_integTest
 
             node {
                 version = "6.9.1"
-                yarnVersion = "0.15.1"
+                yarnVersion = "0.16.1"
                 download = true
                 workDir = file('build/node')
                 yarnWorkDir = file('build/yarn')

@@ -41,7 +41,7 @@ class YarnRule_integTest
 
             node {
                 version = "6.9.1"
-                yarnVersion = "0.17.5"
+                yarnVersion = "0.16.1"
                 download = true
             }
         ''' )
