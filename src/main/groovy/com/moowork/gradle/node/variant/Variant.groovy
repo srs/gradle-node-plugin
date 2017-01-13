@@ -4,15 +4,33 @@ class Variant
 {
     def boolean windows
 
-    def File nodeDir
-
-    def File npmDir
-
-    def File nodeBinDir
+    /* Node */
 
     def String nodeExec
 
     def String npmScriptFile
+
+    def File nodeDir
+
+    def File nodeBinDir
+
+    /* NPM */
+
+    def String npmExec
+
+    def File npmDir
+
+    def File npmBinDir
+
+    /* Yarn */
+
+    def String yarnExec
+
+    def File yarnDir
+
+    def File yarnBinDir
+
+    /* Dependencies */
 
     def String archiveDependency
 

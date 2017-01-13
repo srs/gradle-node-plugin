@@ -17,22 +17,28 @@ class YarnExecRunner
     @Override
     protected ExecResult doExecute()
     {
-        if ( this.ext.yarnCommand == 'yarn' && this.ext.variant.windows ) {
-            this.ext.yarnCommand = 'yarn.cmd'
-        }
-
-        if ( !this.ext.download )
+        if ( this.ext.download )
         {
-            return run( this.ext.yarnCommand, this.arguments )
+            def yarnBinDir = this.variant.yarnBinDir.getAbsolutePath();
+
+            def npmBinDir = this.variant.npmBinDir.getAbsolutePath();
+
+            def nodeBinDir = this.variant.nodeBinDir.getAbsolutePath();
+
+            def path = yarnBinDir + File.pathSeparator + npmBinDir + File.pathSeparator + nodeBinDir;
+
+            // Take care of Windows environments that may contain "Path" OR "PATH" - both existing
+            // possibly (but not in parallel as of now)
+            if ( this.environment['Path'] != null )
+            {
+                this.environment['Path'] = path + File.pathSeparator + this.environment['Path']
+            }
+            else
+            {
+                this.environment['PATH'] = path + File.pathSeparator + this.environment['PATH']
+            }
         }
 
-        def String yarnScriptFile = "${this.project.node.yarnWorkDir}/node_modules/yarn/bin/yarn.js"
-        def runner = new NodeExecRunner( this.project )
-        runner.arguments = [yarnScriptFile] + this.arguments
-        runner.environment = this.environment
-        runner.workingDir = this.workingDir
-        runner.execOverrides = this.execOverrides
-        runner.ignoreExitValue = this.ignoreExitValue
-        return runner.execute()
+        return run( this.variant.yarnExec, this.arguments )
     }
 }

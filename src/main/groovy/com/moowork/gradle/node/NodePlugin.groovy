@@ -109,11 +109,11 @@ class NodePlugin
 
     private void configureNpmSetupTask()
     {
-        this.npmSetupTask.configureNpmVersion( this.config.npmVersion )
+        this.npmSetupTask.configureVersion( this.config.npmVersion )
     }
 
     private void configureYarnSetupTask()
     {
-        this.yarnSetupTask.configureYarnVersion( this.config.yarnVersion )
+        this.yarnSetupTask.configureVersion( this.config.yarnVersion )
     }
 }

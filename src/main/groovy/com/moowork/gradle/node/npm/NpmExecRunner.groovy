@@ -17,35 +17,41 @@ class NpmExecRunner
     @Override
     protected ExecResult doExecute()
     {
-        if ( this.ext.npmCommand == 'npm' && this.ext.variant.windows ) {
-            this.ext.npmCommand = 'npm.cmd'
-        }
 
-        if ( !this.ext.download )
+        def exec = this.variant.npmExec
+        def arguments = this.arguments
+
+        if ( this.ext.download )
         {
-            return run( this.ext.npmCommand, this.arguments )
-        }
+            def npmBinDir = this.variant.npmBinDir.getAbsolutePath();
 
-        def String npmScriptFile = this.variant.npmScriptFile
-        def File localNpm = project.file( new File( this.ext.nodeModulesDir, 'node_modules/npm/bin/npm-cli.js' ) )
-        def File workNpm = project.file( new File( this.ext.npmWorkDir, 'node_modules/npm/bin/npm-cli.js' ) )
+            def nodeBinDir = this.variant.nodeBinDir.getAbsolutePath();
 
-        // Use npm specified by user if available
-        if ( workNpm.exists() )
-        {
-            npmScriptFile = workNpm.absolutePath
-        }
-        // Use locally-installed npm if available
-        else if ( localNpm.exists() ) {
-          npmScriptFile = localNpm.absolutePath
-        }
+            def path = npmBinDir + File.pathSeparator + nodeBinDir;
 
-        def runner = new NodeExecRunner( this.project )
-        runner.arguments = [npmScriptFile] + this.arguments
-        runner.environment = this.environment
-        runner.workingDir = this.workingDir
-        runner.execOverrides = this.execOverrides
-        runner.ignoreExitValue = this.ignoreExitValue
-        return runner.execute()
+            // Take care of Windows environments that may contain "Path" OR "PATH" - both existing
+            // possibly (but not in parallel as of now)
+            if ( environment['Path'] != null )
+            {
+                environment['Path'] = path + File.pathSeparator + environment['Path']
+            }
+            else
+            {
+                environment['PATH'] = path + File.pathSeparator + environment['PATH']
+            }
+
+            def File localNpm = project.file( new File( this.ext.nodeModulesDir, 'node_modules/npm/bin/npm-cli.js' ) )
+            if ( localNpm.exists() )
+            {
+                exec = this.variant.nodeExec
+                arguments = [localNpm.absolutePath] + arguments
+            }
+            else if ( !new File(exec).exists() )
+            {
+                exec = this.variant.nodeExec
+                arguments = [this.variant.npmScriptFile] + arguments
+            }
+        }
+        return run( exec, arguments )
     }
 }
