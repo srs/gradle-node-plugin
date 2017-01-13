@@ -1,11 +1,12 @@
 Changelog
 =========
 
-Version 1.0.2 *(not released)*
+Version 1.1.0 *(not released)*
 ------------------------------
 
 * Override environment instead of setting it (#176) _(s0x)_
 * Fix typo in resolveSingle (#166) _(s0x)_
+* Add support for node options (#141, #174) _(whboyd)_
 * ...
 
 Version 1.0.1 *(2016-12-04)*
