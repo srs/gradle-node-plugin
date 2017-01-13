@@ -1,15 +1,14 @@
 Changelog
 =========
 
-Version 1.1.0 *(not released)*
-------------------------------
+Version 1.1.0 *(2017-01-13)*
+----------------------------
 
 * Override environment instead of setting it (#176) _(s0x)_
 * Fix typo in resolveSingle (#166) _(s0x)_
 * Add support for node options (#141, #174) _(whboyd)_
 * Fix symlink problem using NPM (#164, #165, #181) _(s0x)_
 * Set PATH variable for node, npm and yarn (#134, #146, #149, #164, #179) _(s0x)_
-* ...
 
 Version 1.0.1 *(2016-12-04)*
 ----------------------------

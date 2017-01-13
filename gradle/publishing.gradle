@@ -1,7 +1,7 @@
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.artifactory'
-apply plugin: 'com.gradle.plugin-publish'
+apply plugin: 'com.jfrog.bintray'
 
 ext {
     bintrayUser = resolveProperty( 'BINTRAY_USER', 'bintrayUser' )
@@ -38,34 +38,30 @@ artifactory {
     }
 }
 
-pluginBundle {
-    website = 'https://github.com/srs/gradle-node-plugin'
-    vcsUrl = 'https://github.com/srs/gradle-node-plugin'
+bintray {
+    user = bintrayUser
+    key = bintrayKey
+    publications = ['mavenJava']
+    publish = true
 
-    plugins {
-        nodePlugin {
-            id = 'com.moowork.node'
-            displayName = 'Gradle Node Plugin'
-            description = 'Gradle plugin for executing node scripts.'
-            tags = ['java', 'gradle', 'node', 'yarn', 'npm']
-        }
-        gruntPlugin {
-            id = 'com.moowork.grunt'
-            displayName = 'Gradle Grunt Plugin'
-            description = 'Gradle pluign for executing grunt builds.'
-            tags = ['java', 'gradle', 'node', 'yarn', 'npm', 'grunt']
-        }
-        gulpPlugin {
-            id = 'com.moowork.gulp'
-            displayName = 'Gradle Gulp Plugin'
-            description = 'Gradle plugin for executing gulp builds.'
-            tags = ['java', 'gradle', 'node', 'yarn', 'npm', 'gulp']
-        }
-    }
+    pkg {
+        repo = 'maven'
+        name = 'gradle-node-plugin'
+        desc = 'Gradle plugin for executing node scripts. Includes support for Yarn, Grunt and Gulp.'
+        websiteUrl = 'https://github.com/srs/gradle-node-plugin'
+        issueTrackerUrl = 'https://github.com/srs/gradle-node-plugin/issues'
+        vcsUrl = 'https://github.com/srs/gradle-node-plugin.git'
+        licenses = ['Apache-2.0']
+        labels = ['java', 'gradle', 'groovy', 'node', 'gulp', 'grunt']
+        publicDownloadNumbers = true
+        githubRepo = "srs/gradle-node-plugin"
 
-    mavenCoordinates {
-        groupId = 'com.moowork.gradle'
-        artifactId = 'gradle-node-plugin'
+        version {
+            vcsTag = "v$project.version"
+            attributes = ['gradle-plugin': ["com.moowork.node:${project.group}:${project.name}",
+                                            "com.moowork.grunt:${project.group}:${project.name}",
+                                            "com.moowork.gulp:${project.group}:${project.name}"]]
+        }
     }
 }
 
