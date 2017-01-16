@@ -8,4 +8,5 @@ repositories {
 dependencies {
     classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
     classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.4.0'
+    classpath 'com.gradle.publish:plugin-publish-plugin:0.9.6'
 }
