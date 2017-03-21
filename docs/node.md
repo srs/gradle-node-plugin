@@ -126,7 +126,7 @@ are made to `package.json`, `yarn.lock`, or `node_modules`. Execute it like this
 $ gradle yarn
 ```
 
-All npm command can also be invoked using underscore notation based on a gradle rule:
+All yarn command can also be invoked using underscore notation based on a gradle rule:
 
 ```bash
 $ gradle yarn_install
