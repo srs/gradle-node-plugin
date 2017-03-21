@@ -7,7 +7,7 @@ This page contains a collection of frequently asked questions.
 
 Just add to your bundle task filesets (in and out) wich this task depends on:
 
-```js
+```gradle
 task bundle(type: YarnTask) {
     inputs.files(fileTree('node_modules'))
     inputs.files(fileTree('src'))
@@ -22,3 +22,12 @@ task bundle(type: YarnTask) {
 ```
 
 More info in [Gradle doc](https://docs.gradle.org/current/userguide/more_about_tasks.html#sec:up_to_date_checks)
+
+
+# How do I set log level for NPM install task?
+
+This can be done adding some arguments to the already defined `npmInstall`-task. To set the log level to `silly` do this:
+
+```gradle
+npmInstall.args = ['--loglevel', 'silly']
+```
