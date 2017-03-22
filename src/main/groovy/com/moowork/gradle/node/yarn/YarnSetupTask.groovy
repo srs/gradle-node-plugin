@@ -27,7 +27,6 @@ class YarnSetupTask
         def set = new HashSet<>()
         set.add( this.getConfig().download )
         set.add( this.getConfig().yarnVersion )
-        set.add( this.getConfig().yarnWorkDir )
         return set
     }
 

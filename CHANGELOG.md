@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 1.2.0 *(unreleased)*
+----------------------------
+
+* Support using Gradle Build Cache with Yarn tasks (#205) _(mark-vieira)_
+* ...
+
 Version 1.1.1 *(2017-01-16)*
 ----------------------------
 
