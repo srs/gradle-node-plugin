@@ -5,6 +5,8 @@
 [![License](https://img.shields.io/github/license/srs/gradle-node-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 ![Version](https://img.shields.io/badge/Version-1.1.1-orange.svg)
 
+[![Support](docs/images/support.png?raw=true)](#support)
+
 :heart: Please consider [supporting this project](#support). :heart:
 
 This plugin enabled you to use a lot of [NodeJS](https://nodejs.org)-based technologies as part of your 
