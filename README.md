@@ -5,6 +5,7 @@
 [![License](https://img.shields.io/github/license/srs/gradle-node-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 ![Version](https://img.shields.io/badge/Version-1.1.1-orange.svg)
 
+:heart: Please consider [supporting this project](#support). :heart:
 
 This plugin enabled you to use a lot of [NodeJS](https://nodejs.org)-based technologies as part of your 
 build without having NodeJS installed locally on your system. It integrates the following NodeJS-based system
@@ -60,6 +61,11 @@ To build the plugin, just type the following command:
 Contributions are always welcome! If you'd like to contribute (and we hope you do) please send 
 one of the existing contributors a nudge.
 
+## <a name="support"></a> Support active development
+
+:heart: This plugin is open source project and completely free to use. If you are using this project in your products/projects, please consider sponsoring to ensure it is actively developed and maintained.
+
+[Donate via PayPal (one time)](https://www.paypal.me/stenrs)
 
 ## License
 
