@@ -1,3 +1,5 @@
+<a href="#support"><img align="right" src="docs/images/support.png?raw=true"></a>
+
 # Gradle Plugin for Node
 
 [![Build Status](https://travis-ci.org/srs/gradle-node-plugin.svg?branch=master)](https://travis-ci.org/srs/gradle-node-plugin)
