@@ -61,7 +61,7 @@ To build the plugin, just type the following command:
 Contributions are always welcome! If you'd like to contribute (and we hope you do) please send 
 one of the existing contributors a nudge.
 
-## <a name="support"></a> Support active development
+## <a name="support"></a> Support this project
 
 :heart: This plugin is open source project and completely free to use. If you are using this project in your products/projects, please consider sponsoring to ensure it is actively developed and maintained.
 
