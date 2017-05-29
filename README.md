@@ -67,10 +67,6 @@ This plugin is open source project and completely free to use. If you are using 
 
 [Donate via PayPal (one time)](https://www.paypal.me/stenrs)
 
-Or support via Beerpay:
-
-[![Beerpay](https://beerpay.io/srs/gradle-node-plugin/badge.svg?style=beer-square)](https://beerpay.io/srs/gradle-node-plugin)  [![Beerpay](https://beerpay.io/srs/gradle-node-plugin/make-wish.svg?style=flat-square)](https://beerpay.io/srs/gradle-node-plugin?focus=wish)
-
 ## License
 
 ```
