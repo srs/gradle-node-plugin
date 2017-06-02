@@ -161,4 +161,33 @@ class NpmRule_integTest
         fileExists( 'child2.txt' )
         fileExists( 'parent2.txt' )
     }
+
+    def 'Custom workingDir'()
+    {
+        given:
+        writeBuild( '''
+            plugins {
+                id 'com.moowork.node'
+            }
+            node {
+                npmVersion = "2.1.6"
+                download = true
+                nodeModulesDir = file("frontend")
+            }
+        ''' )
+        writeFile( 'frontend/package.json', """{
+            "name": "example",
+            "dependencies": {},
+            "scripts": {
+                "whatVersion": "npm run --version"
+            }
+        }""" )
+
+        when:
+        def result = build( 'npm_run_whatVersion' )
+
+        then:
+        result.output =~ /\n2\.1\.6\n/
+        result.task( ':npm_run_whatVersion' ).outcome == TaskOutcome.SUCCESS
+    }
 }

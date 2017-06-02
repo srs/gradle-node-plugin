@@ -67,10 +67,19 @@ class NodePlugin
     private void addNpmRule()
     {
         // note this rule also makes it possible to specify e.g. "dependsOn npm_install"
+        def workingDir
+        this.project.afterEvaluate {
+            workingDir = this.project.node.nodeModulesDir
+        }
         project.getTasks().addRule( 'Pattern: "npm_<command>": Executes an NPM command.' ) { String taskName ->
             if ( taskName.startsWith( "npm_" ) )
             {
                 NpmTask npmTask = project.getTasks().create( taskName, NpmTask.class )
+                if ( workingDir )
+                {
+                    npmTask.afterEvaluate( workingDir )
+                }
+
                 String[] tokens = taskName.split( '_' ).tail() // all except first
                 npmTask.npmCommand = tokens
 
