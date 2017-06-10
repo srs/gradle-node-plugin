@@ -8,4 +8,7 @@ cache:
 jdk:
 - oraclejdk7
 
-script: ./gradlew ci
+script:
+- ./gradlew ci
+- ./gradlew -p examples build
+
