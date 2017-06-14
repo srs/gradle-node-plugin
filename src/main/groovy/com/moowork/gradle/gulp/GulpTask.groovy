@@ -13,11 +13,26 @@ class GulpTask
         this.group = 'Gulp';
     }
 
+    private File findGulp() {
+        def currentDir = this.project.node.nodeModulesDir
+
+        while (currentDir != null && currentDir.canRead()) {
+            def localGulp = new File( currentDir, GULP_SCRIPT );
+            if (localGulp.exists()) {
+                return localGulp
+            }
+
+            currentDir = currentDir.parentFile
+        }
+
+        return null
+    }    
+
     @Override
     void exec()
     {
-        def localGulp = this.project.file( new File( this.project.node.nodeModulesDir, GULP_SCRIPT ) )
-        if ( !localGulp.isFile() )
+        def localGulp = findGulp()
+        if ( !localGulp )
         {
             throw new GradleException(
                 "gulp not installed in node_modules, please first run 'gradle ${GulpPlugin.GULP_INSTALL_NAME}'" )
