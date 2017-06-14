@@ -6,3 +6,6 @@ node {
 }
 
 task helloWorld( type: GulpTask, dependsOn: installGulp ) {}
+
+task build(dependsOn: 'helloWorld') {
+}

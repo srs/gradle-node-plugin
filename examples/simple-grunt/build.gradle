@@ -6,3 +6,6 @@ node {
 }
 
 task helloWorld( type: GruntTask, dependsOn: installGrunt ) {}
+
+task build(dependsOn: 'helloWorld') {
+}
