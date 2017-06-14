@@ -40,6 +40,8 @@ issue to [GitHub Issues](https://github.com/srs/gradle-node-plugin/issues).
 
 Here's the documentation for older releases of the plugin:
 
+* [1.1.1](https://github.com/srs/gradle-node-plugin/blob/v1.1.1/README.md)
+* [1.1.0](https://github.com/srs/gradle-node-plugin/blob/v1.1.0/README.md)
 * [1.0.1](https://github.com/srs/gradle-node-plugin/blob/v1.0.1/README.md)
 * [1.0.0](https://github.com/srs/gradle-node-plugin/blob/v1.0.0/README.md)
 * [0.14](https://github.com/srs/gradle-node-plugin/blob/v0.14/README.md)
