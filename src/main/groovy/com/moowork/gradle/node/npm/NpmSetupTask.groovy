@@ -97,7 +97,7 @@ class NpmSetupTask
         if ( !npmVersion.isEmpty() )
         {
             logger.debug( "Setting npmVersion to ${npmVersion}" )
-            setArgs( ['install', '--global', '--prefix', getVariant().npmDir, "npm@${npmVersion}"] )
+            setArgs( ['install', '--global', '--no-save', '--prefix', getVariant().npmDir, "npm@${npmVersion}"] )
             enabled = true
         }
     }
