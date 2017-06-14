@@ -35,7 +35,7 @@ class GruntTask
 
         // If output should be buffered (useful when running in parallel)
         // set standardOutput of ExecRunner to a buffer
-        def bufferedOutput
+        ByteArrayOutputStream bufferedOutput
         if ( this.project.grunt.bufferOutput )
         {
             bufferedOutput = new ByteArrayOutputStream()
@@ -55,10 +55,10 @@ class GruntTask
         finally
         {
             // If we were buffering output, print it
-            if ( this.project.grunt.bufferOutput )
+            if ( this.project.grunt.bufferOutput && ( bufferedOutput != null ) )
             {
                 println "Output from ${gruntFile}"
-                println this.project.grunt.bufferedOutput.toString()
+                println bufferedOutput.toString()
             }
         }
     }

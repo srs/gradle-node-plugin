@@ -30,7 +30,7 @@ class GulpTask
 
         // If output should be buffered (useful when running in parallel)
         // set standardOutput of ExecRunner to a buffer
-        def bufferedOutput
+        ByteArrayOutputStream bufferedOutput
         if ( this.project.gulp.bufferOutput )
         {
             bufferedOutput = new ByteArrayOutputStream()
@@ -50,10 +50,10 @@ class GulpTask
         finally
         {
             // If we were buffering output, print it
-            if ( this.project.gulp.bufferOutput )
+            if ( this.project.gulp.bufferOutput && ( bufferedOutput != null ) )
             {
                 println "Output from ${this.project.gulp.workDir}/gulpfile.js"
-                println this.project.gulp.bufferedOutput.toString()
+                println bufferedOutput.toString()
             }
         }
     }
