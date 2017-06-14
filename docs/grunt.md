@@ -96,6 +96,9 @@ grunt {
   colors = true
 
   // Whether output from Grunt should be buffered - useful when running tasks in parallel
-    bufferOutput = false
+  bufferOutput = false
+    
+  // Use different gruntFile
+  gruntFile = 'Gruntfile.js'
 }
 ```
