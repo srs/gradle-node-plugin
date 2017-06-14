@@ -1,7 +1,6 @@
 package com.moowork.gradle.node.yarn
 
 import com.moowork.gradle.node.npm.NpmSetupTask
-import com.moowork.gradle.node.npm.NpmTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 
@@ -13,7 +12,7 @@ class YarnSetupTask
 {
     public final static String NAME = 'yarnSetup'
 
-    public YarnSetupTask()
+    YarnSetupTask()
     {
         this.group = 'Node'
         this.description = 'Setup a specific version of Yarn to be used by the build.'
@@ -22,7 +21,7 @@ class YarnSetupTask
     }
 
     @Input
-    public Set<String> getInput()
+    Set<String> getInput()
     {
         def set = new HashSet<>()
         set.add( this.getConfig().download )
@@ -31,7 +30,7 @@ class YarnSetupTask
     }
 
     @OutputDirectory
-    public File getYarnDir()
+    File getYarnDir()
     {
         return this.getVariant().yarnDir
     }

@@ -7,7 +7,7 @@ class NpmInstallTask
 {
     public final static String NAME = 'npmInstall'
 
-    public NpmInstallTask()
+    NpmInstallTask()
     {
         this.group = 'Node'
         this.description = 'Install node packages from package.json.'

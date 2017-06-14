@@ -10,13 +10,13 @@ class NpmTask
 {
     protected NpmExecRunner runner
 
-    private Iterable<?> args = []
+    private List<?> args = []
 
     private ExecResult result
 
     private String[] npmCommand
 
-    public NpmTask()
+    NpmTask()
     {
         this.runner = new NpmExecRunner( this.project )
         dependsOn( NpmSetupTask.NAME )
@@ -37,7 +37,7 @@ class NpmTask
 
     void setArgs( final Iterable<?> value )
     {
-        this.args = value
+        this.args = value.asList()
     }
 
     void setNpmCommand( String[] cmd )
@@ -46,7 +46,7 @@ class NpmTask
     }
 
     @Internal
-    Iterable<?> getArgs()
+    List<?> getArgs()
     {
         return this.args
     }
