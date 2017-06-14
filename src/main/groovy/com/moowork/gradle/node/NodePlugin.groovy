@@ -3,7 +3,8 @@ package com.moowork.gradle.node
 import com.moowork.gradle.node.npm.NpmInstallTask
 import com.moowork.gradle.node.npm.NpmSetupTask
 import com.moowork.gradle.node.npm.NpmTask
-import com.moowork.gradle.node.task.*
+import com.moowork.gradle.node.task.NodeTask
+import com.moowork.gradle.node.task.SetupTask
 import com.moowork.gradle.node.variant.VariantBuilder
 import com.moowork.gradle.node.yarn.YarnInstallTask
 import com.moowork.gradle.node.yarn.YarnSetupTask
@@ -28,7 +29,7 @@ class NodePlugin
     void apply( final Project project )
     {
         this.project = project
-        this.config = this.project.extensions.create( NodeExtension.NAME, NodeExtension, this.project )
+        this.config = NodeExtension.create( this.project )
 
         addGlobalTypes()
         addTasks()
@@ -74,8 +75,9 @@ class NodePlugin
                 String[] tokens = taskName.split( '_' ).tail() // all except first
                 npmTask.npmCommand = tokens
 
-                if (tokens.head().equalsIgnoreCase("run")) {
-                    npmTask.dependsOn(NpmInstallTask.NAME)
+                if ( tokens.head().equalsIgnoreCase( "run" ) )
+                {
+                    npmTask.dependsOn( NpmInstallTask.NAME )
                 }
 
                 return npmTask
@@ -93,8 +95,9 @@ class NodePlugin
                 String[] tokens = taskName.split( '_' ).tail() // all except first
                 yarnTask.yarnCommand = tokens
 
-                if (tokens.head().equalsIgnoreCase("run")) {
-                    yarnTask.dependsOn(YarnInstallTask.NAME)
+                if ( tokens.head().equalsIgnoreCase( "run" ) )
+                {
+                    yarnTask.dependsOn( YarnInstallTask.NAME )
                 }
 
                 return yarnTask
