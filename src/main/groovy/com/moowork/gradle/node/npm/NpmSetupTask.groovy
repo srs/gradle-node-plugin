@@ -17,6 +17,8 @@ class NpmSetupTask
 {
     public final static String NAME = 'npmSetup'
 
+    private NpmExecRunner runner
+
     private NodeExtension config
 
     protected List<?> args = []
@@ -30,6 +32,8 @@ class NpmSetupTask
         this.group = 'Node'
         this.description = 'Setup a specific version of npm to be used by the build.'
         this.enabled = false
+
+        this.runner = new NpmExecRunner( this.project )
     }
 
     @Input
@@ -83,13 +87,21 @@ class NpmSetupTask
         this.args = value.toList()
     }
 
+    void setIgnoreExitValue( final boolean value )
+    {
+        this.runner.ignoreExitValue = value
+    }
+
+    void setExecOverrides( final Closure closure )
+    {
+        this.runner.execOverrides = closure
+    }
+
     @TaskAction
     void exec()
     {
-        def runner = new NpmExecRunner( this.project )
-        runner.arguments.addAll( this.args )
-
-        this.result = runner.execute()
+        this.runner.arguments.addAll( this.args )
+        this.result = this.runner.execute()
     }
 
     void configureVersion( String npmVersion )

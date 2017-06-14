@@ -8,6 +8,7 @@ Version 1.2.0 *(unreleased)*
 * Bumped Gradle wrapper version to 3.4.1
 * New args can be added for npmSetup and yarnSetup (#226)
 * Uses --no-save for npmSetup and yarnSetup (#222)
+* Added execOverrides and ignoreExitValue on npmSetupTask (#196)
 * ...
 
 Version 1.1.1 *(2017-01-16)*
