@@ -6,6 +6,7 @@ Version 1.2.0 *(unreleased)*
 
 * Support using Gradle Build Cache with Yarn tasks (#205) _(mark-vieira)_
 * Bumped Gradle wrapper version to 3.4.1
+* New args can be added for npmSetup and yarnSetup (#226)
 * ...
 
 Version 1.1.1 *(2017-01-16)*
