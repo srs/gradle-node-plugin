@@ -5,7 +5,7 @@ in your `build.gradle` file:
 
 ```gradle
 plugins {
-  id "com.moowork.node" version "1.1.1"
+  id "com.moowork.node" version "1.2.0"
 }
 ```
 
@@ -13,9 +13,9 @@ If you want to install all of the node-plugins (which is pretty uncommon), then 
 
 ```gradle
 plugins {
-  id "com.moowork.node" version "1.1.1"
-  id "com.moowork.grunt" version "1.1.1"
-  id "com.moowork.gulp" version "1.1.1"
+  id "com.moowork.node" version "1.2.0"
+  id "com.moowork.grunt" version "1.2.0"
+  id "com.moowork.gulp" version "1.2.0"
 }
 ```
 
@@ -30,7 +30,7 @@ buildscript {
   }
 
   dependencies {
-    classpath "com.moowork.gradle:gradle-node-plugin:1.1.1"
+    classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
   }
 }
 
@@ -52,7 +52,7 @@ buildscript {
   }
 
   dependencies {
-    classpath "com.moowork.gradle:gradle-node-plugin:1.2.0-SNAPSHOT"
+    classpath "com.moowork.gradle:gradle-node-plugin:1.3.0-SNAPSHOT"
   }
 }
 

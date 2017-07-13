@@ -1,0 +1,11 @@
+apply plugin: 'com.moowork.gulp'
+
+node {
+    version = '6.11.0'
+    download = true
+}
+
+task helloWorld( type: GulpTask, dependsOn: installGulp ) {}
+
+task build(dependsOn: 'helloWorld') {
+}

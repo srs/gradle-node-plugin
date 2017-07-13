@@ -1,0 +1,10 @@
+apply plugin: 'com.moowork.grunt'
+
+node {
+    version = '6.11.0'
+    download = true
+}
+
+task helloWorld( type: GruntTask, dependsOn: installGrunt ) {}
+
+task build( dependsOn: 'helloWorld' ) {}

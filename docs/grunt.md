@@ -6,7 +6,7 @@ start using the plugin, add this into your `build.gradle` file (see [Installing]
 
 ```gradle
 plugins {
-  id "com.moowork.grunt" version "1.1.1"
+  id "com.moowork.grunt" version "1.2.0"
 }
 ```
 
@@ -96,6 +96,9 @@ grunt {
   colors = true
 
   // Whether output from Grunt should be buffered - useful when running tasks in parallel
-    bufferOutput = false
+  bufferOutput = false
+    
+  // Use different gruntFile
+  gruntFile = 'Gruntfile.js'
 }
 ```

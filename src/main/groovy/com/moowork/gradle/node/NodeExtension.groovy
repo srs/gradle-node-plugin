@@ -7,29 +7,29 @@ class NodeExtension
 {
     final static String NAME = 'node'
 
-    def File workDir
+    File workDir
 
-    def File npmWorkDir
+    File npmWorkDir
 
-    def File yarnWorkDir
+    File yarnWorkDir
 
-    def File nodeModulesDir
+    File nodeModulesDir
 
-    def String version = '6.9.1'
+    String version = '6.9.1'
 
-    def String npmVersion = ''
+    String npmVersion = ''
 
-    def String yarnVersion = ''
+    String yarnVersion = ''
 
-    def String distBaseUrl = 'https://nodejs.org/dist'
+    String distBaseUrl = 'https://nodejs.org/dist'
 
-    def String npmCommand = 'npm'
+    String npmCommand = 'npm'
 
-    def String yarnCommand = 'yarn'
+    String yarnCommand = 'yarn'
 
-    def boolean download = false
+    boolean download = false
 
-    def Variant variant
+    Variant variant
 
     NodeExtension( final Project project )
     {
@@ -43,5 +43,10 @@ class NodeExtension
     static NodeExtension get( final Project project )
     {
         return project.extensions.getByType( NodeExtension )
+    }
+
+    static NodeExtension create( final Project project )
+    {
+        return project.extensions.create( NAME, NodeExtension, project )
     }
 }

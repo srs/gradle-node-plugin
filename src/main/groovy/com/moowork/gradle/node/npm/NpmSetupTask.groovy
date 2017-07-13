@@ -1,7 +1,7 @@
 package com.moowork.gradle.node.npm
 
-import com.moowork.gradle.node.task.SetupTask
 import com.moowork.gradle.node.NodeExtension
+import com.moowork.gradle.node.task.SetupTask
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
@@ -17,23 +17,27 @@ class NpmSetupTask
 {
     public final static String NAME = 'npmSetup'
 
+    private NpmExecRunner runner
+
     private NodeExtension config
 
-    protected Iterable<?> args = []
+    protected List<?> args = []
 
     private ExecResult result
 
-    public NpmSetupTask()
+    NpmSetupTask()
     {
         dependsOn( SetupTask.NAME )
 
         this.group = 'Node'
         this.description = 'Setup a specific version of npm to be used by the build.'
         this.enabled = false
+
+        this.runner = new NpmExecRunner( this.project )
     }
 
     @Input
-    public Set<String> getInput()
+    Set<String> getInput()
     {
         def set = new HashSet<>()
         set.add( getConfig().download )
@@ -43,7 +47,7 @@ class NpmSetupTask
     }
 
     @OutputDirectory
-    public File getNpmDir()
+    File getNpmDir()
     {
         return getVariant().npmDir
     }
@@ -57,7 +61,7 @@ class NpmSetupTask
     @Internal
     protected getConfig()
     {
-        if ( this.config != null)
+        if ( this.config != null )
         {
             return this.config
         }
@@ -72,18 +76,32 @@ class NpmSetupTask
         return getConfig().variant
     }
 
+    List<?> getArgs()
+    {
+        return this.args
+    }
+
     @Internal
     void setArgs( final Iterable<?> value )
     {
-        this.args = value
+        this.args = value.toList()
+    }
+
+    void setIgnoreExitValue( final boolean value )
+    {
+        this.runner.ignoreExitValue = value
+    }
+
+    void setExecOverrides( final Closure closure )
+    {
+        this.runner.execOverrides = closure
     }
 
     @TaskAction
-    void exec() {
-        def runner = new NpmExecRunner( this.project )
-        runner.arguments.addAll( this.args )
-
-        this.result = runner.execute()
+    void exec()
+    {
+        this.runner.arguments.addAll( this.args )
+        this.result = this.runner.execute()
     }
 
     void configureVersion( String npmVersion )
@@ -91,7 +109,7 @@ class NpmSetupTask
         if ( !npmVersion.isEmpty() )
         {
             logger.debug( "Setting npmVersion to ${npmVersion}" )
-            setArgs( ['install', '--global', '--prefix', getVariant().npmDir, "npm@${npmVersion}"] )
+            setArgs( ['install', '--global', '--no-save', '--prefix', getVariant().npmDir, "npm@${npmVersion}"] )
             enabled = true
         }
     }

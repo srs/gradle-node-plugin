@@ -9,6 +9,7 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
+
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -74,6 +75,7 @@ class SetupTask
             copyNodeExe()
         }
 
+        deleteExistingNode()
         unpackNodeArchive()
         setExecutableFlag()
         restoreRepositories()
@@ -86,6 +88,11 @@ class SetupTask
             into this.variant.nodeBinDir
             rename 'node.+\\.exe', 'node.exe'
         }
+    }
+
+    private void deleteExistingNode()
+    {
+        this.project.delete( getNodeDir().parent )
     }
 
     private void unpackNodeArchive()
@@ -125,9 +132,10 @@ class SetupTask
                 into getNodeDir().parent
             }
             // Fix broken symlink
-            Path npm = Paths.get(variant.nodeBinDir.path, 'npm')
-            if (Files.deleteIfExists(npm)) {
-                Files.createSymbolicLink(npm, Paths.get(variant.npmScriptFile))
+            Path npm = Paths.get( variant.nodeBinDir.path, 'npm' )
+            if ( Files.deleteIfExists( npm ) )
+            {
+                Files.createSymbolicLink( npm, Paths.get( variant.npmScriptFile ) )
             }
         }
     }

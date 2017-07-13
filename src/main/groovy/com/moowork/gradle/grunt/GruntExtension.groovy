@@ -12,6 +12,8 @@ class GruntExtension
 
     Boolean bufferOutput = false
 
+    String gruntFile = 'Gruntfile.js'
+
     GruntExtension( final Project project )
     {
         this.workDir = project.projectDir

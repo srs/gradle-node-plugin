@@ -10,34 +10,37 @@ class NpmTask
 {
     protected NpmExecRunner runner
 
-    private Iterable<?> args = []
+    private List<?> args = []
 
     private ExecResult result
 
     private String[] npmCommand
 
-    public NpmTask()
+    NpmTask()
     {
         this.runner = new NpmExecRunner( this.project )
         dependsOn( NpmSetupTask.NAME )
 
         this.project.afterEvaluate {
-            if ( !this.runner.workingDir )
-            {
-                def workingDir = this.project.node.nodeModulesDir
-                setWorkingDir( workingDir )
-            }
+            afterEvaluate( this.project.node.nodeModulesDir )
+        }
+    }
 
-            if ( !this.runner.workingDir.exists() )
-            {
-                this.runner.workingDir.mkdirs();
-            }
+    void afterEvaluate(nodeModulesDir) {
+        if ( !this.runner.workingDir )
+        {
+            setWorkingDir( nodeModulesDir )
+        }
+
+        if ( !this.runner.workingDir.exists() )
+        {
+            this.runner.workingDir.mkdirs();
         }
     }
 
     void setArgs( final Iterable<?> value )
     {
-        this.args = value
+        this.args = value.asList()
     }
 
     void setNpmCommand( String[] cmd )
@@ -46,7 +49,7 @@ class NpmTask
     }
 
     @Internal
-    Iterable<?> getArgs()
+    List<?> getArgs()
     {
         return this.args
     }

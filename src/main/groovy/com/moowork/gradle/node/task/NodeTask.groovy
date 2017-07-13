@@ -13,13 +13,13 @@ class NodeTask
 
     private File script
 
-    private Iterable<?> args = []
-    
+    private List<?> args = []
+
     private Iterable<?> options = []
 
     private ExecResult result
 
-    public NodeTask()
+    NodeTask()
     {
         this.runner = new NodeExecRunner( this.project )
         dependsOn( SetupTask.NAME )
@@ -32,9 +32,14 @@ class NodeTask
 
     void setArgs( final Iterable<?> value )
     {
-        this.args = value
+        this.args = value.asList()
     }
-    
+
+    void addArgs( final Object... args )
+    {
+        this.args.addAll( args )
+    }
+
     void setOptions( final Iterable<?> value )
     {
         this.options = value
@@ -50,12 +55,12 @@ class NodeTask
         this.runner.workingDir = value
     }
 
-    void setIgnoreExitValue ( final boolean value )
+    void setIgnoreExitValue( final boolean value )
     {
         this.runner.ignoreExitValue = value
     }
 
-    void setExecOverrides ( final Closure closure )
+    void setExecOverrides( final Closure closure )
     {
         this.runner.execOverrides = closure
     }
@@ -67,11 +72,11 @@ class NodeTask
     }
 
     @Internal
-    Iterable<?> getArgs()
+    List<?> getArgs()
     {
         return this.args
     }
-    
+
     @Internal
     Iterable<?> getOptions()
     {

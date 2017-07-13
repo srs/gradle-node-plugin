@@ -1,12 +1,21 @@
 Changelog
 =========
 
-Version 1.2.0 *(unreleased)*
+Version 1.3.0 *(unreleased)*
+----------------------------
+
+* ...
+
+Version 1.2.0 *(2017-06-14)*
 ----------------------------
 
 * Support using Gradle Build Cache with Yarn tasks (#205) _(mark-vieira)_
-* Bumped Gradle wrapper version to 3.4.1
-* ...
+* Bumped Gradle wrapper version to 3.5
+* New args can be added for npmSetup and yarnSetup (#226)
+* Uses --no-save for npmSetup and yarnSetup (#222)
+* Added execOverrides and ignoreExitValue on npmSetupTask (#196)
+* Added gruntFile in grunt extension to use different file (#189)
+* npm_* tasks using nodeModulesDir (##136) _(janario)_
 
 Version 1.1.1 *(2017-01-16)*
 ----------------------------
