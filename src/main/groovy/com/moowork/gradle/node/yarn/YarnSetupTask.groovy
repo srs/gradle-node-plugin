@@ -43,9 +43,8 @@ class YarnSetupTask
         {
             logger.debug( "Setting yarnVersion to ${yarnVersion}" )
             pkg += "@${yarnVersion}"
+            this.setArgs( ['install', '--global', '--no-save', '--prefix', this.getVariant().yarnDir, pkg] )
+            enabled = true
         }
-
-        this.setArgs( ['install', '--global', '--no-save', '--prefix', this.getVariant().yarnDir, pkg] )
-        enabled = true
     }
 }
