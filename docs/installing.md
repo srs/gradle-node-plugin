@@ -37,6 +37,10 @@ buildscript {
 apply plugin: 'com.moowork.node'
 ```
 
+In multi-project builds the plugin can be applied to the individual projects making use of it. By
+further applying it to the root project, child project will make use of the root configuration
+and share a download cache directory.
+ 
 
 ## Installing snapshots
 

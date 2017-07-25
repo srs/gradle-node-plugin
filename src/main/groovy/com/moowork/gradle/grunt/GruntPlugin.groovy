@@ -15,7 +15,7 @@ class GruntPlugin
     {
         project.plugins.apply( NodePlugin.class )
 
-        project.extensions.create( GruntExtension.NAME, GruntExtension, project )
+        GruntExtension.create( project )
 
         project.extensions.extraProperties.set( 'GruntTask', GruntTask.class )
         project.tasks.create( GRUNT_INSTALL_NAME, GruntInstallTask.class )

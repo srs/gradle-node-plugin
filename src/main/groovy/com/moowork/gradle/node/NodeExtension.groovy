@@ -47,6 +47,21 @@ class NodeExtension
 
     static NodeExtension create( final Project project )
     {
-        return project.extensions.create( NAME, NodeExtension, project )
+        def config = project.extensions.create( NAME, NodeExtension, project )
+        if(project.rootProject.hasProperty( NodeExtension.NAME) ){
+            def rootConfig = NodeExtension.get( project.rootProject )
+            config.workDir = rootConfig.workDir
+            config.npmWorkDir = rootConfig.npmWorkDir
+            config.yarnWorkDir = rootConfig.yarnWorkDir
+            config.version = rootConfig.version
+            config.npmVersion = rootConfig.npmVersion
+            config.yarnVersion = rootConfig.yarnVersion
+            config.distBaseUrl = rootConfig.distBaseUrl
+            config.npmCommand = rootConfig.npmCommand
+            config.yarnCommand = rootConfig.yarnCommand
+            config.download = rootConfig.download
+            config.variant = rootConfig.variant
+        }
+        return config
     }
 }
