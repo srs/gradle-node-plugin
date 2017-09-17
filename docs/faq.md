@@ -5,7 +5,7 @@ This page contains a collection of frequently asked questions.
 
 # How to avoid node/npm/yarn task execution if no changes in web files?
 
-Just add to your bundle task filesets (in and out) wich this task depends on:
+Just add to your bundle task filesets (in and out) which this task depends on:
 
 ```gradle
 task bundle(type: YarnTask) {
