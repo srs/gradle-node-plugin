@@ -205,7 +205,7 @@ node {
 If `npmVersion` is specified, the plugin installs that version of `npm` into `npmWorkDir`
 by the `npmSetup` task and use it.
 
-If `npmVersion` is not specified and a locally-installed `npm` exists, The plugin will
+If `npmVersion` is not specified and a locally-installed `npm` exists, the plugin will
 use it.
 
 Otherwise, the plugin will use the `npm` bundled with the version of node installation.
