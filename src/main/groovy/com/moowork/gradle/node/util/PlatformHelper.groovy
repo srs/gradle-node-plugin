@@ -56,10 +56,22 @@ class PlatformHelper
     public String getOsArch()
     {
         final String arch = property( "os.arch" ).toLowerCase()
+
+        if ( arch.equals( "ppc64le" ) )
+        {
+            return "ppc64le"
+        }
+
+        if ( arch.equals( "s390x" ) )
+        {
+            return "s390x"
+        }
+
         if ( arch.contains( "64" ) )
         {
             return "x64"
         }
+
         //as Java just returns "arm" on all ARM variants, we need a system call to determine the exact arch
         if( arch.equals( "arm" ))
         {
