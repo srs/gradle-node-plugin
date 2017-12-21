@@ -40,6 +40,7 @@ class PlatformHelperTest
         'SunOS'     | 'x86_64'  | 'sunos'   | 'x64'     | false
         'Linux'     | 'ppc64le' | 'linux'   | 'ppc64le' | false
         'Linux'     | 's390x'   | 'linux'   | 's390x'   | false
+        'AIX'       | 'ppc64'   | 'aix'     | 'ppc64'   | false
     }
 
     def "throw exception if unsupported os"()

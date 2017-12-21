@@ -50,6 +50,11 @@ class PlatformHelper
             return "sunos"
         }
 
+        if ( name.contains( "aix" ) )
+        {
+            return "aix"
+        }
+
         throw new IllegalArgumentException( "Unsupported OS: " + name )
     }
 
@@ -60,6 +65,11 @@ class PlatformHelper
         if ( arch.equals( "ppc64le" ) )
         {
             return "ppc64le"
+        }
+
+        if ( arch.equals( "ppc64" ) )
+        {
+            return "ppc64"
         }
 
         if ( arch.equals( "s390x" ) )
