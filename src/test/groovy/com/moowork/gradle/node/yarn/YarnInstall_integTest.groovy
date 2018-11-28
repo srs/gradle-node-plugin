@@ -15,8 +15,8 @@ class YarnInstall_integTest
             }
 
             node {
-                version = "6.9.1"
-                yarnVersion = "0.16.1"
+                version = "10.14.0"
+                yarnVersion = "1.12.3"
                 download = true
                 workDir = file('build/node')
                 yarnWorkDir = file('build/yarn')
@@ -26,6 +26,12 @@ class YarnInstall_integTest
 
         when:
         def result = buildTask( 'yarn' )
+
+        then:
+        result.outcome == TaskOutcome.SUCCESS
+
+        when:
+        result = buildTask( 'yarn' )
 
         then:
         result.outcome == TaskOutcome.SUCCESS
@@ -45,8 +51,8 @@ class YarnInstall_integTest
                 apply plugin: 'com.github.node-gradle.node'
             }
             node {
-                version = "6.9.1"
-                yarnVersion = "0.16.1"
+                version = "10.14.0"
+                yarnVersion = "1.12.3"
                 download = true
                 workDir = file('build/node')
                 yarnWorkDir = file('build/yarn')
@@ -70,6 +76,12 @@ class YarnInstall_integTest
         result = buildTask( 'yarn' )
 
         then:
+        result.outcome == TaskOutcome.SUCCESS
+
+        when:
+        result = buildTask( 'yarn' )
+
+        then:
         result.outcome == TaskOutcome.UP_TO_DATE
     }
 
@@ -82,8 +94,8 @@ class YarnInstall_integTest
             }
 
             node {
-                version = "6.9.1"
-                yarnVersion = "0.15.1"
+                version = "10.14.0"
+                yarnVersion = "1.12.3"
                 download = true
                 workDir = file('build/node')
                 yarnWorkDir = file('build/yarn')

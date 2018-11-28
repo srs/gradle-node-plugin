@@ -28,7 +28,7 @@ class NpmSetupTaskTest
     {
         given:
         this.props.setProperty( 'os.name', 'Linux' )
-        this.ext.npmVersion = '2.1.6'
+        this.ext.npmVersion = '6.4.1'
         this.execSpec = Mock( ExecSpec )
 
         this.execSpec = Mock( ExecSpec )

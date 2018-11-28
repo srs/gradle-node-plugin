@@ -15,8 +15,8 @@ class NpmRule_integTest
             }
 
             node {
-                version = "0.10.33"
-                npmVersion = "2.1.6"
+                version = "10.14.0"
+                npmVersion = "6.4.1"
                 download = true
                 workDir = file('build/node')
             }
@@ -38,7 +38,7 @@ class NpmRule_integTest
                 apply plugin: 'com.github.node-gradle.node'
             }
             node {
-                npmVersion = "2.1.6"
+                npmVersion = "6.4.1"
                 download = true
             }
         ''' )
@@ -48,7 +48,7 @@ class NpmRule_integTest
         def result = build( 'npm_run_--version' )
 
         then:
-        result.output =~ /\n2\.1\.6\n/
+        result.output =~ /\n6\.4\.1\n/
         result.task( ':npm_run_--version' ).outcome == TaskOutcome.SUCCESS
     }
 
@@ -60,7 +60,7 @@ class NpmRule_integTest
                 apply plugin: 'com.github.node-gradle.node'
             }
             node {
-                npmVersion = "2.1.6"
+                npmVersion = "6.4.1"
                 download = true
             }
         ''' )
@@ -84,8 +84,8 @@ class NpmRule_integTest
             }
 
             node {
-                version = "5.9.0"
-                npmVersion = "3.8.3"
+                version = "10.14.0"
+                npmVersion = "6.4.1"
                 download = true
             }
         ''' )
@@ -109,8 +109,8 @@ class NpmRule_integTest
             }
 
             node {
-                version = "5.9.0"
-                npmVersion = "3.8.3"
+                version = "10.14.0"
+                npmVersion = "6.4.1"
                 download = true
             }
         ''' )
@@ -170,7 +170,7 @@ class NpmRule_integTest
                 apply plugin: 'com.github.node-gradle.node'
             }
             node {
-                npmVersion = "2.1.6"
+                npmVersion = "6.4.1"
                 download = true
                 nodeModulesDir = file("frontend")
             }
@@ -187,7 +187,7 @@ class NpmRule_integTest
         def result = build( 'npm_run_whatVersion' )
 
         then:
-        result.output =~ /\n2\.1\.6\n/
+        result.output =~ /\n6\.4\.1\n/
         result.task( ':npm_run_whatVersion' ).outcome == TaskOutcome.SUCCESS
     }
 }

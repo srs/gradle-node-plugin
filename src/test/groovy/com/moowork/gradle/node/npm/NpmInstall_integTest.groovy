@@ -15,8 +15,8 @@ class NpmInstall_integTest
             }
 
             node {
-                version = "0.10.33"
-                npmVersion = "2.1.6"
+                version = "10.14.0"
+                npmVersion = "6.4.1"
                 download = true
                 workDir = file('build/node')
             }
@@ -25,6 +25,12 @@ class NpmInstall_integTest
 
         when:
         def result = buildTask( 'npmInstall' )
+
+        then:
+        result.outcome == TaskOutcome.SUCCESS
+
+        when:
+        result = buildTask( 'npmInstall' )
 
         then:
         result.outcome == TaskOutcome.SUCCESS
@@ -44,8 +50,8 @@ class NpmInstall_integTest
                 apply plugin: 'com.github.node-gradle.node'
             }
             node {
-                version = "0.10.33"
-                npmVersion = "2.1.6"
+                version = "10.14.0"
+                npmVersion = "6.4.1"
                 download = true
                 workDir = file('build/node')
             }
@@ -68,6 +74,12 @@ class NpmInstall_integTest
         result = buildTask( 'npmInstall' )
 
         then:
+        result.outcome == TaskOutcome.SUCCESS
+
+        when:
+        result = buildTask( 'npmInstall' )
+
+        then:
         result.outcome == TaskOutcome.UP_TO_DATE
     }
 
@@ -80,8 +92,8 @@ class NpmInstall_integTest
             }
 
             node {
-                version = "0.10.33"
-                npmVersion = "2.1.6"
+                version = "10.14.0"
+                npmVersion = "6.4.1"
                 download = true
                 workDir = file('build/node')
                 nodeModulesDir = file('subdirectory')

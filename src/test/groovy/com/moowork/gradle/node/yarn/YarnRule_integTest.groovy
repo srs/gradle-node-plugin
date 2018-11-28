@@ -15,8 +15,8 @@ class YarnRule_integTest
             }
 
             node {
-                version = "6.9.1"
-                yarnVersion = "0.16.1"
+                version = "10.14.0"
+                yarnVersion = "1.12.3"
                 download = true
                 workDir = file('build/node')
                 yarnWorkDir = file('build/yarn')
@@ -40,8 +40,8 @@ class YarnRule_integTest
             }
 
             node {
-                version = "6.9.1"
-                yarnVersion = "0.17.5"
+                version = "10.14.0"
+                yarnVersion = "1.12.3"
                 download = true
             }
         ''' )
