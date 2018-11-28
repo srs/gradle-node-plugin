@@ -16,7 +16,7 @@ apply from: "$rootDir/gradle/coverage.gradle"
 apply from: "$rootDir/gradle/travis-ci.gradle"
 apply from: "$rootDir/gradle/publishing.gradle"
 
-ext.compatibilityVersion = '1.6'
+ext.compatibilityVersion = '1.8'
 sourceCompatibility = compatibilityVersion
 targetCompatibility = compatibilityVersion
 
@@ -25,12 +25,9 @@ repositories {
 }
 
 dependencies {
-    compile gradleApi()
-    testCompile 'cglib:cglib-nodep:3.2.4'
+    testCompile 'cglib:cglib-nodep:3.2.9'
     testCompile 'org.apache.commons:commons-io:1.3.2'
-    testCompile( 'org.spockframework:spock-core:1.0-groovy-2.4' ) {
-        exclude group: 'org.codehaus.groovy'
-    }
+    testCompile('org.spockframework:spock-core:1.2-groovy-2.4')
 }
 
 tasks.withType( Test ) {
