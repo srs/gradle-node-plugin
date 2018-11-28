@@ -1,7 +1,7 @@
 apply plugin: 'com.github.node-gradle.grunt'
 
 node {
-    version = '6.11.0'
+    version = '10.14.0'
     download = true
 }
 
