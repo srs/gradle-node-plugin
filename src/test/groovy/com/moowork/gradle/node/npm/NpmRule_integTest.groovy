@@ -11,7 +11,7 @@ class NpmRule_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
 
             node {
@@ -35,7 +35,7 @@ class NpmRule_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
             node {
                 npmVersion = "6.4.1"
@@ -57,7 +57,7 @@ class NpmRule_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
             node {
                 npmVersion = "6.4.1"
@@ -80,7 +80,7 @@ class NpmRule_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
 
             node {
@@ -105,7 +105,7 @@ class NpmRule_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
 
             node {
@@ -134,7 +134,7 @@ class NpmRule_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
             node {
                 download = true
@@ -167,7 +167,7 @@ class NpmRule_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
             node {
                 npmVersion = "6.4.1"

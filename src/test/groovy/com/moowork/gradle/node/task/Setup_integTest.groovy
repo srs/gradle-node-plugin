@@ -18,7 +18,7 @@ class Setup_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
 
             node {
@@ -39,7 +39,7 @@ class Setup_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
 
             node {
@@ -62,7 +62,7 @@ class Setup_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
 
             node {
@@ -85,7 +85,7 @@ class Setup_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
 
             node {
@@ -108,7 +108,7 @@ class Setup_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
 
             node {
