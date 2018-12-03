@@ -6,7 +6,7 @@ cache:
     - $HOME/.gradle
 
 jdk:
-- oraclejdk7
+- openjdk8
 
 script:
 - ./gradlew ci
