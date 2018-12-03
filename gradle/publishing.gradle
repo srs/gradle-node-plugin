@@ -39,24 +39,24 @@ artifactory {
 }
 
 pluginBundle {
-    website = 'https://github.com/srs/gradle-node-plugin'
-    vcsUrl = 'https://github.com/srs/gradle-node-plugin'
+    website = 'https://github.com/node-gradle/gradle-node-plugin'
+    vcsUrl = 'https://github.com/node-gradle/gradle-node-plugin'
 
     plugins {
         nodePlugin {
-            id = 'com.moowork.node'
+            id = 'com.github.node-gradle.node'
             displayName = 'Gradle Node Plugin'
             description = 'Gradle plugin for executing node scripts.'
             tags = ['java', 'gradle', 'node', 'yarn', 'npm']
         }
         gruntPlugin {
-            id = 'com.moowork.grunt'
+            id = 'com.github.node-gradle.grunt'
             displayName = 'Gradle Grunt Plugin'
             description = 'Gradle pluign for executing grunt builds.'
             tags = ['java', 'gradle', 'node', 'yarn', 'npm', 'grunt']
         }
         gulpPlugin {
-            id = 'com.moowork.gulp'
+            id = 'com.github.node-gradle.gulp'
             displayName = 'Gradle Gulp Plugin'
             description = 'Gradle plugin for executing gulp builds.'
             tags = ['java', 'gradle', 'node', 'yarn', 'npm', 'gulp']
@@ -64,7 +64,7 @@ pluginBundle {
     }
 
     mavenCoordinates {
-        groupId = 'com.moowork.gradle'
+        groupId = 'com.github.node-gradle'
         artifactId = 'gradle-node-plugin'
     }
 }

@@ -8,7 +8,7 @@ class GulpPluginTest
     def 'check default tasks'()
     {
         when:
-        this.project.apply plugin: 'com.moowork.gulp'
+        this.project.apply plugin: 'com.github.node-gradle.gulp'
         this.project.evaluate()
 
         then:

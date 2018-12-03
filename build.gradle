@@ -2,7 +2,7 @@ buildscript {
     apply from: "$rootDir/gradle/buildscript.gradle", to: buildscript
 }
 
-group = 'com.moowork.gradle'
+group = 'com.github.node-gradle'
 
 apply plugin: 'idea'
 apply plugin: 'groovy'

@@ -11,7 +11,7 @@ class YarnInstall_integTest
         given:
         writeBuild( '''
             plugins {
-                id 'com.moowork.node'
+                apply plugin: 'com.github.node-gradle.node'
             }
 
             node {
@@ -42,7 +42,7 @@ class YarnInstall_integTest
         given:
         writeBuild( '''
             plugins {
-                id 'com.moowork.node'
+                apply plugin: 'com.github.node-gradle.node'
             }
             node {
                 version = "6.9.1"
@@ -78,7 +78,7 @@ class YarnInstall_integTest
         given:
         writeBuild( '''
             plugins {
-                id 'com.moowork.node'
+                apply plugin: 'com.github.node-gradle.node'
             }
 
             node {

@@ -17,7 +17,7 @@ class NodePluginTest
     def 'check default tasks'()
     {
         when:
-        this.project.apply plugin: 'com.moowork.node'
+        this.project.apply plugin: 'com.github.node-gradle.node'
         this.project.evaluate()
 
         then:
@@ -30,7 +30,7 @@ class NodePluginTest
     def 'check repository and dependencies (no download)'()
     {
         when:
-        this.project.apply plugin: 'com.moowork.node'
+        this.project.apply plugin: 'com.github.node-gradle.node'
         this.project.evaluate()
 
         then:
@@ -41,7 +41,7 @@ class NodePluginTest
     def 'check npm rule task'()
     {
         when:
-        this.project.apply plugin: 'com.moowork.node'
+        this.project.apply plugin: 'com.github.node-gradle.node'
         this.project.evaluate()
 
         then:

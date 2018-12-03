@@ -8,7 +8,7 @@ class NodeExtensionTest
     def "check default values for extension"()
     {
         when:
-        this.project.apply plugin: 'com.moowork.node'
+        this.project.apply plugin: 'com.github.node-gradle.node'
         def ext = NodeExtension.get( this.project )
 
         then:

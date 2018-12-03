@@ -11,7 +11,7 @@ class GulpRule_integTest
         given:
         writeBuild( '''
             plugins {
-                id 'com.moowork.gulp'
+                id 'com.github.node-gradle.gulp'
             }
 
             node {
