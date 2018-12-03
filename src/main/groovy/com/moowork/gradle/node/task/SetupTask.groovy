@@ -1,6 +1,7 @@
 package com.moowork.gradle.node.task
 
 import com.moowork.gradle.node.NodeExtension
+import com.moowork.gradle.node.util.BackwardsCompat
 import com.moowork.gradle.node.variant.Variant
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.repositories.ArtifactRepository
@@ -180,6 +181,11 @@ class SetupTask
             layout 'pattern', {
                 artifact 'v[revision]/[artifact](-v[revision]-[classifier]).[ext]'
                 ivy 'v[revision]/ivy.xml'
+            }
+            if (BackwardsCompat.useMetadataSourcesRepository()) {
+                metadataSources {
+                    artifact()
+                }
             }
         }
     }
