@@ -34,7 +34,7 @@ buildscript {
   }
 }
 
-apply plugin: 'com.moowork.node'
+apply plugin: 'com.github.node-gradle.node'
 ```
 
 
@@ -56,5 +56,5 @@ buildscript {
   }
 }
 
-apply plugin: 'com.moowork.node'
+apply plugin: 'com.github.node-gradle.node'
 ```

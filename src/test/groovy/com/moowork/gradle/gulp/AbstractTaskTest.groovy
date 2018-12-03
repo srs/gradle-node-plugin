@@ -24,7 +24,7 @@ abstract class AbstractTaskTest
 
         this.execResult = Mock( ExecResult )
 
-        this.project.apply plugin: 'com.moowork.gulp'
+        this.project.apply plugin: 'com.github.node-gradle.gulp'
         this.ext = NodeExtension.get( this.project )
 
         mockExec()

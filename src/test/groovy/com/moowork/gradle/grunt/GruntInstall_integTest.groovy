@@ -11,7 +11,7 @@ class GruntInstall_integTest
         given:
         writeBuild( '''
             plugins {
-                id 'com.moowork.grunt'
+                id 'com.github.node-gradle.grunt'
             }
 
             node {

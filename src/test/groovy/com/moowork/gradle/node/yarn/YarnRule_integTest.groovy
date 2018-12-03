@@ -11,7 +11,7 @@ class YarnRule_integTest
         given:
         writeBuild( '''
             plugins {
-                id 'com.moowork.node'
+                apply plugin: 'com.github.node-gradle.node'
             }
 
             node {
@@ -36,7 +36,7 @@ class YarnRule_integTest
         given:
         writeBuild( '''
             plugins {
-                id 'com.moowork.node'
+                apply plugin: 'com.github.node-gradle.node'
             }
 
             node {
