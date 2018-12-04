@@ -11,7 +11,7 @@ class Node_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
 
             node {
@@ -41,12 +41,12 @@ class Node_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
 
             node {
-                version = "0.10.33"
-                npmVersion = "2.1.6"
+                version = "10.14.0"
+                npmVersion = "6.4.1"
                 download = true
                 workDir = file('build/node')
             }

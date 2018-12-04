@@ -26,7 +26,7 @@ class YarnSetupTaskTest
     def "exec yarnSetup task (version specified)"()
     {
         given:
-        this.ext.npmVersion = '0.15.1'
+        this.ext.npmVersion = '6.4.1'
         this.execSpec = Mock( ExecSpec )
 
         def task = this.project.tasks.create( 'simple', YarnSetupTask )

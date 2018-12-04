@@ -18,11 +18,11 @@ class Setup_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
 
             node {
-                version = "0.10.33"
+                version = "10.14.0"
                 download = false
             }
         ''' )
@@ -39,11 +39,11 @@ class Setup_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
 
             node {
-                version = "0.10.33"
+                version = "10.14.0"
                 download = true
             }
         ''' )
@@ -62,11 +62,11 @@ class Setup_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
 
             node {
-                version = "0.10.33"
+                version = "10.14.0"
                 download = false
             }
         ''' )
@@ -85,11 +85,11 @@ class Setup_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
 
             node {
-                version = "4.5.0"
+                version = "10.14.0"
                 download = true
             }
         ''' )
@@ -108,11 +108,11 @@ class Setup_integTest
         given:
         writeBuild( '''
             plugins {
-                apply plugin: 'com.github.node-gradle.node'
+                id 'com.github.node-gradle.node'
             }
 
             node {
-                version = "0.10.33"
+                version = "10.14.0"
                 download = true
             }
         ''' )

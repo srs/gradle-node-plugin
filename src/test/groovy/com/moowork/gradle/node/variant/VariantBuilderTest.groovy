@@ -36,7 +36,7 @@ class VariantBuilderTest
 
           def ext = new NodeExtension(project)
           ext.download = true
-          ext.version = '0.11.1'
+          ext.version = '5.12.0'
           ext.workDir = new File('.gradle/node').absoluteFile
 
           def builder = new VariantBuilder(ext)
@@ -46,7 +46,7 @@ class VariantBuilderTest
           variant != null
           variant.windows
           variant.exeDependency == exeDependency
-          variant.archiveDependency == 'org.nodejs:node:0.11.1:linux-x86@tar.gz'
+          variant.archiveDependency == 'org.nodejs:node:5.12.0:linux-x86@tar.gz'
 
           variant.nodeDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
           variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
@@ -55,8 +55,8 @@ class VariantBuilderTest
 
         where:
           osArch   | nodeDir                    | exeDependency
-          'x86'    | 'node-v0.11.1-win-x86' | 'org.nodejs:node:0.11.1@exe'
-          'x86_64' | 'node-v0.11.1-win-x64' | 'org.nodejs:x64/node:0.11.1@exe'
+          'x86'    | 'node-v5.12.0-win-x86' | 'org.nodejs:win-x86/node:5.12.0@exe'
+          'x86_64' | 'node-v5.12.0-win-x64' | 'org.nodejs:win-x64/node:5.12.0@exe'
     }
 
     @Unroll
@@ -142,7 +142,7 @@ class VariantBuilderTest
           def project = ProjectBuilder.builder().build()
           def ext = new NodeExtension(project)
           ext.download = true
-          ext.version = '0.11.1'
+          ext.version = '5.12.0'
           ext.workDir = new File('.gradle/node').absoluteFile
 
           def builder = new VariantBuilder(ext)
@@ -161,14 +161,14 @@ class VariantBuilderTest
 
         where:
           osName     | osArch   | nodeDir                   | depName
-          'Linux'    | 'x86'    | 'node-v0.11.1-linux-x86'  | 'org.nodejs:node:0.11.1:linux-x86@tar.gz'
-          'Linux'    | 'x86_64' | 'node-v0.11.1-linux-x64'  | 'org.nodejs:node:0.11.1:linux-x64@tar.gz'
-          'Mac OS X' | 'x86'    | 'node-v0.11.1-darwin-x86' | 'org.nodejs:node:0.11.1:darwin-x86@tar.gz'
-          'Mac OS X' | 'x86_64' | 'node-v0.11.1-darwin-x64' | 'org.nodejs:node:0.11.1:darwin-x64@tar.gz'
-          'FreeBSD'  | 'x86'    | 'node-v0.11.1-linux-x86'  | 'org.nodejs:node:0.11.1:linux-x86@tar.gz'
-          'FreeBSD'  | 'x86_64' | 'node-v0.11.1-linux-x64'  | 'org.nodejs:node:0.11.1:linux-x64@tar.gz'
-          'SunOS'    | 'x86'    | 'node-v0.11.1-sunos-x86'  | 'org.nodejs:node:0.11.1:sunos-x86@tar.gz'
-          'SunOS'    | 'x86_64' | 'node-v0.11.1-sunos-x64'  | 'org.nodejs:node:0.11.1:sunos-x64@tar.gz'
+          'Linux'    | 'x86'    | 'node-v5.12.0-linux-x86'  | 'org.nodejs:node:5.12.0:linux-x86@tar.gz'
+          'Linux'    | 'x86_64' | 'node-v5.12.0-linux-x64'  | 'org.nodejs:node:5.12.0:linux-x64@tar.gz'
+          'Mac OS X' | 'x86'    | 'node-v5.12.0-darwin-x86' | 'org.nodejs:node:5.12.0:darwin-x86@tar.gz'
+          'Mac OS X' | 'x86_64' | 'node-v5.12.0-darwin-x64' | 'org.nodejs:node:5.12.0:darwin-x64@tar.gz'
+          'FreeBSD'  | 'x86'    | 'node-v5.12.0-linux-x86'  | 'org.nodejs:node:5.12.0:linux-x86@tar.gz'
+          'FreeBSD'  | 'x86_64' | 'node-v5.12.0-linux-x64'  | 'org.nodejs:node:5.12.0:linux-x64@tar.gz'
+          'SunOS'    | 'x86'    | 'node-v5.12.0-sunos-x86'  | 'org.nodejs:node:5.12.0:sunos-x86@tar.gz'
+          'SunOS'    | 'x86_64' | 'node-v5.12.0-sunos-x64'  | 'org.nodejs:node:5.12.0:sunos-x64@tar.gz'
     }
 
     @Unroll
@@ -181,7 +181,7 @@ class VariantBuilderTest
           def project = ProjectBuilder.builder().build()
           def ext = new NodeExtension(project)
           ext.download = true
-          ext.version = '5.6.0'
+          ext.version = '5.12.0'
           ext.workDir = new File('.gradle/node').absoluteFile
 
           def platformHelperSpy = Spy(PlatformHelper, constructorArgs: [this.props])
@@ -202,9 +202,9 @@ class VariantBuilderTest
 
         where:
           osName  | osArch | sysOsArch | nodeDir                    | depName
-          'Linux' | 'arm'  | 'armv6l'  | 'node-v5.6.0-linux-armv6l' | 'org.nodejs:node:5.6.0:linux-armv6l@tar.gz'
-          'Linux' | 'arm'  | 'armv7l'  | 'node-v5.6.0-linux-armv7l' | 'org.nodejs:node:5.6.0:linux-armv7l@tar.gz'
-          'Linux' | 'arm'  | 'arm64'   | 'node-v5.6.0-linux-arm64'  | 'org.nodejs:node:5.6.0:linux-arm64@tar.gz'
+          'Linux' | 'arm'  | 'armv6l'  | 'node-v5.12.0-linux-armv6l' | 'org.nodejs:node:5.12.0:linux-armv6l@tar.gz'
+          'Linux' | 'arm'  | 'armv7l'  | 'node-v5.12.0-linux-armv7l' | 'org.nodejs:node:5.12.0:linux-armv7l@tar.gz'
+          'Linux' | 'arm'  | 'arm64'   | 'node-v5.12.0-linux-arm64'  | 'org.nodejs:node:5.12.0:linux-arm64@tar.gz'
     }
 
     @Unroll
