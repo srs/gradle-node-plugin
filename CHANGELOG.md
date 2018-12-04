@@ -1,10 +1,10 @@
 Changelog
 =========
 
-Version 1.3.0 *(unreleased)*
+Version 1.3.0 *(2018-12-04)*
 ----------------------------
-
-* ...
+* Relocated to com.github.node-gradle.(node|grunt|gulp)
+* Conditionally use `metadataSources` on gradle >= 4.5 (#1)
 
 Version 1.2.0 *(2017-06-14)*
 ----------------------------

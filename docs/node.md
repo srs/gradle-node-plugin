@@ -10,7 +10,7 @@ file (see [Installing](installing.md) for details):
 
 ```gradle
 plugins {
-  id "com.moowork.node" version "1.2.0"
+  id "com.github.node-gradle.node" version "1.3.0"
 }
 ```
 

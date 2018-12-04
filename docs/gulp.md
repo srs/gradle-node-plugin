@@ -6,7 +6,7 @@ To start using the plugin, add this into your `build.gradle` file (see [Installi
 
 ```gradle
 plugins {
-  id "com.moowork.gulp" version "1.2.0"
+  id "com.github.node-gradle.gulp" version "1.3.0"
 }
 ```
 
@@ -52,7 +52,7 @@ To get you started here is what it might look like to integrate this plugin to a
 
 ```gradle
 plugins {
-  id "com.moowork.gulp" version "1.0"
+  id "com.github.node-gradle.gulp" version "1.0"
 }
     
 apply plugin: "java"
