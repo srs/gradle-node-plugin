@@ -45,7 +45,7 @@ class YarnSetupTask
             pkg += "@${yarnVersion}"
         }
 
-        this.setArgs( ['install', '--global', '--no-save', '--prefix', this.getVariant().yarnDir, pkg] )
+        this.setArgs( ['install', '--global', '--no-save'] + proxySettings() + ['--prefix', this.getVariant().yarnDir, pkg] )
         enabled = true
     }
 }

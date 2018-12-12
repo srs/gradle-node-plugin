@@ -109,8 +109,27 @@ class NpmSetupTask
         if ( !npmVersion.isEmpty() )
         {
             logger.debug( "Setting npmVersion to ${npmVersion}" )
-            setArgs( ['install', '--global', '--no-save', '--prefix', getVariant().npmDir, "npm@${npmVersion}"] )
+            setArgs( ['install', '--global', '--no-save'] + proxySettings() + ['--prefix', getVariant().npmDir, "npm@${npmVersion}"] )
             enabled = true
         }
+    }
+
+    static List<String> proxySettings() {
+        for(String[] proxySettings : [['http', '--proxy'], ['https', '--https-proxy']]) {
+            String proxyHost = System.getProperty(proxySettings[0] + '.proxyHost')
+            String proxyPort = System.getProperty(proxySettings[0] + '.proxyPort')
+
+            if (proxyHost != null && proxyPort != null) {
+                proxyHost = proxyHost.replaceAll('^https?://', '')
+                String proxyUser = System.getProperty(proxySettings[0] + '.proxyUser')
+                String proxyPassword = System.getProperty(proxySettings[0] + '.proxyPassword')
+                if (proxyUser != null && proxyPassword != null) {
+                    return ["${proxySettings[1]} ${proxySettings[0]}://$proxyUser:$proxyPassword@$proxyHost:$proxyPort"]
+                } else {
+                    return ["${proxySettings[1]} ${proxySettings[0]}://$proxyHost:$proxyPort"]
+                }
+            }
+        }
+        return []
     }
 }
