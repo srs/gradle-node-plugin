@@ -31,3 +31,17 @@ This can be done adding some arguments to the already defined `npmInstall`-task.
 ```gradle
 npmInstall.args = ['--loglevel', 'silly']
 ```
+
+# How do I specify a registry for the NPM setup task?
+
+This can be done by adding to the arguments for the already defined `npmSetup` task.
+
+```gradle
+tasks.npmSetup {
+    doFirst {
+        args = args + ['--registry', 'http://myregistry.npm.com']
+    }
+}
+```
+
+You can also add any other arguments to this list that work with `npm install` i.e. more verbose modes.
