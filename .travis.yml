@@ -10,4 +10,4 @@ jdk:
 
 script:
 - ./gradlew ci
-- ./gradlew -p examples build
+- ./gradlew -p examples build --stacktrace
