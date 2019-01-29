@@ -6,9 +6,8 @@ cache:
     - $HOME/.gradle
 
 jdk:
-- oraclejdk7
+- oraclejdk8
 
 script:
 - ./gradlew ci
 - ./gradlew -p examples build
-
