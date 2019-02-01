@@ -135,7 +135,9 @@ class SetupTask
             Path npm = Paths.get( variant.nodeBinDir.path, 'npm' )
             if ( Files.deleteIfExists( npm ) )
             {
-                Files.createSymbolicLink( npm, Paths.get( variant.npmScriptFile ) )
+                Files.createSymbolicLink(
+                        npm,
+                        variant.nodeBinDir.toPath().relativize(Paths.get(variant.npmScriptFile)))
             }
         }
     }
