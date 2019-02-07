@@ -4,5 +4,5 @@ build:
   verbosity: detailed
 
 build_script:
-  - gradlew build
+  - gradlew build --stacktrace
   - gradlew -p examples build --stacktrace
