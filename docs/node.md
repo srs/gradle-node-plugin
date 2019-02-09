@@ -174,7 +174,7 @@ node {
   npmVersion = '2.1.5'
 
   // Version of Yarn to use.
-  yarnVersion = '0.16.1'
+  yarnVersion = '1.13.0'
 
   // Base URL for fetching node distributions (change if you have a mirror).
   distBaseUrl = 'https://nodejs.org/dist'
