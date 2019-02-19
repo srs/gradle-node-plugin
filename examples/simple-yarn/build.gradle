@@ -1,7 +1,9 @@
-apply plugin: 'com.moowork.node'
+plugins {
+  id "com.moowork.node" version "1.2.0"
+}
 
 node {
-    version = '6.11.0'
+    version = '8.10.0'
     download = true
 }
 
