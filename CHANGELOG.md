@@ -4,6 +4,7 @@ Changelog
 Version 1.3.0 *(unreleased)*
 ----------------------------
 
+* Relativize symlink to npmScriptFile (#319) _(fp7)_
 * ...
 
 Version 1.2.0 *(2017-06-14)*
