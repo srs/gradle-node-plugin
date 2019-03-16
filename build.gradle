@@ -14,7 +14,7 @@ apply from: "$rootDir/gradle/coverage.gradle"
 apply from: "$rootDir/gradle/travis-ci.gradle"
 apply from: "$rootDir/gradle/publishing.gradle"
 
-ext.compatibilityVersion = '1.6'
+ext.compatibilityVersion = '1.8'
 sourceCompatibility = compatibilityVersion
 targetCompatibility = compatibilityVersion
 
