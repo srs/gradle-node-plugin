@@ -6,6 +6,8 @@ Version 1.3.0 *(unreleased)*
 
 * Relativize symlink to npmScriptFile (#319) _(fp7)_
 * Added gradle build cache support for npm install (#318) _(bjornmagnusson)_
+* Updated to use node version 11.12.0 as default
+* Bumped Gradle wrapper version to 5.2.1
 * ...
 
 Version 1.2.0 *(2017-06-14)*
