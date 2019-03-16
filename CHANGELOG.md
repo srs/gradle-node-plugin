@@ -5,6 +5,7 @@ Version 1.3.0 *(unreleased)*
 ----------------------------
 
 * Relativize symlink to npmScriptFile (#319) _(fp7)_
+* Added gradle build cache support for npm install (#318) _(bjornmagnusson)_
 * ...
 
 Version 1.2.0 *(2017-06-14)*
