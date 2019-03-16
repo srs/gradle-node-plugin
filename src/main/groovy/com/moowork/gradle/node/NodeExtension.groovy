@@ -15,7 +15,7 @@ class NodeExtension
 
     File nodeModulesDir
 
-    String version = '6.9.1'
+    String version = '10.15.3'
 
     String npmVersion = ''
 
