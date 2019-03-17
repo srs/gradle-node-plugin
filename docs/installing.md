@@ -52,7 +52,7 @@ buildscript {
   }
 
   dependencies {
-    classpath "com.moowork.gradle:gradle-node-plugin:1.3.0-SNAPSHOT"
+    classpath "com.moowork.gradle:gradle-node-plugin:1.4.0-SNAPSHOT"
   }
 }
 
