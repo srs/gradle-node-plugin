@@ -1,7 +1,6 @@
 apply plugin: 'com.moowork.node'
 
 node {
-    version = '6.11.0'
     download = true
 }
 
@@ -9,5 +8,4 @@ task helloWorld( type: NodeTask, dependsOn: 'yarn' ) {
     script = file( 'src/node' )
 }
 
-task build(dependsOn: 'helloWorld') {
-}
+task build( dependsOn: 'helloWorld' ) {}
