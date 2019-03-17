@@ -1,7 +1,7 @@
 Changelog
 =========
 
-Version 1.3.0 *(unreleased)*
+Version 1.3.0 *(2019-03-17)*
 ----------------------------
 
 * Relativize symlink to npmScriptFile (#319) _(fp7)_
@@ -9,7 +9,6 @@ Version 1.3.0 *(unreleased)*
 * Updated to use node version 11.12.0 as default
 * Bumped Gradle wrapper version to 5.2.1
 * Bumped Java compatibility version to 1.8
-* ...
 
 Version 1.2.0 *(2017-06-14)*
 ----------------------------
