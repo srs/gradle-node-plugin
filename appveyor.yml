@@ -5,4 +5,4 @@ build:
 
 build_script:
   - gradlew ci --stacktrace
-  - gradlew -p examples build --stacktrace
+#  - gradlew -p examples build --stacktrace
