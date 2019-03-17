@@ -45,8 +45,6 @@ class Node_integTest
             }
 
             node {
-                version = "0.10.33"
-                npmVersion = "2.1.6"
                 download = true
                 workDir = file('build/node')
             }
