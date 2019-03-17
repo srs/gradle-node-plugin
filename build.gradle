@@ -22,6 +22,11 @@ repositories {
     jcenter()
 }
 
+configurations {
+    integTestCompile.extendsFrom testCompile
+    integTestRuntime.extendsFrom testRuntime
+}
+
 dependencies {
     compile gradleApi()
     testCompile 'cglib:cglib-nodep:3.2.4'
@@ -38,9 +43,13 @@ tasks.withType( Test ) {
     }
 }
 
-test {
-    if ( project.hasProperty( 'skipIT' ) )
-    {
-        exclude '**/*_integTest*'
-    }
+sourceSets {
+    integTest
+}
+
+task integTest(type: Test) {
+    shouldRunAfter test
+
+    testClassesDirs = sourceSets.integTest.output.classesDirs
+    classpath = sourceSets.integTest.runtimeClasspath
 }
