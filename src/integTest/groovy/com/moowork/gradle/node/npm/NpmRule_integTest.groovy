@@ -15,8 +15,7 @@ class NpmRule_integTest
             }
 
             node {
-                version = "0.10.33"
-                npmVersion = "2.1.6"
+                npmVersion = "6.1.0"
                 download = true
                 workDir = file('build/node')
             }
@@ -37,8 +36,9 @@ class NpmRule_integTest
             plugins {
                 id 'com.moowork.node'
             }
+            
             node {
-                npmVersion = "2.1.6"
+                npmVersion = "6.1.0"
                 download = true
             }
         ''' )
@@ -48,7 +48,7 @@ class NpmRule_integTest
         def result = build( 'npm_run_--version' )
 
         then:
-        result.output =~ /\n2\.1\.6\n/
+        result.output =~ /\n6\.1\.0\n/
         result.task( ':npm_run_--version' ).outcome == TaskOutcome.SUCCESS
     }
 
@@ -60,7 +60,7 @@ class NpmRule_integTest
                 id 'com.moowork.node'
             }
             node {
-                npmVersion = "2.1.6"
+                npmVersion = "6.1.0"
                 download = true
             }
         ''' )
@@ -84,13 +84,13 @@ class NpmRule_integTest
             }
 
             node {
-                version = "5.9.0"
-                npmVersion = "3.8.3"
+                npmVersion = "6.1.0"
                 download = true
             }
         ''' )
 
         copyResources( 'fixtures/npm-missing/package.json', 'package.json' )
+        writeEmptyPackageLockJson()
 
         when:
         def result = buildTask( 'npm_run_echoTest' )
@@ -109,14 +109,14 @@ class NpmRule_integTest
             }
 
             node {
-                version = "5.9.0"
-                npmVersion = "3.8.3"
+                npmVersion = "6.1.0"
                 download = true
             }
         ''' )
 
         copyResources( 'fixtures/npm-present/package.json', 'package.json' )
         copyResources( 'fixtures/npm-present/npm-shrinkwrap.json', 'npm-shrinkwrap.json' )
+        writeEmptyPackageLockJson()
 
         when:
         def result = buildTask( 'npm_run_parent' )
@@ -140,7 +140,7 @@ class NpmRule_integTest
                 download = true
             }
         ''' )
-        writePackageJson(""" {
+        writePackageJson( """ {
             "name": "example",
             "dependencies": {},
             "scripts": {
@@ -149,7 +149,8 @@ class NpmRule_integTest
                 "child2": "echo 'child2' > child2.txt"
             }
         }
-        """)
+        """ )
+        writeEmptyPackageLockJson()
 
         when:
         def result = buildTask( 'npm_run_parent' )
@@ -170,7 +171,7 @@ class NpmRule_integTest
                 id 'com.moowork.node'
             }
             node {
-                npmVersion = "2.1.6"
+                npmVersion = "6.1.0"
                 download = true
                 nodeModulesDir = file("frontend")
             }
@@ -182,12 +183,13 @@ class NpmRule_integTest
                 "whatVersion": "npm run --version"
             }
         }""" )
+        writeEmptyPackageLockJson( 'frontend/package-lock.json' )
 
         when:
         def result = build( 'npm_run_whatVersion' )
 
         then:
-        result.output =~ /\n2\.1\.6\n/
+        result.output =~ /\n6\.1\.0\n/
         result.task( ':npm_run_whatVersion' ).outcome == TaskOutcome.SUCCESS
     }
 }

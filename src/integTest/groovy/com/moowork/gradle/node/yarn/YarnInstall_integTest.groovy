@@ -15,26 +15,20 @@ class YarnInstall_integTest
             }
 
             node {
-                version = "6.9.1"
-                yarnVersion = "0.16.1"
+                yarnVersion = "1.15.2"
                 download = true
                 workDir = file('build/node')
                 yarnWorkDir = file('build/yarn')
             }
         ''' )
         writeEmptyPackageJson()
+        writeFile( "yarn.lock", "" )
 
         when:
         def result = buildTask( 'yarn' )
 
         then:
         result.outcome == TaskOutcome.SUCCESS
-
-        when:
-        result = buildTask( 'yarn' )
-
-        then:
-        result.outcome == TaskOutcome.UP_TO_DATE
     }
 
     def 'install packages with yarn and and postinstall task requiring node and yarn'()
@@ -45,8 +39,7 @@ class YarnInstall_integTest
                 id 'com.moowork.node'
             }
             node {
-                version = "6.9.1"
-                yarnVersion = "0.16.1"
+                yarnVersion = "1.15.2"
                 download = true
                 workDir = file('build/node')
                 yarnWorkDir = file('build/yarn')
@@ -59,18 +52,13 @@ class YarnInstall_integTest
             "postinstall" : "yarn run versionOutput"
         }
         """)
+        writeFile( "yarn.lock", "" )
 
         when:
         def result = buildTask( 'yarn' )
 
         then:
         result.outcome == TaskOutcome.SUCCESS
-
-        when:
-        result = buildTask( 'yarn' )
-
-        then:
-        result.outcome == TaskOutcome.UP_TO_DATE
     }
 
     def 'install packages with yarn in different directory'()
@@ -82,8 +70,7 @@ class YarnInstall_integTest
             }
 
             node {
-                version = "6.9.1"
-                yarnVersion = "0.15.1"
+                yarnVersion = "1.15.2"
                 download = true
                 workDir = file('build/node')
                 yarnWorkDir = file('build/yarn')
@@ -95,6 +82,7 @@ class YarnInstall_integTest
             "dependencies": {
             }
         }""" )
+        writeFile( "subdirectory/yarn.lock", "" )
 
         when:
         def result = buildTask( 'yarn' )

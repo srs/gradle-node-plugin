@@ -64,6 +64,20 @@ abstract class AbstractIntegTest
         writeFile( 'package.json', text )
     }
 
+    protected final void writeEmptyPackageLockJson()
+    {
+        writeEmptyPackageLockJson( 'package-lock.json' )
+    }
+
+    protected final void writeEmptyPackageLockJson( final String name )
+    {
+        writeFile( name, """ {
+            "name": "example",
+            "lockfileVersion": 1
+        }
+        """ )
+    }
+
     protected final void writeEmptyPackageJson()
     {
         writePackageJson( """ {
@@ -71,6 +85,8 @@ abstract class AbstractIntegTest
             "dependencies": {}
         }
         """ )
+
+        writeEmptyPackageLockJson()
     }
 
     protected final void writeBuild( final String text )

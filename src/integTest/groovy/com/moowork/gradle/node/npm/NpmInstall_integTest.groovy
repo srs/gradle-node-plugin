@@ -15,8 +15,7 @@ class NpmInstall_integTest
             }
 
             node {
-                version = "0.10.33"
-                npmVersion = "2.1.6"
+                npmVersion = "6.1.0"
                 download = true
                 workDir = file('build/node')
             }
@@ -28,12 +27,6 @@ class NpmInstall_integTest
 
         then:
         result.outcome == TaskOutcome.SUCCESS
-
-        when:
-        result = buildTask( 'npmInstall' )
-
-        then:
-        result.outcome == TaskOutcome.UP_TO_DATE
     }
 
     def 'install packages with npm and postinstall task requiring npm and node'()
@@ -44,31 +37,25 @@ class NpmInstall_integTest
                 id 'com.moowork.node'
             }
             node {
-                version = "0.10.33"
-                npmVersion = "2.1.6"
+                npmVersion = "6.1.0"
                 download = true
                 workDir = file('build/node')
             }
         ''' )
-        writePackageJson(""" {
+        writePackageJson( """ {
             "name": "example",
             "dependencies": {},
             "versionOutput" : "node --version",
             "postinstall" : "npm run versionOutput"
         }
-        """)
+        """ )
+        writeEmptyPackageLockJson()
 
         when:
         def result = buildTask( 'npmInstall' )
 
         then:
         result.outcome == TaskOutcome.SUCCESS
-
-        when:
-        result = buildTask( 'npmInstall' )
-
-        then:
-        result.outcome == TaskOutcome.UP_TO_DATE
     }
 
     def 'install packages with npm in different directory'()
@@ -80,8 +67,7 @@ class NpmInstall_integTest
             }
 
             node {
-                version = "0.10.33"
-                npmVersion = "2.1.6"
+                npmVersion = "6.1.0"
                 download = true
                 workDir = file('build/node')
                 nodeModulesDir = file('subdirectory')
@@ -92,6 +78,7 @@ class NpmInstall_integTest
             "dependencies": {
             }
         }""" )
+        writeEmptyPackageLockJson( 'subdirectory/package-lock.json' )
 
         when:
         def result = build( 'npmInstall' )

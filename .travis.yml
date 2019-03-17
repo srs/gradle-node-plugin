@@ -9,5 +9,5 @@ jdk:
 - oraclejdk8
 
 script:
-- ./gradlew ci
+- ./gradlew ci --stacktrace
 - ./gradlew -p examples build --stacktrace

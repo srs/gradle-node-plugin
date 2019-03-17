@@ -15,8 +15,7 @@ class YarnRule_integTest
             }
 
             node {
-                version = "6.9.1"
-                yarnVersion = "0.16.1"
+                yarnVersion = "1.15.2"
                 download = true
                 workDir = file('build/node')
                 yarnWorkDir = file('build/yarn')
@@ -40,13 +39,13 @@ class YarnRule_integTest
             }
 
             node {
-                version = "6.9.1"
-                yarnVersion = "0.17.5"
+                yarnVersion = "1.15.2"
                 download = true
             }
         ''' )
 
         copyResources( 'fixtures/yarn/package.json', 'package.json' )
+        writeFile( "yarn.lock", "" )
 
         when:
         def result = buildTask( 'yarn_run_parent' )

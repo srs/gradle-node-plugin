@@ -21,7 +21,7 @@ class GulpRule_integTest
         writeFile( 'gulpfile.js', '''
             var gulp = require('gulp');
 
-            gulp.task('simple', function(){
+            gulp.task('simple', async function(){
             });
         ''' )
 

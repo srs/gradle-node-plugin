@@ -47,7 +47,7 @@ sourceSets {
     integTest
 }
 
-task integTest(type: Test) {
+task integTest( type: Test ) {
     shouldRunAfter test
 
     testClassesDirs = sourceSets.integTest.output.classesDirs

@@ -4,7 +4,7 @@ ext {
 }
 
 task ci {
-    dependsOn 'build'
+    dependsOn = ['build', 'integTest']
     description = 'Continuous integration tasks'
     group = 'Build'
 }
