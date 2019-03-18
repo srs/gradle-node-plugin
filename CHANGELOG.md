@@ -6,6 +6,12 @@ Version 1.4.0 *(unreleased)*
 
 * ...
 
+Version 1.3.1 *(2019-03-18)*
+----------------------------
+
+* Using BinTray for artifact publishing
+* ...
+
 Version 1.3.0 *(2019-03-17)*
 ----------------------------
 
