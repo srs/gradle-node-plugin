@@ -5,4 +5,6 @@ import com.moowork.gradle.node2.dependency.ToolDependency;
 public abstract class AbstractToolRepository<T extends ToolDependency>
     implements ToolRepository<T>
 {
+    // Supplier<String> repoUrl
+    // Supplier<Project> project
 }
