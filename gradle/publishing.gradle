@@ -1,7 +1,7 @@
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.artifactory'
-apply plugin: 'com.gradle.plugin-publish'
+apply plugin: 'com.jfrog.bintray'
 
 ext {
     bintrayUser = resolveProperty( 'BINTRAY_USER', 'bintrayUser' )
@@ -38,34 +38,30 @@ artifactory {
     }
 }
 
-pluginBundle {
-    website = 'https://github.com/srs/gradle-node-plugin'
-    vcsUrl = 'https://github.com/srs/gradle-node-plugin'
+bintray {
+    user = bintrayUser
+    key = bintrayKey
+    publish = true
+    publications = ['mavenJava']
 
-    plugins {
-        nodePlugin {
-            id = 'com.moowork.node'
-            displayName = 'Gradle Node Plugin'
-            description = 'Gradle plugin for executing node scripts.'
-            tags = ['java', 'gradle', 'node', 'yarn', 'npm']
-        }
-        gruntPlugin {
-            id = 'com.moowork.grunt'
-            displayName = 'Gradle Grunt Plugin'
-            description = 'Gradle pluign for executing grunt builds.'
-            tags = ['java', 'gradle', 'node', 'yarn', 'npm', 'grunt']
-        }
-        gulpPlugin {
-            id = 'com.moowork.gulp'
-            displayName = 'Gradle Gulp Plugin'
-            description = 'Gradle plugin for executing gulp builds.'
-            tags = ['java', 'gradle', 'node', 'yarn', 'npm', 'gulp']
-        }
-    }
+    pkg {
+        name = "${project.name}"
+        repo = 'maven'
+        userOrg = 'srs'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/srs/gradle-node-plugin.git'
+        websiteUrl = "https://github.com/srs/gradle-node-plugin"
+        issueTrackerUrl = "https://github.com/srs/gradle-node-plugin/issues"
+        githubRepo = "srs/gradle-node-plugin"
+        labels = ['java', 'gradle', 'node', 'yarn', 'npm', 'grunt', 'gulp']
+        desc = "Gradle plugin for executing node scripts."
 
-    mavenCoordinates {
-        groupId = 'com.moowork.gradle'
-        artifactId = 'gradle-node-plugin'
+        version {
+            vcsTag = "v${project.version}"
+            attributes = ['gradle-plugin': ["com.moowork.node:${project.group}:${project.name}",
+                                            "com.moowork.grunt:${project.group}:${project.name}",
+                                            "com.moowork.gulp:${project.group}:${project.name}"]]
+        }
     }
 }
 
