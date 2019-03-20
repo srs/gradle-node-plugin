@@ -1,13 +1,14 @@
 package com.moowork.gradle.node2;
 
+import java.io.File;
+
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.provider.Provider;
 
 import com.moowork.gradle.node2.dependency.NodeDependency;
 import com.moowork.gradle.node2.dependency.NodeDependencyResolver;
-import com.moowork.gradle.node2.runtime.NodeRuntime;
-import com.moowork.gradle.node2.runtime.NodeRuntimeFactory;
+import com.moowork.gradle.node2.runner.NodeRunnerHelper;
 import com.moowork.gradle.node2.task.NodeTask;
 import com.moowork.gradle.node2.task.SetupTask;
 
@@ -47,7 +48,7 @@ public class NodePlugin
 
     private void configureNodeTask( final NodeTask task )
     {
-        task.getNodeRuntime().set( resolveNodeRuntime() );
+        task.getExecutable().set( this.project.getLayout().file( resolveNodeExecutable() ) );
         task.getWorkDir().set( this.ext.getWorkDir() );
     }
 
@@ -62,11 +63,15 @@ public class NodePlugin
         } );
     }
 
-    private Provider<NodeRuntime> resolveNodeRuntime()
+    private Provider<File> resolveNodeExecutable()
     {
         return this.project.provider( () -> {
-            final NodeRuntimeFactory factory = new NodeRuntimeFactory( this.project );
-            return factory.create( resolveNodeDependency().get() );
+            if ( this.ext.getUseLocal().get() )
+            {
+                return NodeRunnerHelper.findExecutable();
+            }
+
+            return resolveNodeDependency().get().getExecutable();
         } );
     }
 }

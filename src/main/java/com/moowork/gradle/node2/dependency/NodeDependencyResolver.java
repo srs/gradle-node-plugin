@@ -39,9 +39,12 @@ public final class NodeDependencyResolver
     {
         final NodeDependency dep = new NodeDependency();
         dep.setArtifactDependency( resolveDependencyString() );
-        dep.setUnpackDir( new File( this.cacheDir, "node" + File.separator + this.platform.getName() ) );
         dep.setWindows( this.platform.isWindows() );
-        dep.setExecutable( new File( "/usr/local/bin/node" ) );
+
+        final File unpackDir = new File( this.cacheDir, "node" + File.separator + this.platform.getName() );
+        dep.setUnpackDir( unpackDir );
+
+        dep.setExecutable( new File( unpackDir, "node" ) );
         return dep;
     }
 }
