@@ -10,17 +10,17 @@ class AbstractProjectTest
     extends Specification
 {
     @Rule
-    final TemporaryFolder temporaryFolder = new TemporaryFolder();
+    final TemporaryFolder temporaryFolder = new TemporaryFolder()
 
-    def ProjectInternal project
+    ProjectInternal project
 
-    def File projectDir;
+    File projectDir
 
     def setup()
     {
         this.projectDir = this.temporaryFolder.root;
         this.project = (ProjectInternal) ProjectBuilder.builder().
             withProjectDir( this.projectDir ).
-            build();
+            build()
     }
 }

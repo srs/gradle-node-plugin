@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.function.Supplier;
 
-import com.moowork.gradle.node2.exec.ExecHelper;
+import com.moowork.gradle.node2.util.ExecHelper;
 
 public final class PlatformResolver
     implements Supplier<Platform>
