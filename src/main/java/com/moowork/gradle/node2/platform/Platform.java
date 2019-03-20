@@ -1,5 +1,7 @@
 package com.moowork.gradle.node2.platform;
 
+import org.gradle.api.tasks.Input;
+
 public final class Platform
 {
     private final String name;
@@ -9,6 +11,7 @@ public final class Platform
         this.name = name.toLowerCase();
     }
 
+    @Input
     public String getName()
     {
         return this.name;
