@@ -2,7 +2,6 @@ package com.moowork.gradle.node2.task;
 
 import java.util.Collections;
 
-import org.gradle.api.Action;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.RegularFileProperty;
@@ -13,7 +12,6 @@ import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.Nested;
 import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.TaskAction;
-import org.gradle.process.ExecSpec;
 
 import com.moowork.gradle.node2.runtime.NodeCommand;
 import com.moowork.gradle.node2.runtime.NodeRuntime;
@@ -35,8 +33,6 @@ public class NodeTask
     private final ListProperty<String> options;
 
     private final MapProperty<String, String> environment;
-
-    private Action<ExecSpec> execOverride;
 
     public NodeTask()
     {
