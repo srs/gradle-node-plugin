@@ -29,7 +29,7 @@ class VariantBuilder
         variant.windows = platformHelper.isWindows()
 
         variant.nodeDir = getNodeDir( osName, osArch )
-        variant.npmDir = ext.npmVersion ? getNpmDir() : variant.nodeDir
+        variant.npmDir = this.ext.npmVersion ? getNpmDir() : variant.nodeDir
         variant.yarnDir = getYarnDir()
 
         variant.nodeBinDir = variant.nodeDir
