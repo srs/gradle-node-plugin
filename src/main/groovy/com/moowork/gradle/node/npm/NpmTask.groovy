@@ -26,15 +26,16 @@ class NpmTask
         }
     }
 
-    void afterEvaluate(nodeModulesDir) {
+    void afterEvaluate(nodeModulesDir)
+    {
         if ( !this.runner.workingDir )
         {
             setWorkingDir( nodeModulesDir )
         }
 
-        if ( !this.runner.workingDir.exists() )
+        if ( ! ((this.runner.workingDir) as File).exists() )
         {
-            this.runner.workingDir.mkdirs();
+            ((this.runner.workingDir) as File).mkdirs()
         }
     }
 

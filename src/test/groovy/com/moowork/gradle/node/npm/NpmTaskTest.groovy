@@ -76,4 +76,23 @@ class NpmTaskTest
         task.result.exitValue == 0
         1 * this.execSpec.setIgnoreExitValue( false )
     }
+
+    def "exec npm task (set workingDir String)"()
+    {
+        given:
+        this.props.setProperty( 'os.name', 'Linux' )
+        this.execSpec = Mock( ExecSpec )
+
+        def task = this.project.tasks.create( 'simple', NpmTask )
+        task.workingDir = 'testDir'
+
+        when:
+        this.project.evaluate()
+        task.exec()
+
+        then:
+        task.result.exitValue == 0
+        1 * this.execSpec.setWorkingDir( 'testDir' )
+    }
+
 }
