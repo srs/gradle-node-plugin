@@ -38,9 +38,14 @@ class NodePlugin
 
         this.project.afterEvaluate {
             this.config.variant = new VariantBuilder( this.config ).build()
-            configureSetupTask()
-            configureNpmSetupTask()
-            configureYarnSetupTask()
+
+            // for root project the dependency to the root setup tasks will perform the setup and
+            // the tasks here will remain disabled
+            if( !hasRoot() ) {
+                configureSetupTask()
+                configureNpmSetupTask()
+                configureYarnSetupTask()
+            }
         }
     }
 
@@ -51,6 +56,11 @@ class NodePlugin
         addGlobalTaskType( YarnTask )
     }
 
+    private boolean hasRoot()
+    {
+        return this.project.parent != null && this.project.rootProject.hasProperty( NodeExtension.NAME)
+    }
+
     private void addTasks()
     {
         this.project.tasks.create( NpmInstallTask.NAME, NpmInstallTask )
@@ -58,6 +68,12 @@ class NodePlugin
         this.setupTask = this.project.tasks.create( SetupTask.NAME, SetupTask )
         this.npmSetupTask = this.project.tasks.create( NpmSetupTask.NAME, NpmSetupTask )
         this.yarnSetupTask = this.project.tasks.create( YarnSetupTask.NAME, YarnSetupTask )
+
+        if( hasRoot() ){
+            this.setupTask.dependsOn( this.project.rootProject.tasks.getByName( SetupTask.NAME ) )
+            this.npmSetupTask.dependsOn( this.project.rootProject.tasks.getByName( NpmSetupTask.NAME ) )
+            this.yarnSetupTask.dependsOn( this.project.rootProject.tasks.getByName( YarnSetupTask.NAME ) )
+        }
     }
 
     private void addGlobalTaskType( Class type )

@@ -15,7 +15,7 @@ class GulpPlugin
     {
         project.plugins.apply( NodePlugin.class )
 
-        project.extensions.create( GulpExtension.NAME, GulpExtension, project )
+        GulpExtension.create( project )
 
         project.extensions.extraProperties.set( 'GulpTask', GulpTask.class )
         project.tasks.create( GULP_INSTALL_NAME, GulpInstallTask.class )

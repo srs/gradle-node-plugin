@@ -16,4 +16,20 @@ class GulpExtension
     {
         this.workDir = project.projectDir
     }
+
+    static GulpExtension get( final Project project )
+    {
+        return project.extensions.getByType( GulpExtension )
+    }
+
+    static GulpExtension create( final Project project )
+    {
+        def config = project.extensions.create( NAME, GulpExtension, project )
+        if(project.rootProject.hasProperty( GulpExtension.NAME) ){
+            def rootConfig = GulpExtension.get( project.rootProject )
+            config.colors = rootConfig.colors
+            config.bufferOutput = rootConfig.bufferOutput
+        }
+        return config
+    }
 }
