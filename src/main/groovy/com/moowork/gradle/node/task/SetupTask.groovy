@@ -131,13 +131,17 @@ class SetupTask
                 from this.project.tarTree( getNodeArchiveFile() )
                 into getNodeDir().parent
             }
-            // Fix broken symlink
-            Path npm = Paths.get( variant.nodeBinDir.path, 'npm' )
-            if ( Files.deleteIfExists( npm ) )
-            {
-                Files.createSymbolicLink(
-                        npm,
-                        variant.nodeBinDir.toPath().relativize(Paths.get(variant.npmScriptFile)))
+            // Fix broken symlinks
+            List symlinksToFix  = ['npm', 'npx']
+            symlinksToFix.each { link ->
+                Path linkPath = Paths.get( variant.nodeBinDir.path, link )
+                if ( Files.deleteIfExists( linkPath ) )
+                {
+                    Files.createSymbolicLink(
+                            linkPath,
+                            variant.nodeBinDir.toPath().relativize(Paths.get(variant."${link}ScriptFile"))
+                    )
+                }
             }
         }
     }

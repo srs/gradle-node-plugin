@@ -10,6 +10,8 @@ class Variant
 
     def String npmScriptFile
 
+    def String npxScriptFile
+
     def File nodeDir
 
     def File nodeBinDir

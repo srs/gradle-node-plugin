@@ -52,6 +52,7 @@ class VariantBuilderTest
           variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
           variant.nodeExec.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node.exe")
           variant.npmScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules${PS}npm${PS}bin${PS}npm-cli.js")
+          variant.npxScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules${PS}npm${PS}bin${PS}npx-cli.js")
 
         where:
           osArch   | nodeDir                    | exeDependency
@@ -86,6 +87,7 @@ class VariantBuilderTest
           variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
           variant.nodeExec.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node.exe")
           variant.npmScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules${PS}npm${PS}bin${PS}npm-cli.js")
+          variant.npxScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules${PS}npm${PS}bin${PS}npx-cli.js")
 
         where:
           osArch   | nodeDir                   | exeDependency
@@ -122,6 +124,8 @@ class VariantBuilderTest
           variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
           variant.nodeExec.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node.exe")
           variant.npmScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules${PS}npm${PS}bin${PS}npm-cli.js")
+          variant.npxScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "node_modules${PS}npm${PS}bin${PS}npx-cli.js")
+
         where:
           version | osArch
           "4.5.0" | "win-x86"
@@ -158,6 +162,7 @@ class VariantBuilderTest
           variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + 'bin')
           variant.nodeExec.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "bin${PS}node")
           variant.npmScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "lib${PS}node_modules${PS}npm${PS}bin${PS}npm-cli.js")
+          variant.npxScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "lib${PS}node_modules${PS}npm${PS}bin${PS}npx-cli.js")
 
         where:
           osName     | osArch   | nodeDir                   | depName
@@ -199,6 +204,7 @@ class VariantBuilderTest
           variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + 'bin')
           variant.nodeExec.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "bin${PS}node")
           variant.npmScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "lib${PS}node_modules${PS}npm${PS}bin${PS}npm-cli.js")
+          variant.npxScriptFile.toString().endsWith(NODE_BASE_PATH + nodeDir + PS + "lib${PS}node_modules${PS}npm${PS}bin${PS}npx-cli.js")
 
         where:
           osName  | osArch | sysOsArch | nodeDir                    | depName
