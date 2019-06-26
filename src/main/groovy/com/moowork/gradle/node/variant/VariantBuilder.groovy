@@ -59,6 +59,7 @@ class VariantBuilder
                 variant.exeDependency = getExeDependency()
             }
             variant.npmScriptFile = new File( variant.nodeDir , 'node_modules/npm/bin/npm-cli.js')
+            variant.npxScriptFile = new File( variant.nodeDir , 'node_modules/npm/bin/npx-cli.js')
         }
         else
         {
@@ -67,6 +68,7 @@ class VariantBuilder
             variant.yarnBinDir = new File( variant.yarnBinDir, 'bin' )
             variant.archiveDependency = getArchiveDependency( osName, osArch, 'tar.gz' )
             variant.npmScriptFile = new File( variant.nodeDir , 'lib/node_modules/npm/bin/npm-cli.js')
+            variant.npxScriptFile = new File( variant.nodeDir , 'lib/node_modules/npm/bin/npx-cli.js')
         }
 
         if (this.ext.download)
