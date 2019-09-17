@@ -26,6 +26,7 @@ class YarnSetupTask
         def set = new HashSet<>()
         set.add( this.getConfig().download )
         set.add( this.getConfig().yarnVersion )
+        set.add( this.getConfig().npmRegistry )
         return set
     }
 
@@ -45,7 +46,7 @@ class YarnSetupTask
             pkg += "@${yarnVersion}"
         }
 
-        this.setArgs( ['install', '--global', '--no-save', '--prefix', this.getVariant().yarnDir, pkg] )
+        this.setArgs( ['install', '--global', '--no-save', '--registry', getVariant().npmRegistry, '--prefix', this.getVariant().yarnDir, pkg] )
         enabled = true
     }
 }

@@ -18,6 +18,7 @@ class NodeExtensionTest
         ext.workDir != null
         ext.nodeModulesDir != null
         ext.version == '10.15.3'
+        ext.npmRegistry == 'https://registry.npmjs.org'
         !ext.download
         ext.npmVersion == ''
     }

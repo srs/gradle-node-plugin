@@ -37,6 +37,7 @@ class VariantBuilderTest
           def ext = new NodeExtension(project)
           ext.download = true
           ext.version = '0.11.1'
+          ext.npmRegistry = 'http://myregistry.npm.com'
           ext.workDir = new File('.gradle/node').absoluteFile
 
           def builder = new VariantBuilder(ext)
@@ -47,6 +48,7 @@ class VariantBuilderTest
           variant.windows
           variant.exeDependency == exeDependency
           variant.archiveDependency == 'org.nodejs:node:0.11.1:linux-x86@tar.gz'
+          variant.npmRegistry == 'http://myregistry.npm.com'
 
           variant.nodeDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
           variant.nodeBinDir.toString().endsWith(NODE_BASE_PATH + nodeDir)
@@ -92,7 +94,7 @@ class VariantBuilderTest
           'x86'    | 'node-v4.0.0-win-x86' | 'org.nodejs:win-x86/node:4.0.0@exe'
           'x86_64' | 'node-v4.0.0-win-x64' | 'org.nodejs:win-x64/node:4.0.0@exe'
     }
-    
+
     @Unroll
     def "test variant on windows without exe (#osArch)"()
     {

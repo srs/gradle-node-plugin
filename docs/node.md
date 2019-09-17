@@ -179,6 +179,9 @@ node {
   // Base URL for fetching node distributions (change if you have a mirror).
   distBaseUrl = 'https://nodejs.org/dist'
 
+  // Registry to use for yarn or npm
+  npmRegistry = 'http://myregistry.npm.com'
+
   // If true, it will download node using above parameters.
   // If false, it will try to use globally installed node.
   download = true
