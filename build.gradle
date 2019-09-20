@@ -22,8 +22,8 @@ repositories {
 }
 
 configurations {
-    integTestCompile.extendsFrom testCompile
-    integTestRuntime.extendsFrom testRuntime
+    integTestCompile.extendsFrom testCompileClasspath
+    integTestRuntime.extendsFrom testRuntimeClasspath
 }
 
 dependencies {
