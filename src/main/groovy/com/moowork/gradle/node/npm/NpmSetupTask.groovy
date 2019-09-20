@@ -21,6 +21,7 @@ class NpmSetupTask
 
     private NodeExtension config
 
+    @Internal
     protected List<?> args = []
 
     private ExecResult result
@@ -81,7 +82,6 @@ class NpmSetupTask
         return this.args
     }
 
-    @Internal
     void setArgs( final Iterable<?> value )
     {
         this.args = value.toList()
