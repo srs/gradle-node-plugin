@@ -18,6 +18,8 @@ class Variant
 
     def String npmExec
 
+    def String npmRegistry
+
     def File npmDir
 
     def File npmBinDir

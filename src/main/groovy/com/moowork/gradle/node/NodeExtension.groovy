@@ -11,6 +11,8 @@ class NodeExtension
 
     File npmWorkDir
 
+    String npmRegistry = 'https://registry.npmjs.org'
+
     File yarnWorkDir
 
     File nodeModulesDir

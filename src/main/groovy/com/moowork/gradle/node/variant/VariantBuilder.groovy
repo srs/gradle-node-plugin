@@ -30,6 +30,7 @@ class VariantBuilder
 
         variant.nodeDir = getNodeDir( osName, osArch )
         variant.npmDir = ext.npmVersion ? getNpmDir() : variant.nodeDir
+        variant.npmRegistry = ext.npmRegistry
         variant.yarnDir = getYarnDir()
 
         variant.nodeBinDir = variant.nodeDir
@@ -118,7 +119,7 @@ class VariantBuilder
         }
     }
 
-    //https://github.com/nodejs/node/pull/5995    
+    //https://github.com/nodejs/node/pull/5995
     private boolean hasWindowsZip()
     {
         def version = this.ext.version
