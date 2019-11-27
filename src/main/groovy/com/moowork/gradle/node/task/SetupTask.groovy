@@ -9,6 +9,7 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
+import org.gradle.util.GradleVersion
 
 import java.nio.file.Files
 import java.nio.file.Path
@@ -177,11 +178,27 @@ class SetupTask
         this.project.repositories.clear()
 
         def distUrl = this.config.distBaseUrl
-        this.repo = this.project.repositories.ivy {
-            url distUrl
-            layout 'pattern', {
-                artifact 'v[revision]/[artifact](-v[revision]-[classifier]).[ext]'
-                ivy 'v[revision]/ivy.xml'
+        if(GradleVersion.current().baseVersion >= GradleVersion.version('5.0').baseVersion) {
+            this.repo = this.project.repositories.ivy {
+                url distUrl
+                patternLayout {
+                    artifact 'v[revision]/[artifact](-v[revision]-[classifier]).[ext]'
+                    ivy 'v[revision]/ivy.xml'
+                }
+                metadataSources {
+                    artifact()
+                }
+            }
+        } else {
+            this.repo = this.project.repositories.ivy {
+                url distUrl
+                layout 'pattern', {
+                    artifact 'v[revision]/[artifact](-v[revision]-[classifier]).[ext]'
+                    ivy 'v[revision]/ivy.xml'
+                }
+                metadataSources {
+                    artifact()
+                }
             }
         }
     }

@@ -6,7 +6,6 @@ group = 'com.moowork.gradle'
 
 apply plugin: 'idea'
 apply plugin: 'groovy'
-apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'java-gradle-plugin'
 apply from: "$rootDir/gradle/additional-artifacts.gradle"
@@ -23,15 +22,15 @@ repositories {
 }
 
 configurations {
-    integTestCompile.extendsFrom testCompile
-    integTestRuntime.extendsFrom testRuntime
+    integTestCompile.extendsFrom testCompileClasspath
+    integTestRuntime.extendsFrom testRuntimeClasspath
 }
 
 dependencies {
-    compile gradleApi()
-    testCompile 'cglib:cglib-nodep:3.2.4'
-    testCompile 'org.apache.commons:commons-io:1.3.2'
-    testCompile( 'org.spockframework:spock-core:1.0-groovy-2.4' ) {
+    implementation gradleApi()
+    testImplementation 'cglib:cglib-nodep:3.2.4'
+    testImplementation 'org.apache.commons:commons-io:1.3.2'
+    testImplementation( 'org.spockframework:spock-core:1.0-groovy-2.4' ) {
         exclude group: 'org.codehaus.groovy'
     }
 }
