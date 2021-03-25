@@ -179,9 +179,11 @@ class SetupTask
         def distUrl = this.config.distBaseUrl
         this.repo = this.project.repositories.ivy {
             url distUrl
+            metadataSources {
+                artifact()
+            }
             layout 'pattern', {
                 artifact 'v[revision]/[artifact](-v[revision]-[classifier]).[ext]'
-                ivy 'v[revision]/ivy.xml'
             }
         }
     }
